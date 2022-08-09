@@ -4,21 +4,20 @@
 #define gobjects
 
 #include "pch.h"
+
+#define PATTERN_PLAYERCONTROLLER (char*)"\x48\x8B\x05\x00\x00\x00\x00\x48\x8B\x88\x00\x00\x00\x00\x44\x88\x71\x20"
+#define MASK_PLAYERCONTROLLER (char*)"xxx????xxx????xxxx"
+
+
 #define EXPORT_GET_WIDTH "UnityEngine.Screen::get_width()"
 #define EXPORT_GET_HEIGHT "UnityEngine.Screen::get_height()"
 
-
-namespace g
-{
-	//export from gameAssembly.dll
+//export from gameAssembly.dll
 #define EXPORT_IL2CPP_STRING_NEW  "il2cpp_string_new"
 #define EXPORT_IL2CPP_RESOLVE_ICALL "il2cpp_resolve_icall"
+namespace g
+{
 
-	typedef void* tpIl2cpp_resolve_icall(const char*);
-	inline tpIl2cpp_resolve_icall* fnIl2cpp_resolve_icall;
-	typedef int tpGetWindowWitdh();
-	typedef int tpSetWindowResolution(int width, int height, bool fullscreen);
-	typedef float PC_GetHealth(PlayerController_c* pc);
 
 	class LastObjectBase
 	{
@@ -192,6 +191,12 @@ namespace g
 	public:
 		class PlayerController_c__Class* klass; //0x0000
 	}; //Size: 0x0008
+
+	typedef void* tpIl2cpp_resolve_icall(const char*);
+	inline tpIl2cpp_resolve_icall* fnIl2cpp_resolve_icall;
+	typedef int tpGetWindowWitdh();
+	typedef int tpSetWindowResolution(int width, int height, bool fullscreen);
+	typedef void PC_GetHealth();
 
 }
 

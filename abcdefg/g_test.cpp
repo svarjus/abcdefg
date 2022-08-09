@@ -1,5 +1,6 @@
 #include "pch.h"
 
+MODULEINFO getModuleInfo(char* szModule);
 
 void g::G_TestFunction()
 {
@@ -24,15 +25,18 @@ void g::G_TestFunction()
 				std::cout << "fnIl2cpp_resolve_icall is not valid!\n";
 				break;
 			}
-			PC_GetHealth* get_health = (PC_GetHealth*)fnIl2cpp_resolve_icall("PlayerController::get_health()");
-			PlayerController_c controller;
+			MODULEINFO _module = getModuleInfo((char*)"GameAssembly.dll");
+			PlayerController = (PlayerController_c*)absoluteAddress(findPattern(PATTERN_PLAYERCONTROLLER, MASK_PLAYERCONTROLLER, _module), 3);
 
-			if (get_health)
-				std::cout << "window width: " << get_health(&controller) << '\n';
-			else std::cout << "with is invalid!\n";
+			//if(PlayerController)
+			//	printf("playerController_c : %p\n", PlayerController);
 		}
 
-		Sleep(10);
+		//Sleep(10);
+
+		if (PlayerController)
+			if(PlayerController->klass->static_fields->LocalPlayer)
+				PlayerController->klass->static_fields->LocalPlayer->bulletSpread = 1000.f;
 
 	}
 }
