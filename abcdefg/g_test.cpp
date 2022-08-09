@@ -28,8 +28,13 @@ void g::G_TestFunction()
 			MODULEINFO _module = getModuleInfo((char*)"GameAssembly.dll");
 			PlayerController = (PlayerController_c*)absoluteAddress(findPattern(PATTERN_PLAYERCONTROLLER, MASK_PLAYERCONTROLLER, _module), 3);
 
-			//if(PlayerController)
-			//	printf("playerController_c : %p\n", PlayerController);
+			uintptr_t pcontroller = (GameAssembly + 0x12B0040) + 0x16E4088;
+			std::cout << "pcontroller: " << std::hex << pcontroller << '\n';
+		
+			if (!PlayerController) {
+				std::cout << "playercontroller nullptr!\n";
+				return;
+			}
 		}
 
 		//Sleep(10);
