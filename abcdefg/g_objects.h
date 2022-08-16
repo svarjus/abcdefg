@@ -11,12 +11,25 @@
 
 #define EXPORT_GET_WIDTH "UnityEngine.Screen::get_width()"
 #define EXPORT_GET_HEIGHT "UnityEngine.Screen::get_height()"
+#define EXPORT_LIMITFRAMERATE "UnityEngine.Application::set_targetFrameRate(System.Int32)"
+#define EXPORT_OPENURL "UnityEngine.Application::OpenURL(System.String)"
+#define EXPORT_QUIT "SteamDLCManager.HasDLC(System.Int32)"
 
 //export from gameAssembly.dll
 #define EXPORT_IL2CPP_STRING_NEW  "il2cpp_string_new"
 #define EXPORT_IL2CPP_RESOLVE_ICALL "il2cpp_resolve_icall"
 namespace g
 {
+
+	typedef void* tpIl2cpp_resolve_icall(const char*);
+	inline tpIl2cpp_resolve_icall* fnIl2cpp_resolve_icall;
+	typedef int tpGetWindowWitdh();
+	typedef int tpSetWindowResolution(int width, int height, bool fullscreen);
+	typedef void tpSetFPS(int32_t value);
+	typedef void tpOpenURL(const char* url);
+	typedef bool tpQuit(uint32_t dlc);
+	typedef void PC_GetHealth();
+
 
 
 	class LastObjectBase
@@ -192,11 +205,6 @@ namespace g
 		class PlayerController_c__Class* klass; //0x0000
 	}; //Size: 0x0008
 
-	typedef void* tpIl2cpp_resolve_icall(const char*);
-	inline tpIl2cpp_resolve_icall* fnIl2cpp_resolve_icall;
-	typedef int tpGetWindowWitdh();
-	typedef int tpSetWindowResolution(int width, int height, bool fullscreen);
-	typedef void PC_GetHealth();
 
 }
 
