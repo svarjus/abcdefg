@@ -16,7 +16,7 @@ namespace g
 	static const uintptr_t GameObjectManagerOffset = (0x9AEAC1);
 	static const uintptr_t PlayerControllerOffset =  (0x12B0040);
 	static GameObjectManager* GameObject = (GameObjectManager*)(GameAssembly + GameObjectManagerOffset);
-	inline PlayerController_c* PlayerController;
+	inline PlayerController_c PlayerController;
 }
 
 #endif
