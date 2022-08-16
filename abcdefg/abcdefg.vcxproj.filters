@@ -25,6 +25,9 @@
     <Filter Include="Source Files\SDK">
       <UniqueIdentifier>{556ac760-d5d3-4e78-b80b-e0ab23f0c125}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\_lib\detours">
+      <UniqueIdentifier>{4d45d4a7-9aca-4f88-8f60-c0413322a647}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="koukku.h">
@@ -51,6 +54,9 @@
     <ClInclude Include="g_objects.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
+    <ClInclude Include="detours\detours.h">
+      <Filter>Header Files\_lib\detours</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -71,5 +77,10 @@
     <ClCompile Include="sdk.cpp">
       <Filter>Source Files\SDK</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="detours\detours.lib">
+      <Filter>Header Files\_lib\detours</Filter>
+    </Library>
   </ItemGroup>
 </Project>

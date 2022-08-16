@@ -7,6 +7,8 @@
 #ifndef PCH_H
 #define PCH_H
 
+#define NOMINMAX
+
 typedef float vec_t;
 typedef vec_t vec2_t[2];
 typedef vec_t vec3_t[3];
@@ -38,6 +40,10 @@ typedef vec_t vec4_t[4];
 #include <functional>
 #include <format>
 #include <stdio.h>
+
+//detours
+#include "detours/detours.h"
+#pragma comment(lib, "detours.lib")
 
 #include "koukku.h"
 

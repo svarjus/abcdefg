@@ -1,6 +1,16 @@
 #include "pch.h"
 
+#ifdef _WIN64
 
+BYTE* hook::install(std::uintptr_t address, void* fnc)
+{
+	DetourTransactionBegin();
+	DetourAttach(&(LPVOID&)address, fnc);
+	DetourTransactionCommit();
+
+	return 0;
+}
+#else
 BYTE* hook::install(std::uintptr_t address, void* fnc)
 {
 	return 0;
@@ -11,6 +21,7 @@ BYTE* hook::install(void* address, void* fnc)
 	return 0;
 	//return DetourFunction((PBYTE)address, (PBYTE)fnc);
 }
+#endif
 BOOL hook::remove(void* Trampoline, void* detourFunc)
 {
 	return -1;
@@ -79,12 +90,17 @@ std::uintptr_t hook::find_pattern(std::string moduleName, std::string pattern)
 std::uintptr_t hook::find_pattern(DWORD start_address, DWORD end_address, std::string pattern)
 {
 	hook* a = nullptr;
-	const char* pat = a->bytes_to_text(pattern.c_str());
-	std::cout << "using pattern: [" << pat << "]\n";
+	const char* pat = pattern.c_str();
+	//std::cout << "using pattern: [" << pat << "]\n";
 	DWORD firstMatch = 0;
-
+	MEMORY_BASIC_INFORMATION mbi{};
 	for (DWORD pCur = start_address; pCur < end_address; pCur++)
 	{
+		if (!VirtualQuery((char*)pCur, &mbi, sizeof(mbi)) || mbi.State != MEM_COMMIT || mbi.Protect == PAGE_NOACCESS) 
+			continue;
+
+		if (!*pat)
+			return firstMatch;
 
 		if (*(PBYTE)pat == '\?' || *(BYTE*)pCur == getByte(pat))
 		{
@@ -102,7 +118,7 @@ std::uintptr_t hook::find_pattern(DWORD start_address, DWORD end_address, std::s
 		}
 		else
 		{
-			pat = a->bytes_to_text(pattern.c_str());
+			pat = pattern.c_str();
 			firstMatch = 0;
 		}
 	}
