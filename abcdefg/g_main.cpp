@@ -7,7 +7,7 @@ void g::G_SetVariables()
 		return;
 
 	const PlayerController_fields* LocalPlayer = PlayerController.klass->static_fields->LocalPlayer;
-	PlayerController.klass->static_fields->LocalPlayer->bulletSpread = 360;
+	PlayerController.klass->static_fields->LocalPlayer->bulletSpread = vars::spread_angle.floatValue;
 	for (int i = 0; i < 3; i++) {
 		const ItemPointer element = LocalPlayer->items->elements[i];
 
@@ -30,12 +30,12 @@ void g::G_Init()
 		return;
 	
 	once = false;
-	fnIl2cpp_resolve_icall = (tpIl2cpp_resolve_icall*)GetProcAddress((HMODULE)gAssembly.lpBaseOfDll, EXPORT_IL2CPP_RESOLVE_ICALL);
+	fnIl2cpp_resolve_icall = (tpIl2cpp_resolve_icall*)GetProcAddress((HMODULE)GameAssembly, EXPORT_IL2CPP_RESOLVE_ICALL);
 
 	hook* a = nullptr;
 	BYTE buffer[3]{};
 
-
+	//replace the cheat engine string with something else
 	a->get_bytes((void*)(GameAssembly + 31647208), 3, buffer);
 	std::cout << "bytes before: " << (uint16_t)buffer[0] << '|' << (uint16_t)buffer[1] << '|' << (uint16_t)buffer[2] << '\n';
 	buffer[0] += 1;
@@ -47,7 +47,10 @@ void g::G_Init()
 
 	a->install(&(PVOID&)Reload_h, Reload);
 
-	a->nop((GameAssembly + 0x27BCDA)); //no fire delay
-	a->write_addr((GameAssembly + 0x27AB90), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
+	if (vars::invincibility.enabled)
+		a->write_addr((GameAssembly + 0x27AB90), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
+
+	if (vars::no_fire_delay.enabled)
+		a->nop((GameAssembly + 0x27BCDA)); //no fire delay
 	
 }

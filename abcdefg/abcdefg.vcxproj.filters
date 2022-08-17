@@ -22,9 +22,6 @@
     <Filter Include="Source Files\game">
       <UniqueIdentifier>{e01e3161-5956-4d87-bebd-69c317d58bc1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\SDK">
-      <UniqueIdentifier>{556ac760-d5d3-4e78-b80b-e0ab23f0c125}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\_lib\detours">
       <UniqueIdentifier>{4d45d4a7-9aca-4f88-8f60-c0413322a647}</UniqueIdentifier>
     </Filter>
@@ -33,6 +30,12 @@
     </Filter>
     <Filter Include="Header Files\_lib\imgui">
       <UniqueIdentifier>{e69640b1-1548-419f-8da1-0659c3dd6de8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\fs">
+      <UniqueIdentifier>{69c1199e-f11e-41b5-be43-b3e11f751eb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\fs\evar">
+      <UniqueIdentifier>{1960d35b-9401-44d6-b9ee-3d59c4cc8cf3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -53,9 +56,6 @@
     </ClInclude>
     <ClInclude Include="g_entrypoint.h">
       <Filter>Source Files\game</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk.h">
-      <Filter>Source Files\SDK</Filter>
     </ClInclude>
     <ClInclude Include="g_objects.h">
       <Filter>Header Files\game</Filter>
@@ -96,6 +96,18 @@
     <ClInclude Include="r_ui.h">
       <Filter>Source Files\render</Filter>
     </ClInclude>
+    <ClInclude Include="evar_config.h">
+      <Filter>Source Files\fs\evar</Filter>
+    </ClInclude>
+    <ClInclude Include="evar.h">
+      <Filter>Source Files\fs\evar</Filter>
+    </ClInclude>
+    <ClInclude Include="fs_funcs.h">
+      <Filter>Source Files\fs</Filter>
+    </ClInclude>
+    <ClInclude Include="dyn_vars.h">
+      <Filter>Source Files\fs\evar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -112,9 +124,6 @@
     </ClCompile>
     <ClCompile Include="g_entrypoint.cpp">
       <Filter>Source Files\game</Filter>
-    </ClCompile>
-    <ClCompile Include="sdk.cpp">
-      <Filter>Source Files\SDK</Filter>
     </ClCompile>
     <ClCompile Include="r_init.cpp">
       <Filter>Source Files\render</Filter>
@@ -145,6 +154,15 @@
     </ClCompile>
     <ClCompile Include="r_ui.cpp">
       <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="evar_config.cpp">
+      <Filter>Source Files\fs\evar</Filter>
+    </ClCompile>
+    <ClCompile Include="evar.cpp">
+      <Filter>Source Files\fs\evar</Filter>
+    </ClCompile>
+    <ClCompile Include="fs_funcs.cpp">
+      <Filter>Source Files\fs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

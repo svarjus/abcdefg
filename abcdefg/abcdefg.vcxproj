@@ -146,7 +146,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="detours\detours.h" />
+    <ClInclude Include="dyn_vars.h" />
+    <ClInclude Include="evar.h" />
+    <ClInclude Include="evar_config.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="fs_funcs.h" />
     <ClInclude Include="g_entrypoint.h" />
     <ClInclude Include="g_objects.h" />
     <ClInclude Include="g_offsets.h" />
@@ -164,10 +168,12 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="r_init.h" />
     <ClInclude Include="r_ui.h" />
-    <ClInclude Include="sdk.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="evar.cpp" />
+    <ClCompile Include="evar_config.cpp" />
+    <ClCompile Include="fs_funcs.cpp" />
     <ClCompile Include="g_entrypoint.cpp" />
     <ClCompile Include="g_main.cpp" />
     <ClCompile Include="g_playercontroller.cpp" />
@@ -205,7 +211,6 @@
     <ClCompile Include="r_draw.cpp" />
     <ClCompile Include="r_init.cpp" />
     <ClCompile Include="r_ui.cpp" />
-    <ClCompile Include="sdk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="detours\detours.lib" />

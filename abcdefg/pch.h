@@ -58,7 +58,10 @@ typedef vec_t vec4_t[4];
 
 #include "koukku.h"
 
-#include "sdk.h"
+#include "evar.h"
+#include "evar_config.h"
+#include "fs_funcs.h"
+#include "dyn_vars.h"
 
 #include "g_objects.h"
 #include "g_offsets.h"
@@ -68,5 +71,7 @@ typedef vec_t vec4_t[4];
 
 #include "r_init.h"
 #include "r_ui.h"
+
+
 
 #endif //PCH_H

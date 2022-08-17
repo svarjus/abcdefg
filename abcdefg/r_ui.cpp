@@ -69,15 +69,57 @@ void g::R_OpenMenu()
 		std::cout << "POSSIBLY NO CONTEXT!!!!\n";
 		return;
 	}
+	static bool save_file = false;
 
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
 	if (GetKeyState(MENU_KEY) == 1) {
-		R_MenuStyle();
-		ImGui::ShowDemoWindow();
 		
+		save_file = true; //save after closing
+
+		R_MenuStyle();
+		
+		ImGui::Begin("REDMATCH 3", 0, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize);
+
+		ImGui::Text("epic big hack");
+		hook* a = nullptr;
+		if (ImGui::Checkbox("Invincibility", &vars::invincibility.enabled)) {
+			Evar_SetValue(&vars::invincibility, vars::invincibility.enabled);
+
+			
+
+			if (vars::invincibility.enabled) 
+				a->write_addr((GameAssembly + 0x27AB90), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
+			else 
+				a->write_addr((GameAssembly + 0x27AB90), "\x40", 1); //write a push rbx instruction at the beginning of PlayerController::Die()
+
+			
+		}
+		if (ImGui::Checkbox("No Fire Delay", &vars::no_fire_delay.enabled)) {
+			Evar_SetValue(&vars::no_fire_delay, vars::no_fire_delay.enabled);
+
+			if (vars::no_fire_delay.enabled)
+				a->nop((GameAssembly + 0x27BCDA)); //no fire delay
+			else
+				a->write_addr((GameAssembly + 0x27BCDA), "\xE8\x01\xF5\xB7\x00", 5); //call GameAssembly.dll+DFB1E0
+
+
+		}
+		ImGui::PushItemWidth(75.f);
+		ImGui::DragFloat("Spread Angle", &vars::spread_angle.floatValue, 1, 0, 360, "%.3f", 1);
+		ImGui::Separator();
+
+		ImGui::End();
+
+	}
+	else {
+		if (save_file) {
+			Evar_SaveToFile(vars::cfg::cfgDirectory);
+			std::cout << "save settings!\n";
+			save_file = false;
+		}
 	}
 
 

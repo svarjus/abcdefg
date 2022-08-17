@@ -63,6 +63,10 @@ void g::R_Init()
 	}
 	hook* a = nullptr;
 	a->install(&(PVOID&)pEndScene, D3D_Draw);
+
+	Evar_Setup();
+	Evar_LoadFromFile(vars::cfg::cfgDirectory);
+
 	G_Init();
 }
 void g::R_GetID3D11_Device(IDXGISwapChain* p_swap_chain)
