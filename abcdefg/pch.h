@@ -41,6 +41,10 @@ typedef vec_t vec4_t[4];
 #include <format>
 #include <stdio.h>
 
+#include <d3d11.h>
+#pragma comment(lib, "d3d11.lib")
+
+
 //detours
 #include "detours/detours.h"
 #pragma comment(lib, "detours.lib")
@@ -52,6 +56,9 @@ typedef vec_t vec4_t[4];
 #include "g_objects.h"
 #include "g_offsets.h"
 #include "g_entrypoint.h"
-#include "g_test.h"
+#include "g_main.h"
+#include "g_playercontroller.h"
+
+#include "r_init.h"
 
 #endif //PCH_H

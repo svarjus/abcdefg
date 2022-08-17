@@ -2,10 +2,10 @@
 
 #ifdef _WIN64
 
-BYTE* hook::install(std::uintptr_t address, void* fnc)
+LONG hook::install_x64(_Inout_ PVOID* ppPointer, _In_ PVOID pDetour)
 {
 	DetourTransactionBegin();
-	DetourAttach(&(LPVOID&)address, fnc);
+	DetourAttach(ppPointer, pDetour);
 	DetourTransactionCommit();
 
 	return 0;

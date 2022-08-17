@@ -12,6 +12,7 @@ class hook
 {
 public:
 
+	LONG install_x64(_Inout_ PVOID* ppPointer, _In_ PVOID pDetour);
 	BYTE* install(std::uintptr_t address, void* func);
 	BYTE* install(void* address, void* func);
 	BOOL remove(void* Trampoline, void* detourFunc);

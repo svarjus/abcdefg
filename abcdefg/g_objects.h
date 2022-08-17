@@ -204,6 +204,7 @@ namespace g
 	public:
 		class PlayerController_c__Class* klass; //0x0000
 	}; //Size: 0x0008
+
 }
 
 #endif
