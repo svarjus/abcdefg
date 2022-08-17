@@ -23,6 +23,8 @@ typedef vec_t vec4_t[4];
 #define	VectorMA(v, s, b, o)	((o)[0]=(v)[0]+(b)[0]*(s),(o)[1]=(v)[1]+(b)[1]*(s),(o)[2]=(v)[2]+(b)[2]*(s))
 #define VectorClear( a )              ( ( a )[0] = ( a )[1] = ( a )[2] = 0 )
 
+#define MENU_KEY VK_PRIOR
+
 #include <Windows.h>
 #include <iostream>
 #include <fstream>
@@ -41,9 +43,14 @@ typedef vec_t vec4_t[4];
 #include <format>
 #include <stdio.h>
 
+
+
 #include <d3d11.h>
 #pragma comment(lib, "d3d11.lib")
 
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_win32.h"
+#include "imgui/imgui_impl_dx11.h"
 
 //detours
 #include "detours/detours.h"
@@ -60,5 +67,6 @@ typedef vec_t vec4_t[4];
 #include "g_playercontroller.h"
 
 #include "r_init.h"
+#include "r_ui.h"
 
 #endif //PCH_H

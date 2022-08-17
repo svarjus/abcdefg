@@ -2,7 +2,7 @@
 
 #ifdef _WIN64
 
-LONG hook::install_x64(_Inout_ PVOID* ppPointer, _In_ PVOID pDetour)
+LONG hook::install_x64(PVOID* ppPointer, PVOID pDetour)
 {
 	DetourTransactionBegin();
 	DetourAttach(ppPointer, pDetour);

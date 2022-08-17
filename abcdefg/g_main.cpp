@@ -8,14 +8,23 @@ void g::G_SetVariables()
 	if (!g::hasPlayerController)
 		return;
 
-	PlayerController.klass->static_fields->LocalPlayer->bulletSpread = 0;
+	PlayerController_fields* LocalPlayer = PlayerController.klass->static_fields->LocalPlayer;
+
+	PlayerController.klass->static_fields->LocalPlayer->bulletSpread = 360;
 	for (int i = 0; i < 3; i++) {
-		PlayerController.klass->static_fields->LocalPlayer->items->elements[i].item->info->magazineSize = 9999;
-		PlayerController.klass->static_fields->LocalPlayer->items->elements[i].item->info->damage = 9999;
-		PlayerController.klass->static_fields->LocalPlayer->items->elements[i].item->info->startingAmmo = 9999;
+		LocalPlayer->items->elements[i].item->info->magazineSize = 9999;
+		LocalPlayer->items->elements[i].item->info->damage = 9999;
+		LocalPlayer->items->elements[i].item->info->startingAmmo = 9999;
 
-		PlayerController.klass->static_fields->LocalPlayer->items->elements[i].item->ammo.setValue(88888);
+		LocalPlayer->items->elements[i].item->ammo.setValue(88888);
+		LocalPlayer->items->elements[i].item->info->noscope = true;
+		LocalPlayer->items->elements[i].item->info->cameraADSBobMultiplier = 0;
 
+
+
+	}
+	if (GetAsyncKeyState(VK_HOME) & 1) {
+		std::cout << "LocalPlayer->items->elements[0].item->info: " << LocalPlayer->items->elements[0].item->info << '\n';
 	}
 }
 void g::G_Init()
@@ -24,7 +33,7 @@ void g::G_Init()
 
 	if (!once)
 		return;
-
+	
 	once = false;
 	fnIl2cpp_resolve_icall = (tpIl2cpp_resolve_icall*)GetProcAddress((HMODULE)gAssembly.lpBaseOfDll, EXPORT_IL2CPP_RESOLVE_ICALL);
 
@@ -43,6 +52,12 @@ void g::G_Init()
 
 	a->install_x64(&(PVOID&)Reload_h, Reload);
 
-	a->write_addr((GameAssembly + 0x27AB90), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die()
+	a->nop((GameAssembly + 0x27BCDA));
+
+	//DetourTransactionBegin();
+	//DetourAttach(&(PVOID&)Reload_h, Reload);
+	//DetourTransactionCommit();
+	
+//	a->write_addr((GameAssembly + 0x27AB90), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die()
 	
 }

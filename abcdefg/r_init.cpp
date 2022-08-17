@@ -34,8 +34,8 @@ g::endScene g::GetEndScene()
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	HANDLE handle = GetCurrentProcess();
 	DWORD pid = GetProcessId(handle);
-	HWND window = findWindowFromProcessId(pid);
-	sd.OutputWindow = window;
+	gameWindow = findWindowFromProcessId(pid);
+	sd.OutputWindow = gameWindow;
 	sd.SampleDesc.Count = 1;
 	sd.Windowed = TRUE;
 	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
@@ -65,11 +65,48 @@ void g::R_Init()
 	a->install_x64(&(PVOID&)pEndScene, D3D_Draw);
 	G_Init();
 }
-long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UINT flags)
+void g::R_GetID3D11_Device(IDXGISwapChain* p_swap_chain)
 {
+	static bool get_once = true;
+
+	if (!get_once)
+		return;
+
+	get_once = false;
+
+	if (p_swap_chain->GetDevice(__uuidof(ID3D11Device), (void**)&pDevice) != S_OK) {
+		MessageBox(NULL, "failed", "p_swap_chain->GetDevice(__uuidof(ID3D11Device), (void**)&pDevice) != S_OK", 0);
+		exit(-1);
+	}
+	pDevice->GetImmediateContext(&pContext);
+	ID3D11Texture2D* pBackBuffer;
+	p_swap_chain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+
+	D3D11_RENDER_TARGET_VIEW_DESC desc = {};
+	memset(&desc, 0, sizeof(desc));
+	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // most important change!
+	desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+
+	pDevice->CreateRenderTargetView(pBackBuffer, &desc, &mainRenderTargetView);
+	pBackBuffer->Release();
+
+	oWndProc = (WNDPROC)SetWindowLongPtr(FindWindowA(NULL, "Redmatch 2"), GWLP_WNDPROC, (LONG_PTR)WndProc);
+	R_InitImGui();
+	std::cout << "directx is now active and ready!\n";
 
 
-	G_SetVariables();
+}
+void g::R_InitImGui()
+{
+	if (!pDevice || !pContext) {
+		MessageBox(NULL, "failed", "!pDevice || !pContext", 0);
+		return;
+	}
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
+	ImGui_ImplWin32_Init(FindWindowA(NULL, "Redmatch 2"));
+	ImGui_ImplDX11_Init(pDevice, pContext);
 
-	return pEndScene(p_swap_chain, sync_interval, flags);
+
 }

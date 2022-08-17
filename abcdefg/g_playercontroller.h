@@ -7,7 +7,7 @@
 
 namespace g {
 	typedef void(*Reload_hook)(g::PlayerController_c*);
-	static void(*Reload_h)(g::PlayerController_c*) = (Reload_hook)(g::GameAssembly + 0x27BBA0);
+	inline void(*Reload_h)(g::PlayerController_c*) = (Reload_hook)(g::GameAssembly + 0x27BBA0);
 
 	void Reload(g::PlayerController_c* playercontroller);
 }
