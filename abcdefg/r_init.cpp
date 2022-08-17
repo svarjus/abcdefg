@@ -1,30 +1,4 @@
 #include "pch.h"
-
-struct EnumData {
-	DWORD dwProcessId;
-	HWND hWnd;
-};
-
-BOOL CALLBACK EnumProc(HWND hWnd, LPARAM lParam) {
-	EnumData& ed = *(EnumData*)lParam;
-	DWORD dwProcessId = 0x0;
-	GetWindowThreadProcessId(hWnd, &dwProcessId);
-	if (ed.dwProcessId == dwProcessId) {
-		ed.hWnd = hWnd;
-		SetLastError(ERROR_SUCCESS);
-		return FALSE;
-	}
-	return TRUE;
-}
-
-HWND findWindowFromProcessId(DWORD dwProcessId) {
-	EnumData ed = { dwProcessId };
-	if (!EnumWindows(EnumProc, (LPARAM)&ed) &&
-		(GetLastError() == ERROR_SUCCESS)) {
-		return ed.hWnd;
-	}
-	return NULL;
-}
 g::endScene g::GetEndScene()
 {
 	DXGI_SWAP_CHAIN_DESC sd;
@@ -34,7 +8,7 @@ g::endScene g::GetEndScene()
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	HANDLE handle = GetCurrentProcess();
 	DWORD pid = GetProcessId(handle);
-	gameWindow = findWindowFromProcessId(pid);
+	gameWindow = FindWindowA(NULL, "Redmatch 2");
 	sd.OutputWindow = gameWindow;
 	sd.SampleDesc.Count = 1;
 	sd.Windowed = TRUE;
@@ -88,7 +62,7 @@ void g::R_GetID3D11_Device(IDXGISwapChain* p_swap_chain)
 
 	D3D11_RENDER_TARGET_VIEW_DESC desc = {};
 	memset(&desc, 0, sizeof(desc));
-	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // most important change!
+	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
 
 	pDevice->CreateRenderTargetView(pBackBuffer, &desc, &mainRenderTargetView);
@@ -104,7 +78,7 @@ void g::R_InitImGui()
 {
 	if (!pDevice || !pContext) {
 		MessageBox(NULL, "failed", "!pDevice || !pContext", 0);
-		return;
+		exit(-1);
 	}
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
