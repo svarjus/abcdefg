@@ -11,11 +11,13 @@
 class hook
 {
 public:
-
-	LONG install_x64(PVOID* ppPointer, PVOID pDetour);
+#ifdef _WIN64
+	LONG install(PVOID* ppPointer, PVOID pDetour);
+#else
 	BYTE* install(std::uintptr_t address, void* func);
 	BYTE* install(void* address, void* func);
 	BOOL remove(void* Trampoline, void* detourFunc);
+#endif
 	void nop(std::uintptr_t address);
 	void write_addr(void* addr, const char* bytes, size_t len);
 	void write_addr(std::uintptr_t addr, const char* bytes, size_t len);

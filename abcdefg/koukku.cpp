@@ -2,7 +2,7 @@
 
 #ifdef _WIN64
 
-LONG hook::install_x64(PVOID* ppPointer, PVOID pDetour)
+LONG hook::install(PVOID* ppPointer, PVOID pDetour)
 {
 	DetourTransactionBegin();
 	DetourAttach(ppPointer, pDetour);
@@ -13,20 +13,18 @@ LONG hook::install_x64(PVOID* ppPointer, PVOID pDetour)
 #else
 BYTE* hook::install(std::uintptr_t address, void* fnc)
 {
-	return 0;
-	//return DetourFunction((PBYTE)address, (PBYTE)fnc);
+	return DetourFunction((PBYTE)address, (PBYTE)fnc);
 }
 BYTE* hook::install(void* address, void* fnc)
 {
-	return 0;
-	//return DetourFunction((PBYTE)address, (PBYTE)fnc);
+	return DetourFunction((PBYTE)address, (PBYTE)fnc);
 }
-#endif
+
 BOOL hook::remove(void* Trampoline, void* detourFunc)
 {
-	return -1;
-	//return DetourRemove((PBYTE)Trampoline, (PBYTE)detourFunc);
+	return DetourRemove((PBYTE)Trampoline, (PBYTE)detourFunc);
 }
+#endif
 void hook::nop(std::uintptr_t address)
 {
 	DWORD oldProtect;

@@ -62,7 +62,7 @@ void g::R_Init()
 		exit(-1);
 	}
 	hook* a = nullptr;
-	a->install_x64(&(PVOID&)pEndScene, D3D_Draw);
+	a->install(&(PVOID&)pEndScene, D3D_Draw);
 	G_Init();
 }
 void g::R_GetID3D11_Device(IDXGISwapChain* p_swap_chain)

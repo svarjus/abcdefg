@@ -1,31 +1,26 @@
 #include "pch.h"
 
-MODULEINFO getModuleInfo(char* szModule);
-
 
 void g::G_SetVariables()
 {
 	if (!g::hasPlayerController)
 		return;
 
-	PlayerController_fields* LocalPlayer = PlayerController.klass->static_fields->LocalPlayer;
-
+	const PlayerController_fields* LocalPlayer = PlayerController.klass->static_fields->LocalPlayer;
 	PlayerController.klass->static_fields->LocalPlayer->bulletSpread = 360;
 	for (int i = 0; i < 3; i++) {
-		LocalPlayer->items->elements[i].item->info->magazineSize = 9999;
-		LocalPlayer->items->elements[i].item->info->damage = 9999;
-		LocalPlayer->items->elements[i].item->info->startingAmmo = 9999;
+		const ItemPointer element = LocalPlayer->items->elements[i];
 
-		LocalPlayer->items->elements[i].item->ammo.setValue(88888);
-		LocalPlayer->items->elements[i].item->info->noscope = true;
-		LocalPlayer->items->elements[i].item->info->cameraADSBobMultiplier = 0;
+		element.item->info->magazineSize = 9999;
+		element.item->info->damage = 9999;
+		element.item->info->startingAmmo = 9999;
+		element.item->info->shots = 99999;
+		element.item->info->cameraADSBobMultiplier = 0;
 
 
 
 	}
-	if (GetAsyncKeyState(VK_HOME) & 1) {
-		std::cout << "LocalPlayer->items->elements[0].item->info: " << LocalPlayer->items->elements[0].item->info << '\n';
-	}
+
 }
 void g::G_Init()
 {
@@ -50,14 +45,9 @@ void g::G_Init()
 	std::cout << "bytes after: " << (uint16_t)buffer[0] << '|' << (uint16_t)buffer[1] << '|' << (uint16_t)buffer[2] << '\n';
 
 
-	a->install_x64(&(PVOID&)Reload_h, Reload);
+	a->install(&(PVOID&)Reload_h, Reload);
 
-	a->nop((GameAssembly + 0x27BCDA));
-
-	//DetourTransactionBegin();
-	//DetourAttach(&(PVOID&)Reload_h, Reload);
-	//DetourTransactionCommit();
-	
-//	a->write_addr((GameAssembly + 0x27AB90), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die()
+	a->nop((GameAssembly + 0x27BCDA)); //no fire delay
+	a->write_addr((GameAssembly + 0x27AB90), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
 	
 }
