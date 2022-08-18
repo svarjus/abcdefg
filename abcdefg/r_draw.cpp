@@ -21,12 +21,15 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 {
 	R_GetID3D11_Device(p_swap_chain);
 
-	G_SetVariables();
 
 	R_OpenMenu();
+
+
+	G_SetVariables();
+
+
 	R_EndRender();
-
-
+	
 	//if (GetAsyncKeyState(VK_HOME) & 1) {
 	//	//std::cout << "LocalPlayer->items->elements[0].item->info: " << LocalPlayer->items->elements[0].item->info << '\n';
 	//	for (int i = 1; i < 10; i++)

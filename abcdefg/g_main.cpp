@@ -1,11 +1,25 @@
 #include "pch.h"
 
+
+void g::G_DebugVariables(PlayerController_fields* LocalPlayer)
+{
+	ImDrawList* draw = ImGui::GetBackgroundDrawList();
+
+
+	char buff[1024];
+	bool wasInteractable = LocalPlayer->wasInteractable;
+	sprintf_s(buff, "LocalPlayer->wasInteractable: %i", wasInteractable);
+
+	draw->AddText(ImVec2(0, 400), IM_COL32(0, 255, 0, 255), buff);
+	
+}
+
 void g::G_SetVariables()
 {
 	if (!g::hasPlayerController)
 		return;
 
-	const PlayerController_fields* LocalPlayer = PlayerController.klass->static_fields->LocalPlayer;
+	PlayerController_fields* LocalPlayer = PlayerController.object->static_fields->LocalPlayer;
 	//PlayerController.klass->static_fields->LocalPlayer->bulletSpread = vars::spread_angle.floatValue;
 
 	bool keyPressed = GetAsyncKeyState(VK_DELETE) & 1;
@@ -26,7 +40,7 @@ void g::G_SetVariables()
 		element.item->ammo.value = 9999;
 
 	}
-
+	G_DebugVariables(LocalPlayer);
 }
 void g::G_Init()
 {

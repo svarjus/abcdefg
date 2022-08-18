@@ -18,6 +18,7 @@ enum evartype_t
 
 struct evar_s
 {
+	bool initialized; //a way to check if Evar_Register was ever called
 	const char* name;
 	int intValue;
 	float floatValue;

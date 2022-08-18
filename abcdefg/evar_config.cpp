@@ -81,7 +81,7 @@ bool Evar_LoadVector(std::fstream& f, evar_s* evar, vec4_t vec)
 		var = fs::F_ReadUntil(f, '\n');
 		CheckValid(var, vec[3]);
 	}
-	if (evar->type == evartype_t::EVAR_ARRAY) {
+	else if (evar->type == evartype_t::EVAR_ARRAY) {
 		size_t arraySize = evar->arrayValue.size();
 		for (uint32_t i = 0; i < arraySize; i++) {
 
@@ -126,6 +126,8 @@ bool Evar_LoadFromFile(std::string directory)
 	
 
 		if (evar) {
+			if (!evar->initialized)
+				continue;
 			if (evar->type > evartype_t::EVAR_FLOAT) {
 				Evar_LoadVector(f, evar, vec);
 

@@ -71,7 +71,7 @@ typedef vec_t vec4_t[4];
 
 #include "r_init.h"
 #include "r_ui.h"
-
+#include "r_utils.h"
 
 
 #endif //PCH_H

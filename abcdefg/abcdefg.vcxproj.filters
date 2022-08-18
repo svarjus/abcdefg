@@ -37,6 +37,9 @@
     <Filter Include="Source Files\fs\evar">
       <UniqueIdentifier>{1960d35b-9401-44d6-b9ee-3d59c4cc8cf3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\render\utils">
+      <UniqueIdentifier>{7fa7af37-16a1-48b2-a3c9-193048874001}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="koukku.h">
@@ -108,6 +111,9 @@
     <ClInclude Include="dyn_vars.h">
       <Filter>Source Files\fs\evar</Filter>
     </ClInclude>
+    <ClInclude Include="r_utils.h">
+      <Filter>Source Files\render\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -163,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="fs_funcs.cpp">
       <Filter>Source Files\fs</Filter>
+    </ClCompile>
+    <ClCompile Include="r_utils.cpp">
+      <Filter>Source Files\render\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -34,6 +34,7 @@ void Evar_Register(evar_s* evar, const char* name, evartype_t type, float defaul
 	evarList[evarCount] = evar;
 	evar->Next = evarList[evarCount + 1];
 	evarCount += 1;
+	evar->initialized = true;
 }
 void Evar_Register(evar_s* evar, const char* name, evartype_t type, float* defaultValue)
 {
@@ -71,6 +72,7 @@ void Evar_Register(evar_s* evar, const char* name, evartype_t type, float* defau
 	evarList[evarCount] = evar;
 	evar->Next = evarList[evarCount + 1];
 	evarCount += 1;
+	evar->initialized = true;
 
 }
 void Evar_Register(evar_s* evar, const char* name, evartype_t type, float defaultValue)
@@ -100,6 +102,7 @@ void Evar_Register(evar_s* evar, const char* name, evartype_t type, float defaul
 	evarList[evarCount] = evar;
 	evar->Next = evarList[evarCount + 1];
 	evarCount += 1;
+	evar->initialized = true;
 }
 void Evar_SetValue(evar_s* evar, float value)
 {
