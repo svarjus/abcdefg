@@ -107,9 +107,19 @@ void g::R_OpenMenu()
 
 
 		}
-		ImGui::PushItemWidth(75.f);
-		ImGui::DragFloat("Spread Angle", &vars::spread_angle.floatValue, 1, 0, 360, "%.3f", 1);
+
+		ImGui::NewLine();
+		ImGui::Text("Weapon");
 		ImGui::Separator();
+
+		const char* weapon[3] = { "ak", "shotgun", "sniper"};
+		static int selected_weap;
+		ImGui::PushItemWidth(100);
+		ImGui::Combo("Weapon", &selected_weap, weapon, IM_ARRAYSIZE(weapon));
+		ImGui::Separator();
+		ImGui::DragFloat("Damage", &vars::weapon_damage.arrayValue[selected_weap], 2, 0, 99999, "%.3f", 1);
+		ImGui::DragFloat("Spread", &vars::weapon_spread.arrayValue[selected_weap], 1, 0, 360, "%.3f", 1);
+		ImGui::DragFloat("Magazine", &vars::weapon_magazineSize.arrayValue[selected_weap], 1, 0, 99999, "%.3f", 1);
 
 		ImGui::End();
 

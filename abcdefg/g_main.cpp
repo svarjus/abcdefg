@@ -1,23 +1,29 @@
 #include "pch.h"
 
-
 void g::G_SetVariables()
 {
 	if (!g::hasPlayerController)
 		return;
 
 	const PlayerController_fields* LocalPlayer = PlayerController.klass->static_fields->LocalPlayer;
-	PlayerController.klass->static_fields->LocalPlayer->bulletSpread = vars::spread_angle.floatValue;
+	//PlayerController.klass->static_fields->LocalPlayer->bulletSpread = vars::spread_angle.floatValue;
+
+	bool keyPressed = GetAsyncKeyState(VK_DELETE) & 1;
 	for (int i = 0; i < 3; i++) {
 		const ItemPointer element = LocalPlayer->items->elements[i];
 
-		element.item->info->magazineSize = 9999;
-		element.item->info->damage = 9999;
-		element.item->info->startingAmmo = 9999;
-		element.item->info->shots = 99999;
+		element.item->info->damage = vars::weapon_damage.arrayValue[i];
+		element.item->info->bulletSpread = vars::weapon_spread.arrayValue[i];
+		element.item->info->maxbulletSpread = vars::weapon_spread.arrayValue[i];
+		element.item->info->normalSpread = vars::weapon_spread.arrayValue[i];
+		element.item->info->movementSpreadMultiplier = 0;
+		element.item->info->adsSpread = vars::weapon_spread.arrayValue[i];
+		element.item->info->adsBulletSpread = vars::weapon_spread.arrayValue[i];
+		element.item->info->bulletSpreadDecrease = 0;
 		element.item->info->cameraADSBobMultiplier = 0;
-
-
+		element.item->info->cameraADSBobMultiplier = 0;
+		element.item->totalAmmo.value = 9999;
+		element.item->ammo.value = 9999;
 
 	}
 

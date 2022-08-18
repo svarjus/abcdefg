@@ -27,11 +27,11 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 	R_EndRender();
 
 
-	if (GetAsyncKeyState(VK_HOME) & 1) {
-		//std::cout << "LocalPlayer->items->elements[0].item->info: " << LocalPlayer->items->elements[0].item->info << '\n';
-		for (int i = 1; i < 10; i++)
-			((void(*)(int32_t a))(GameAssembly + 3347664))(i);
-	}
+	//if (GetAsyncKeyState(VK_HOME) & 1) {
+	//	//std::cout << "LocalPlayer->items->elements[0].item->info: " << LocalPlayer->items->elements[0].item->info << '\n';
+	//	for (int i = 1; i < 10; i++)
+	//		((void(*)(int32_t a))(GameAssembly + 3347664))(i);
+	//}
 
 	return pEndScene(p_swap_chain, sync_interval, flags);
 }

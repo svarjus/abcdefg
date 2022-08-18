@@ -85,16 +85,12 @@ bool Evar_LoadVector(std::fstream& f, evar_s* evar, vec4_t vec)
 		size_t arraySize = evar->arrayValue.size();
 		for (uint32_t i = 0; i < arraySize; i++) {
 
-			if (i >= arraySize)
-				break;
-
-			var = fs::F_ReadUntil(f, ' ');
+			if(i < arraySize - 1)
+				var = fs::F_ReadUntil(f, ' ');
+			else
+				var = fs::F_ReadUntil(f, '\n');
 			CheckValid(var, evar->arrayValue[i]);
-
-			std::cout << evar->name << '[' << i << "]: " << evar->arrayValue[i] << '\n';
-
 		}
-		fs::F_ReadUntil(f, '\n'); // go to the beginning of the next variable
 	}
 	return true;
 
