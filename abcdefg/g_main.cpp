@@ -7,8 +7,8 @@ void g::G_DebugVariables(PlayerController_fields* LocalPlayer)
 
 
 	char buff[1024];
-	bool wasInteractable = LocalPlayer->wasInteractable;
-	sprintf_s(buff, "LocalPlayer->wasInteractable: %i", wasInteractable);
+	//bool lastTimeJumped = LocalPlayer->lastTimeJumped;
+	sprintf_s(buff, "LocalPlayer->lastTimeTookDamage: %.3f", LocalPlayer->lastTimeTookDamage);
 
 	draw->AddText(ImVec2(0, 400), IM_COL32(0, 255, 0, 255), buff);
 	
@@ -40,6 +40,8 @@ void g::G_SetVariables()
 		element.item->ammo.value = 9999;
 
 	}
+	if (keyPressed)
+		std::cout << "&LocalPlayer->lastTimeJumped: " << &LocalPlayer->lastTimeJumped << '\n';
 	G_DebugVariables(LocalPlayer);
 }
 void g::G_Init()
@@ -63,8 +65,8 @@ void g::G_Init()
 
 	a->get_bytes((void*)(GameAssembly + 31647208), 3, buffer);
 	std::cout << "bytes after: " << (uint16_t)buffer[0] << '|' << (uint16_t)buffer[1] << '|' << (uint16_t)buffer[2] << '\n';
-
-
+	
+	//a->nop((GameAssembly + 0x3FEBFC));
 	a->install(&(PVOID&)Reload_h, Reload);
 
 	if (vars::invincibility.enabled)

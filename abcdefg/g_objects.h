@@ -279,7 +279,14 @@ namespace g
 		uint32_t damageMultiplierRoomSetting; 
 		bool noscope; 
 	}; 
-
+	struct _test
+	{
+		float lastTimeTookDamage;
+		float nextTimeToRegen;
+		int32_t regenAmount;
+		float regenInterval;
+	};
+	constexpr int ah = sizeof(_test);
 	struct PlayerController_fields
 	{
 		char pad_0000[104];
@@ -296,8 +303,15 @@ namespace g
 		float bulletSpread;
 		char pad[12]; //Interactable_o* lastInteractable;
 		bool wasInteractable;
-
-		char pad_0154[52]; 
+		char pad_0154[63-16]; 
+		float lastTimeTookDamage;
+		float nextTimeToRegen;
+		int32_t regenAmount;
+		float regenInterval;
+		float lastTimeGrounded;
+		float lastTimeJumped;
+		float lastTimePulledOutItem;
+		float nextTimeToCircleDamage;
 	}; 
 	struct PlayerController_staticfields
 	{
