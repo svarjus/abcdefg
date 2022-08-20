@@ -19,6 +19,9 @@ namespace vars
 	inline evar_s weapon_damage;
 	inline evar_s weapon_spread;
 	inline evar_s weapon_magazineSize;
+
+	inline evar_s world_skywalk;
+	inline evar_s world_skywalk_z;
 }
 
 #endif

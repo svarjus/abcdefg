@@ -121,6 +121,22 @@ void g::R_OpenMenu()
 		ImGui::DragFloat("Spread", &vars::weapon_spread.arrayValue[selected_weap], 1, 0, 360, "%.3f", 1);
 		ImGui::DragFloat("Magazine", &vars::weapon_magazineSize.arrayValue[selected_weap], 1, 0, 99999, "%.3f", 1);
 
+		ImGui::NewLine();
+		ImGui::Text("World");
+		ImGui::Separator();
+
+		if (ImGui::Checkbox("Skywalk", &vars::world_skywalk.enabled)) 
+			Evar_SetValue(&vars::world_skywalk, vars::world_skywalk.enabled);
+		
+		if (!vars::world_skywalk.enabled)
+			ImGui::BeginDisabled(true);
+
+		ImGui::DragFloat("Z height", &vars::world_skywalk_z.floatValue, 2, 0, 99999, "%.3f", 1);
+
+
+		if (!vars::world_skywalk.enabled)
+			ImGui::EndDisabled();
+
 		ImGui::End();
 
 	}

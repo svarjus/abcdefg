@@ -19,7 +19,7 @@ namespace g
 
 	typedef void* (tpIl2cpp_resolve_icall)(const char*);
 	inline tpIl2cpp_resolve_icall* fnIl2cpp_resolve_icall;
-
+	typedef vec3_t UnityEngine_Transform_o; //probably very untrue
 
 	struct Il2CppClass;
 	struct MethodInfo;
@@ -279,14 +279,6 @@ namespace g
 		uint32_t damageMultiplierRoomSetting; 
 		bool noscope; 
 	}; 
-	struct _test
-	{
-		float lastTimeTookDamage;
-		float nextTimeToRegen;
-		int32_t regenAmount;
-		float regenInterval;
-	};
-	constexpr int ah = sizeof(_test);
 	struct PlayerController_fields
 	{
 		char pad_0000[104];
@@ -303,7 +295,7 @@ namespace g
 		float bulletSpread;
 		char pad[12]; //Interactable_o* lastInteractable;
 		bool wasInteractable;
-		char pad_0154[63-16]; 
+		char pad_0154[47]; 
 		float lastTimeTookDamage;
 		float nextTimeToRegen;
 		int32_t regenAmount;
@@ -312,6 +304,18 @@ namespace g
 		float lastTimeJumped;
 		float lastTimePulledOutItem;
 		float nextTimeToCircleDamage;
+		char rigidbody_pad[16];
+		vec3_t rigid_origin; //forward, up, right
+		float rigid_time; 
+		int crosshairIndex; 
+		char stressReceiver_pad[12];
+		bool isActingAsLocalPlayer;
+		vec3_t constantForce;
+		vec3_t pushForce;
+		char idk_pad[36];
+		float additiveFov;
+		int16_t lastDamagePacketID;
+
 	}; 
 	struct PlayerController_staticfields
 	{

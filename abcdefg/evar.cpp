@@ -214,4 +214,9 @@ void Evar_Setup()
 	Evar_Register(&vars::weapon_magazineSize, "weapon_magazineSize", evartype_t::EVAR_ARRAY, 30, 3);
 
 
+	Evar_Register(&vars::world_skywalk, "world_skywalk", evartype_t::EVAR_BOOL, (float)0);
+	Evar_Register(&vars::world_skywalk_z, "world_skywalk_z", evartype_t::EVAR_FLOAT, (float)0);
+
+
+
 }

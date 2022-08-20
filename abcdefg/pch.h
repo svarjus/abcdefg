@@ -23,6 +23,8 @@ typedef vec_t vec4_t[4];
 #define	VectorMA(v, s, b, o)	((o)[0]=(v)[0]+(b)[0]*(s),(o)[1]=(v)[1]+(b)[1]*(s),(o)[2]=(v)[2]+(b)[2]*(s))
 #define VectorClear( a )              ( ( a )[0] = ( a )[1] = ( a )[2] = 0 )
 
+#define XZY2XYZ(a,b)			((b)[0]=(a)[0],(b)[1]=(a)[2],(b)[2]=(a)[1])
+
 #define MENU_KEY VK_PRIOR
 
 #include <Windows.h>
@@ -63,6 +65,7 @@ typedef vec_t vec4_t[4];
 #include "fs_funcs.h"
 #include "dyn_vars.h"
 
+#include "u_objects.h"
 #include "g_objects.h"
 #include "g_offsets.h"
 #include "g_entrypoint.h"

@@ -72,6 +72,27 @@
     <ClInclude Include="g_playercontroller.h">
       <Filter>Source Files\game</Filter>
     </ClInclude>
+    <ClInclude Include="r_ui.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="evar_config.h">
+      <Filter>Source Files\fs\evar</Filter>
+    </ClInclude>
+    <ClInclude Include="evar.h">
+      <Filter>Source Files\fs\evar</Filter>
+    </ClInclude>
+    <ClInclude Include="fs_funcs.h">
+      <Filter>Source Files\fs</Filter>
+    </ClInclude>
+    <ClInclude Include="dyn_vars.h">
+      <Filter>Source Files\fs\evar</Filter>
+    </ClInclude>
+    <ClInclude Include="r_utils.h">
+      <Filter>Source Files\render\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="u_objects.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
     <ClInclude Include="ImGui\imgui_impl_dx11.h">
       <Filter>Header Files\_lib\imgui</Filter>
     </ClInclude>
@@ -96,24 +117,6 @@
     <ClInclude Include="ImGui\imgui.h">
       <Filter>Header Files\_lib\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="r_ui.h">
-      <Filter>Source Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="evar_config.h">
-      <Filter>Source Files\fs\evar</Filter>
-    </ClInclude>
-    <ClInclude Include="evar.h">
-      <Filter>Source Files\fs\evar</Filter>
-    </ClInclude>
-    <ClInclude Include="fs_funcs.h">
-      <Filter>Source Files\fs</Filter>
-    </ClInclude>
-    <ClInclude Include="dyn_vars.h">
-      <Filter>Source Files\fs\evar</Filter>
-    </ClInclude>
-    <ClInclude Include="r_utils.h">
-      <Filter>Source Files\render\utils</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -137,24 +140,6 @@
     <ClCompile Include="g_playercontroller.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_demo.cpp">
-      <Filter>Header Files\_lib\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_draw.cpp">
-      <Filter>Header Files\_lib\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
-      <Filter>Header Files\_lib\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_impl_win32.cpp">
-      <Filter>Header Files\_lib\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_widgets.cpp">
-      <Filter>Header Files\_lib\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui.cpp">
-      <Filter>Header Files\_lib\imgui</Filter>
-    </ClCompile>
     <ClCompile Include="r_draw.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
@@ -172,6 +157,27 @@
     </ClCompile>
     <ClCompile Include="r_utils.cpp">
       <Filter>Source Files\render\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <Filter>Header Files\_lib\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>Header Files\_lib\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
+      <Filter>Header Files\_lib\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_win32.cpp">
+      <Filter>Header Files\_lib\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_tables.cpp">
+      <Filter>Header Files\_lib\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>Header Files\_lib\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>Header Files\_lib\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
