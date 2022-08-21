@@ -10,7 +10,10 @@ void g::G_DebugVariables(PlayerController_fields* LocalPlayer)
 	//bool lastTimeJumped = LocalPlayer->lastTimeJumped;
 	vec3_t _rigid_origin;
 	XZY2XYZ(LocalPlayer->rigid_origin, _rigid_origin);
-	sprintf_s(buff, "X: %.3f\nY: %.3f\nZ: %.3f", _rigid_origin[0], _rigid_origin[1], _rigid_origin[2]);
+
+	float yaw = UE_ConvertGameYaw(PlayerTransform.yaw);
+
+	sprintf_s(buff, "X: %.3f\nY: %.3f\nZ: %.3f\nyaw: %.3f", _rigid_origin[0], _rigid_origin[1], _rigid_origin[2], yaw);
 
 	draw->AddText(ImVec2(0, 400), IM_COL32(0, 255, 0, 255), buff);
 	
@@ -18,7 +21,7 @@ void g::G_DebugVariables(PlayerController_fields* LocalPlayer)
 
 void g::G_SetVariables()
 {
-	if (!g::hasPlayerController || (&PlayerController) == nullptr)
+	if (!g::hasPlayerController || (&PlayerController) == nullptr || (&PlayerTransform) == nullptr)
 		return;
 
 	PlayerController_fields* LocalPlayer = PlayerController.object->static_fields->LocalPlayer;
@@ -79,8 +82,13 @@ void g::G_Init()
 	if (vars::no_fire_delay.enabled)
 		a->nop((GameAssembly + 0x27BCDA)); //no fire delay
 
-	a->write_addr((GameAssembly + 0x586580), "\xC3", 1); //unsure what this function does but it uses the ban url variable
+	a->write_addr((GameAssembly + 0x3FF06B), "\x84", 1); //jump not equal (skip the if(isBanned) { crash game; } )
+	//a->write_addr((GameAssembly + 0x3FEED0), "\xC3", 1); //return immediately
 
+	//a->write_addr((GameAssembly + 0x3FF075), "\x85", 1); //jump not equal (skip the if(isBanned) { !steam_authenticate; } )
+
+	//a->write_addr((GameAssembly + 0x586580), "\xC3", 1); //unsure what this function does but it uses the ban url variable
+	//a->write_addr((GameAssembly + 0x3FBAE0), "\xC3", 1); //write a return at the start of the stack overflow function
 	//a->nop(GameAssembly + 0x224534);
 
 	//a->write_addr((GameAssembly + 0x3FE8CF), "\x85", 1); //jump equal; check if player is banned (default: \x84)

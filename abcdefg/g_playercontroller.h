@@ -14,6 +14,7 @@ namespace g {
 	typedef uint32_t (*UE_PlayerTransform_hook)(void* a1, void* a2, float a3, void* a4);
 	inline uint32_t(*UE_PlayerTransform_h)(void* a1, void* a2, float a3, void* a4) = (UE_PlayerTransform_hook)(g::UnityPlayer + 0x10C08E0);
 
+	void UE_Noclip(PlayerTransform_s* transform);
 	uint32_t __fastcall UE_PlayerTransform(g::PlayerTransform_s* transform, void* a2, float a3, void* a4);
 
 	typedef int64_t(*OpenURL_hook)(intptr_t* unsure);

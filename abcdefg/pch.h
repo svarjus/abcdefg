@@ -15,6 +15,14 @@ typedef vec_t vec3_t[3];
 typedef vec_t vec4_t[4];
 
 #define PI 3.14159265f
+#define M_PI        3.14159265358979323846f // matches value in gcc v2 math.h
+
+#define DEG2RAD(a) (((a) * M_PI) / 180.0F)
+#define RAD2DEG(a) (((a) * 180.0f) / M_PI)
+#define RAD2SHORT(a) ((a) * (32768.f / (float)M_PI))
+#define SHORT2RAD(a) ((a) * ((float)M_PI / 32768.f))
+#define SHORT2DEG(a) (((a) / 32768.f) * 180.0f)
+
 #define DotProduct(x,y)			((x)[0]*(y)[0]+(x)[1]*(y)[1]+(x)[2]*(y)[2])
 #define VectorSubtract(a,b,c)	((c)[0]=(a)[0]-(b)[0],(c)[1]=(a)[1]-(b)[1],(c)[2]=(a)[2]-(b)[2])
 #define VectorAdd(a,b,c)		((c)[0]=(a)[0]+(b)[0],(c)[1]=(a)[1]+(b)[1],(c)[2]=(a)[2]+(b)[2])
@@ -24,6 +32,12 @@ typedef vec_t vec4_t[4];
 #define VectorClear( a )              ( ( a )[0] = ( a )[1] = ( a )[2] = 0 )
 
 #define XZY2XYZ(a,b)			((b)[0]=(a)[0],(b)[1]=(a)[2],(b)[2]=(a)[1])
+#define XYZ2XZY(a,b)			((b)[0]=(a)[0],(b)[2]=(a)[1],(b)[1]=(a)[2])
+
+
+#define	PITCH					0		// up / down
+#define	YAW						1		// left / right
+#define	ROLL					2		// fall over
 
 #define MENU_KEY VK_PRIOR
 
@@ -75,6 +89,11 @@ typedef vec_t vec4_t[4];
 #include "r_init.h"
 #include "r_ui.h"
 #include "r_utils.h"
+
+
+#include "vector.h"
+#include "matrix.h"
+#include "math.h"
 
 
 #endif //PCH_H

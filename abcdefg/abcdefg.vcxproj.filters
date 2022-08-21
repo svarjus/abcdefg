@@ -40,6 +40,9 @@
     <Filter Include="Source Files\render\utils">
       <UniqueIdentifier>{7fa7af37-16a1-48b2-a3c9-193048874001}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\math">
+      <UniqueIdentifier>{c4911f4c-ceef-49ba-8162-3f2a224b6e1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="koukku.h">
@@ -117,6 +120,15 @@
     <ClInclude Include="ImGui\imgui.h">
       <Filter>Header Files\_lib\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="matrix.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -178,6 +190,15 @@
     </ClCompile>
     <ClCompile Include="ImGui\imgui.cpp">
       <Filter>Header Files\_lib\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="matrix.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="vector.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="math.cpp">
+      <Filter>Source Files\math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

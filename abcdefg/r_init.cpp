@@ -82,9 +82,15 @@ void g::R_InitImGui()
 	}
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
+
+	std::string font_dir = "C:\\Windows\\Fonts\\Arial.ttf";
+	io.Fonts->AddFontFromFileTTF(font_dir.c_str(), 12 * 2);
+	io.Fonts->Build();
+
 	io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
 	ImGui_ImplWin32_Init(FindWindowA(NULL, "Redmatch 2"));
 	ImGui_ImplDX11_Init(pDevice, pContext);
+
 
 
 }

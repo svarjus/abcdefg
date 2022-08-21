@@ -11,8 +11,27 @@ void g::PlayerController_Update(PlayerController_c* playercontroller)
 
 	return Update_h(playercontroller);
 }
+//void g::UE_Noclip(PlayerTransform_s* transform) //unusable until viewangles are fixed
+//{
+//	vec3_t org;
+//
+//	float yaw = UE_ConvertGameYaw(transform->yaw);
+//
+//
+//	if (GetAsyncKeyState('W') < 0) {
+//		XZY2XYZ(transform->origin, org);
+//
+//		vec3_t angles = { 0, 0, 0};
+//		vec3_t out;
+//		AnglesToForward(angles, org, 1.01, out);
+//
+//		XYZ2XZY(out, transform->origin);
+//	}
+//}
 uint32_t __fastcall g::UE_PlayerTransform(PlayerTransform_s* transform, void* a2, float a3, void* a4)
 {
+	memcpy(&PlayerTransform, transform, sizeof(PlayerTransform_s));
+	//UE_Noclip(transform);
 	if(vars::world_skywalk.enabled)
 		transform->origin[1] = vars::world_skywalk_z.floatValue;
 	return UE_PlayerTransform_h(transform, a2, a3, a4);
@@ -20,7 +39,7 @@ uint32_t __fastcall g::UE_PlayerTransform(PlayerTransform_s* transform, void* a2
 int64_t __fastcall g::UE_OpenURL(intptr_t* unsure)
 {
 
-	auto TextToBytes = [](const char* text, char* buffer, size_t size) -> void {
+	auto TextToBytes = [](const char* text, char* buffer, size_t size) -> void { //123 -> \x31\x00\x32\x00\x33
 		int j = 0;
 		for (int i = 0; i < size; i++) {
 			buffer[i] = (text[j]);
@@ -35,8 +54,6 @@ int64_t __fastcall g::UE_OpenURL(intptr_t* unsure)
 
 	std::cout << "opening url: ["; 
 	
-	uint16_t chars{};
-
 	std::string oj;
 
 	intptr_t* steamid_offset{};
@@ -54,7 +71,6 @@ int64_t __fastcall g::UE_OpenURL(intptr_t* unsure)
 
 		if (std::isalnum(ah) || ah == '\\' || ah == '/' || ah == '.' || ah == ':') {
 			std::cout << ah;
-			chars++;
 			oj.push_back(ah);
 		}
 
@@ -67,9 +83,10 @@ int64_t __fastcall g::UE_OpenURL(intptr_t* unsure)
 	std::string wantsBan = isBan == true ? "   <-- ban!" : "";
 
 	std::cout << "] from: 0x" << std::hex << (unsure) << idFound << wantsBan << '\n';
-
-	if (isSteamID) {
-
+	static bool once = true;
+	/*if (isSteamID) {
+			
+		if (once) {
 			std::cout << "steamid_offset: [0x" << std::hex << steamid_offset << "]\n";
 
 			char buff[17 * 2 + 1];
@@ -77,14 +94,15 @@ int64_t __fastcall g::UE_OpenURL(intptr_t* unsure)
 			TextToBytes("76561199250286491", buff, 17 * 2);
 
 			a->write_addr(steamid_offset, buff, 17 * 2 + 1); //doing this kinda fucks up steam sync
-
+		//}
+		//once = false;
 		
 
-	}else if(isBan) { 
+	}else */if(isBan) { 
 		char buff[8];
 		TextToBytes("fuck", buff, 8);
 		std::cout << "ban_offset: [0x" << std::hex << ban_offset << "]\n";
-		a->write_addr(ban_offset, buff, 8); //changing the url does not evade; maybe the url is being read elsewhere!
+		//a->write_addr(unsure+4, buff, 8); //changing the url does not evade; maybe the url is being read elsewhere!
 
 	}
 

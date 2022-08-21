@@ -7,6 +7,8 @@
 
 namespace g
 {
+	
+
 	struct PlayerTransform_s
 	{
 		float pad[15];
@@ -14,6 +16,7 @@ namespace g
 		vec3_t origin; //xzy
 
 	};
+	inline PlayerTransform_s PlayerTransform;
 }
 
 #endif
