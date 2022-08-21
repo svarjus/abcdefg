@@ -82,7 +82,7 @@ void g::G_Init()
 	if (vars::no_fire_delay.enabled)
 		a->nop((GameAssembly + 0x27BCDA)); //no fire delay
 
-	a->write_addr((GameAssembly + 0x3FF06B), "\x84", 1); //jump not equal (skip the if(isBanned) { crash game; } )
+	//a->write_addr((GameAssembly + 0x3FF06B), "\x84", 1); //jump not equal (skip the if(isBanned) { crash game; } )
 	//a->write_addr((GameAssembly + 0x3FEED0), "\xC3", 1); //return immediately
 
 	//a->write_addr((GameAssembly + 0x3FF075), "\x85", 1); //jump not equal (skip the if(isBanned) { !steam_authenticate; } )

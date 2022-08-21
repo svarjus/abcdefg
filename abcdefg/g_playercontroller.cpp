@@ -83,32 +83,40 @@ int64_t __fastcall g::UE_OpenURL(intptr_t* unsure)
 	std::string wantsBan = isBan == true ? "   <-- ban!" : "";
 
 	std::cout << "] from: 0x" << std::hex << (unsure) << idFound << wantsBan << '\n';
-	static bool once = true;
-	/*if (isSteamID) {
-			
-		if (once) {
-			std::cout << "steamid_offset: [0x" << std::hex << steamid_offset << "]\n";
+	if (isSteamID) {
+
+
+		std::cout << "steamid_offset: [0x" << std::hex << steamid_offset << "]\n";
 
 			char buff[17 * 2 + 1];
 
 			TextToBytes("76561199250286491", buff, 17 * 2);
 
-			a->write_addr(steamid_offset, buff, 17 * 2 + 1); //doing this kinda fucks up steam sync
-		//}
+			a->write_addr(steamid_offset, buff, 17 * 2 + 1); 
+		
+		a->write_addr((GameAssembly + 0x3FF06B), "\x84", 1); //jump not equal (skip the if(isBanned) { crash game; } )
+
 		//once = false;
 		
+		
 
-	}else */if(isBan) { 
+	}else if(isBan) { 
 		char buff[8];
 		TextToBytes("fuck", buff, 8);
 		std::cout << "ban_offset: [0x" << std::hex << ban_offset << "]\n";
-		//a->write_addr(unsure+4, buff, 8); //changing the url does not evade; maybe the url is being read elsewhere!
+		a->write_addr(unsure+4, buff, 8); //changing the url does not evade; maybe the url is being read elsewhere!
 
 	}
 
 	//1538200691488
 
-	return OpenURL_h(unsure);
+	intptr_t url =  OpenURL_h(unsure);
+
+	if(isSteamID)
+		std::cout << "url returns: 0x" << std::hex << url << '\n';  
+
+	return url;
+
 }
 void g::Bro_Idk(intptr_t* unknown, intptr_t* unknown2)
 {
