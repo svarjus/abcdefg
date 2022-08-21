@@ -18,7 +18,7 @@ void g::G_DebugVariables(PlayerController_fields* LocalPlayer)
 
 void g::G_SetVariables()
 {
-	if (!g::hasPlayerController)
+	if (!g::hasPlayerController || (&PlayerController) == nullptr)
 		return;
 
 	PlayerController_fields* LocalPlayer = PlayerController.object->static_fields->LocalPlayer;
@@ -69,12 +69,22 @@ void g::G_Init()
 	std::cout << "bytes after: " << (uint16_t)buffer[0] << '|' << (uint16_t)buffer[1] << '|' << (uint16_t)buffer[2] << '\n';
 	
 	//a->nop((GameAssembly + 0x3FEBFC));
-	a->install(&(PVOID&)Reload_h, Reload); //hook PlayerController.Reload() to steal the PlayerController object :x
+	a->install(&(PVOID&)Update_h, PlayerController_Update); //hook PlayerController.Update() to steal the PlayerController object :x
 	a->install(&(PVOID&)UE_PlayerTransform_h, UE_PlayerTransform);
+	a->install(&(PVOID&)OpenURL_h, UE_OpenURL);
+	//a->install(&(PVOID&)bro_idk_h, Bro_Idk);
 	if (vars::invincibility.enabled)
 		a->write_addr((GameAssembly + 0x27AB90), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
 
 	if (vars::no_fire_delay.enabled)
 		a->nop((GameAssembly + 0x27BCDA)); //no fire delay
-	
+
+	a->write_addr((GameAssembly + 0x586580), "\xC3", 1); //unsure what this function does but it uses the ban url variable
+
+	//a->nop(GameAssembly + 0x224534);
+
+	//a->write_addr((GameAssembly + 0x3FE8CF), "\x85", 1); //jump equal; check if player is banned (default: \x84)
+	//a->write_addr((GameAssembly + 0xAE7630), "\x74", 1);
+	//a->write_addr((GameAssembly + 0xAE763F), "\x74", 1);
+
 }

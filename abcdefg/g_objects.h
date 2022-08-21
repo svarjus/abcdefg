@@ -220,8 +220,8 @@ namespace g
 		class WeaponStats* info; //0x0018
 		char pad_0020[8]; //0x0020
 		float bulletSpread; //0x0028
-		class ObscuredInt ammo; //0x002C
-		class ObscuredInt totalAmmo; //0x0034
+		ObscuredInt ammo; //0x002C
+		ObscuredInt totalAmmo; //0x0034
 		float nextTimeToUse; //0x003C
 		void* weaponModSight; //0x0040
 		void* directionalParticles; //0x0048

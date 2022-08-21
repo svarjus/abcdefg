@@ -2,7 +2,7 @@
 
 #ifdef _WIN64
 
-LONG hook::install(PVOID* ppPointer, PVOID pDetour)
+LONG hook::install(void** ppPointer, void* pDetour)
 {
 	DetourTransactionBegin();
 	DetourAttach(ppPointer, pDetour);
