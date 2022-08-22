@@ -21,8 +21,23 @@ namespace g {
 	inline int64_t(*OpenURL_h)(intptr_t* unsure) = (OpenURL_hook)(GameAssembly + 0x133F360);
 	int64_t __fastcall UE_OpenURL(intptr_t* unsure);
 
-	typedef void(*bro_idk)(intptr_t* unknown, intptr_t* unknown2);
-	inline void(*bro_idk_h)(intptr_t* unknown, intptr_t* unknown2) = (bro_idk)(GameAssembly + 0x224530);
-	void Bro_Idk(intptr_t* unknown, intptr_t* unknown2);
+	typedef void(*PlayerInfo_h)(float* a1, DWORD* a2);
+	inline void(*PlayerInfo_f)(float* a1, DWORD* a2) = (PlayerInfo_h)(UnityPlayer + 0x10B8B60);
+
+	void __fastcall UE_PlayerInfo(float* a1, DWORD* a2);
+
+	inline bool needs_teleport;
+	inline vec3_t tpcoords;
+
+	typedef void(*G_PlayerThing_hook)(PlayerController_c* ptr);
+	inline void(*G_PlayerThing_f)(PlayerController_c* ptr) = (G_PlayerThing_hook)(GameAssembly + 0x282340);
+
+	void __fastcall G_PlayerThing(PlayerController_c* ptr);
+
+	bool WorldToScreen(int64_t camFields, vec3_t pos, vec3_t out);
+
+	inline intptr_t camera;
+
+
 }
 #endif

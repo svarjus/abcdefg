@@ -17,6 +17,15 @@ void g::G_DebugVariables(PlayerController_fields* LocalPlayer)
 
 	draw->AddText(ImVec2(0, 400), IM_COL32(0, 255, 0, 255), buff);
 	
+	if (GetAsyncKeyState(VK_MENU) & 1 && &camera != nullptr) {
+		vec3_t out;
+		if (!WorldToScreen((uint64_t)fnGetMainCamera(), vec3_t{ 0,0,0 }, out))
+			return;
+
+		std::cout << "w2s\n";
+		std::cout << "point[0]: " << out[0];
+	}
+
 }
 
 void g::G_SetVariables()
@@ -26,6 +35,9 @@ void g::G_SetVariables()
 
 	PlayerController_fields* LocalPlayer = PlayerController.object->static_fields->LocalPlayer;
 	//PlayerController.klass->static_fields->LocalPlayer->bulletSpread = vars::spread_angle.floatValue;
+
+	if (!LocalPlayer)
+		return;
 
 	bool keyPressed = GetAsyncKeyState(VK_DELETE) & 1;
 	for (int i = 0; i < 3; i++) {
@@ -58,6 +70,10 @@ void g::G_Init()
 	
 	once = false;
 	fnIl2cpp_resolve_icall = (tpIl2cpp_resolve_icall*)GetProcAddress((HMODULE)GameAssembly, EXPORT_IL2CPP_RESOLVE_ICALL);
+	fnWorldToScreenPoint = (tp_WorldToScreenPoint*)fnIl2cpp_resolve_icall("UnityEngine.Camera::WorldToScreenPoint_Injected");
+	fnGetMainCamera = (tpGetMainCamera*)fnIl2cpp_resolve_icall("UnityEngine.Camera::get_main()");
+
+	std::cout << "fnWorldToScreenPoint: [0x" << std::hex << fnWorldToScreenPoint << "]\n";
 
 	hook* a = nullptr;
 	BYTE buffer[3]{};
@@ -75,6 +91,8 @@ void g::G_Init()
 	a->install(&(PVOID&)Update_h, PlayerController_Update); //hook PlayerController.Update() to steal the PlayerController object :x
 	a->install(&(PVOID&)UE_PlayerTransform_h, UE_PlayerTransform);
 	a->install(&(PVOID&)OpenURL_h, UE_OpenURL);
+	a->install(&(PVOID&)PlayerInfo_f, UE_PlayerInfo);
+	a->install(&(PVOID&)G_PlayerThing_f, G_PlayerThing);
 	//a->install(&(PVOID&)bro_idk_h, Bro_Idk);
 	if (vars::invincibility.enabled)
 		a->write_addr((GameAssembly + 0x27AB90), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)

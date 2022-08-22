@@ -16,6 +16,12 @@
 
 namespace g
 {
+	//w2s pasted from redmatchhax
+	typedef void(__fastcall tp_WorldToScreenPoint)(uint64_t camera, vec3_t m_vWorld, int m_iEye, vec3_t m_vScreen);
+	inline tp_WorldToScreenPoint* fnWorldToScreenPoint;
+
+	typedef void* tpGetMainCamera();
+	inline tpGetMainCamera* fnGetMainCamera;
 
 	typedef void* (tpIl2cpp_resolve_icall)(const char*);
 	inline tpIl2cpp_resolve_icall* fnIl2cpp_resolve_icall;
@@ -25,6 +31,7 @@ namespace g
 	struct MethodInfo;
 
 	typedef void(*Il2CppMethodPointer)();
+
 
 	struct VirtualInvokeData
 	{

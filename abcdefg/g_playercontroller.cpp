@@ -34,6 +34,12 @@ uint32_t __fastcall g::UE_PlayerTransform(PlayerTransform_s* transform, void* a2
 	//UE_Noclip(transform);
 	if(vars::world_skywalk.enabled)
 		transform->origin[1] = vars::world_skywalk_z.floatValue;
+
+	if (needs_teleport) {
+		needs_teleport = false;
+		
+	}
+	//VectorCopy(tpcoords, transform->origin);
 	return UE_PlayerTransform_h(transform, a2, a3, a4);
 }
 int64_t __fastcall g::UE_OpenURL(intptr_t* unsure)
@@ -90,11 +96,11 @@ int64_t __fastcall g::UE_OpenURL(intptr_t* unsure)
 
 			char buff[17 * 2 + 1];
 
-			TextToBytes("76561199250286491", buff, 17 * 2);
+			TextToBytes("76561198057087288", buff, 17 * 2);
 
 			a->write_addr(steamid_offset, buff, 17 * 2 + 1); 
 		
-		a->write_addr((GameAssembly + 0x3FF06B), "\x84", 1); //jump not equal (skip the if(isBanned) { crash game; } )
+		//a->write_addr((GameAssembly + 0x3FF06B), "\x84", 1); //jump not equal (skip the if(isBanned) { crash game; } )
 
 		//once = false;
 		
@@ -118,13 +124,43 @@ int64_t __fastcall g::UE_OpenURL(intptr_t* unsure)
 	return url;
 
 }
-void g::Bro_Idk(intptr_t* unknown, intptr_t* unknown2)
+void __fastcall g::UE_PlayerInfo(float* a1, DWORD* a2)
 {
-	static intptr_t* first = unknown;
-	static intptr_t* second = unknown2;
-	//if (unknown && unknown2) {
-	//	std::cout << "unknown: [0x" << std::hex << unknown << "]\n";
-	//	std::cout << "unknown2: [0x" << std::hex << unknown2 << "]\n";
-	//}
-	return bro_idk_h(first, second);
+	PlayerInfo_f(a1, a2);
+	if (GetAsyncKeyState(VK_HOME) & 1) {
+		system("cls");
+		for (int i = 8; i < 11; i++) {
+			std::cout << "a1[" << i << "]: " << (float)a1[i] << '\n';
+		}
+		needs_teleport = true;
+
+	}
+	vec3_t coords = { a1[8] + rand() % 1, a1[9] - 1.5, a1[10] + rand() % 1};
+	VectorCopy(coords, tpcoords);
+
+	
+}
+void __fastcall g::G_PlayerThing(PlayerController_c* ptr)
+{
+	if (GetAsyncKeyState(VK_INSERT) & 1) {
+		std::cout << "hello world! [0x" << std::hex << ptr << "]\n";
+		std::cout << ptr->object->static_fields->LocalPlayer->reloading << '\n';
+	}
+
+	G_PlayerThing_f(ptr);
+
+
+
+}
+bool g::WorldToScreen(int64_t camFields, vec3_t pos, vec3_t out)
+{
+	if (!fnWorldToScreenPoint || !&camFields)
+		return false;
+
+	fnWorldToScreenPoint(camFields, pos, 2, out);
+
+	if (out[2] < 1.0f) 
+		return false; 
+
+	return true;
 }

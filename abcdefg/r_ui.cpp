@@ -131,7 +131,7 @@ void g::R_OpenMenu()
 		if (!vars::world_skywalk.enabled)
 			ImGui::BeginDisabled(true);
 
-		ImGui::DragFloat("Z height", &vars::world_skywalk_z.floatValue, 2, 0, 99999, "%.3f", 1);
+		ImGui::DragFloat("Z height", &vars::world_skywalk_z.floatValue, 2, std::numeric_limits<float>::min(), std::numeric_limits<float>::max(), "%.3f", 1);
 
 
 		if (!vars::world_skywalk.enabled)
