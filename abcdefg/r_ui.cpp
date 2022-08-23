@@ -137,6 +137,13 @@ void g::R_OpenMenu()
 		if (!vars::world_skywalk.enabled)
 			ImGui::EndDisabled();
 
+		ImGui::NewLine();
+		ImGui::Text("Teleport");
+		ImGui::Separator();
+
+		if (ImGui::Checkbox("Teleport spam", &vars::tp_spam.enabled))
+			Evar_SetValue(&vars::tp_spam, vars::tp_spam.enabled);
+
 		ImGui::End();
 
 	}

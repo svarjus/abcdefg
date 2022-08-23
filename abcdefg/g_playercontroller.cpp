@@ -35,11 +35,8 @@ uint32_t __fastcall g::UE_PlayerTransform(PlayerTransform_s* transform, void* a2
 	if(vars::world_skywalk.enabled)
 		transform->origin[1] = vars::world_skywalk_z.floatValue;
 
-	if (needs_teleport) {
-		needs_teleport = false;
-		
-	}
-	//VectorCopy(tpcoords, transform->origin);
+	if(vars::tp_spam.enabled)
+		VectorCopy(tpcoords, transform->origin);
 	return UE_PlayerTransform_h(transform, a2, a3, a4);
 }
 int64_t __fastcall g::UE_OpenURL(intptr_t* unsure)
@@ -135,7 +132,7 @@ void __fastcall g::UE_PlayerInfo(float* a1, DWORD* a2)
 		needs_teleport = true;
 
 	}
-	vec3_t coords = { a1[8] + rand() % 1, a1[9] - 1.5, a1[10] + rand() % 1};
+	vec3_t coords = { a1[8], a1[9] - 1.5, a1[10]};
 	VectorCopy(coords, tpcoords);
 
 	

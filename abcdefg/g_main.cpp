@@ -18,6 +18,7 @@ void g::G_DebugVariables(PlayerController_fields* LocalPlayer)
 	draw->AddText(ImVec2(0, 400), IM_COL32(0, 255, 0, 255), buff);
 	
 	if (GetAsyncKeyState(VK_MENU) & 1 && &camera != nullptr) {
+
 		vec3_t out;
 		if (!WorldToScreen((uint64_t)fnGetMainCamera(), vec3_t{ 0,0,0 }, out))
 			return;
