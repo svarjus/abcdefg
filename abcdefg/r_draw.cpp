@@ -27,14 +27,16 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 
 	G_SetVariables();
 
+	
+	if (&PlayerTransform != nullptr && fnGetMainCamera() && tpcoords) {
+		vec3_t out;
+		tpcoords[1] += 0.75;
+		WorldToScreen((uint64_t)fnGetMainCamera(), tpcoords, out); {
+			ImGui::GetBackgroundDrawList()->AddCircle(ImVec2(out[0], r::X(1080.f) - out[1]), 30, IM_COL32(0, 255, 0, 255), 10, 1.f);
+		}
+	}
 
 	R_EndRender();
-	
-	//if (GetAsyncKeyState(VK_HOME) & 1) {
-	//	//std::cout << "LocalPlayer->items->elements[0].item->info: " << LocalPlayer->items->elements[0].item->info << '\n';
-	//	for (int i = 1; i < 10; i++)
-	//		((void(*)(int32_t a))(GameAssembly + 3347664))(i);
-	//}
 
 	return pEndScene(p_swap_chain, sync_interval, flags);
 }

@@ -82,6 +82,7 @@ typedef vec_t vec4_t[4];
 #include "u_objects.h"
 #include "g_objects.h"
 #include "g_offsets.h"
+#include "g_gameobject.h"
 #include "g_entrypoint.h"
 #include "g_main.h"
 #include "g_playercontroller.h"

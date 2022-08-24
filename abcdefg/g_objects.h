@@ -187,6 +187,43 @@ namespace g
 		uint32_t offset;
 		uint32_t value;
 	};
+	struct LastObjectBase
+	{
+		char pad_0000[16]; //0x0000
+		class GameObject* gameObject; //0x0010
+	}; //Size: 0x0018
+
+
+	struct BaseObject
+	{
+		char pad_0000[8]; //0x0000
+		class BaseObject* nextObject; //0x0008
+		class GameObject* gameObject; //0x0010
+	}; //Size: 0x0018
+
+
+	struct GameObject
+	{
+		char pad_0000[48]; //0x0000
+		class CompList* ComponentList; //0x0030
+		char pad_0038[8]; //0x0038
+		uint32_t ComponentSize; //0x0040
+		char pad_0044[12]; //0x0044
+		uint32_t layer; //0x0050
+		uint16_t tag; //0x0054
+		char pad_0056[10]; //0x0056
+		char* name; //0x0060
+	}; //Size: 0x0068
+
+	struct GameObjectManager_s
+	{
+		class LastObjectBase* LastTaggedObject; //0x0000
+		class BaseObject* TaggedObjects; //0x0008
+		class LastObjectBase* LastActiveObject; //0x0010
+		class BaseObject* ActiveObjects; //0x0018
+		class LastObjectBase* LastTaggedObject2; //0x0020
+		class BaseObject* TaggedObject2; //0x0028
+	}; 
 	struct WeaponModPart_VTable {
 		VirtualInvokeData _0_Equals;
 		VirtualInvokeData _1_Finalize;

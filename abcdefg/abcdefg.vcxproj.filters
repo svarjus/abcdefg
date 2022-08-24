@@ -129,6 +129,9 @@
     <ClInclude Include="math.h">
       <Filter>Source Files\math</Filter>
     </ClInclude>
+    <ClInclude Include="g_gameobject.h">
+      <Filter>Source Files\game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -199,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="math.cpp">
       <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="g_gameobject.cpp">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

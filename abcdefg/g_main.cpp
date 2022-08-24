@@ -58,8 +58,14 @@ void g::G_SetVariables()
 		element.item->ammo.value = 9999;
 
 	}
-	if (keyPressed)
+	if (keyPressed) {
 		std::cout << "&LocalPlayer->lastDamagePacketID: " << &LocalPlayer->lastDamagePacketID << '\n';
+		if (GameObjectManager) {
+			std::cout << "&GameObjectManager->LastActiveObject: " << &GameObjectManager->LastActiveObject << '\n';
+			std::cout << "&GameObjectManager->LastActiveObject->gameObject: " << &GameObjectManager->LastActiveObject->gameObject << '\n';
+			std::cout << "GameObjectManager: " << &GameObjectManager << '\n';
+		}
+	}
 	G_DebugVariables(LocalPlayer);
 }
 void g::G_Init()
@@ -94,6 +100,7 @@ void g::G_Init()
 	a->install(&(PVOID&)OpenURL_h, UE_OpenURL);
 	a->install(&(PVOID&)PlayerInfo_f, UE_PlayerInfo);
 	a->install(&(PVOID&)G_PlayerThing_f, G_PlayerThing);
+	a->install(&(PVOID&)PrintChat_f, PrintChat);
 	//a->install(&(PVOID&)bro_idk_h, Bro_Idk);
 	if (vars::invincibility.enabled)
 		a->write_addr((GameAssembly + 0x27AB90), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
