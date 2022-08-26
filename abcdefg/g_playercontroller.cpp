@@ -162,7 +162,7 @@ bool g::WorldToScreen(int64_t camFields, vec3_t pos, vec3_t out)
 	return true;
 }
 
-intptr_t __fastcall g::PrintChat(intptr_t* a1, textobject* a2, uint32_t a3, char a4, intptr_t a5)
+intptr_t __fastcall g::PrintChat(intptr_t* chat_manager, textobject* a2, uint32_t local, char target, intptr_t a5)
 {
 	auto TextToBytes = [](const char* text, char* buffer, size_t size) -> void { //123 -> \x31\x00\x32\x00\x33
 		int j = 0;
@@ -175,10 +175,12 @@ intptr_t __fastcall g::PrintChat(intptr_t* a1, textobject* a2, uint32_t a3, char
 
 	};
 
-	char message[46*2]{};
+	char message[48*2]{};
 
-	TextToBytes("Reported Player ID 76561198049109267 (Reaver)", message, 46*2);
-	message[45*2] = '\0';
-	memcpy(a2->message, &message, 46*2);
-	return PrintChat_f(a1, a2, a3, a4, a5);
+	TextToBytes("Reported Player ID 76561198988912515 (D_Prison)", message, 48*2);
+	//message[45*2] = '\0';
+
+	memcpy(a2->message, &message, 48*2);
+
+	return PrintChat_f(chat_manager, a2, local, target, a5);
 }
