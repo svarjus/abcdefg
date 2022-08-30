@@ -11,7 +11,7 @@ struct textobject
 };
 namespace g {
 	typedef void(*Update_hook)(g::PlayerController_c*);
-	inline void(*Update_h)(g::PlayerController_c*) = (Update_hook)(g::GameAssembly + 0x282340);
+	inline void(*Update_h)(g::PlayerController_c*) = (Update_hook)(g::GameAssembly + 0x128C290);
 
 	void PlayerController_Update(g::PlayerController_c* playercontroller);
 	
@@ -33,19 +33,19 @@ namespace g {
 	inline bool needs_teleport;
 	inline vec3_t tpcoords;
 
-	typedef void(*G_PlayerThing_hook)(PlayerController_c* ptr);
-	inline void(*G_PlayerThing_f)(PlayerController_c* ptr) = (G_PlayerThing_hook)(GameAssembly + 0x282340);
+	//typedef void(*G_PlayerThing_hook)(PlayerController_c* ptr);
+	//inline void(*G_PlayerThing_f)(PlayerController_c* ptr) = (G_PlayerThing_hook)(GameAssembly + 0x282340);
 
-	void __fastcall G_PlayerThing(PlayerController_c* ptr);
+	//void __fastcall G_PlayerThing(PlayerController_c* ptr);
 
 	bool WorldToScreen(int64_t camFields, vec3_t pos, vec3_t out);
 
 	inline intptr_t camera;
 
-	typedef intptr_t(*PrintChat_hook)(intptr_t* a1, textobject* a2, uint32_t a3, char a4, intptr_t a5);
-	inline intptr_t(*PrintChat_f)(intptr_t* a1, textobject* a2, uint32_t a3, char a4, intptr_t a5) = (PrintChat_hook)(GameAssembly + 0x343CE0);
+	//typedef intptr_t(*PrintChat_hook)(intptr_t* a1, textobject* a2, uint32_t a3, char a4, intptr_t a5);
+	//inline intptr_t(*PrintChat_f)(intptr_t* a1, textobject* a2, uint32_t a3, char a4, intptr_t a5) = (PrintChat_hook)(GameAssembly + 0x343CE0);
 
-	intptr_t __fastcall PrintChat(intptr_t* a1, textobject* a2, uint32_t a3, char a4, intptr_t a5);
+	//intptr_t __fastcall PrintChat(intptr_t* a1, textobject* a2, uint32_t a3, char a4, intptr_t a5);
 
 
 }

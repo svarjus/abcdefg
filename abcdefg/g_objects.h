@@ -290,7 +290,8 @@ namespace g
 	{
 		char pad_0000[24];
 		uint32_t type; 
-		uint32_t damage; 
+		uint32_t damage;
+		float kickback;
 		float useDelay;
 		uint32_t shots;
 		float cameraShake; 

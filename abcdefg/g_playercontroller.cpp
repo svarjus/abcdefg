@@ -137,18 +137,18 @@ void __fastcall g::UE_PlayerInfo(float* a1, DWORD* a2)
 
 	
 }
-void __fastcall g::G_PlayerThing(PlayerController_c* ptr)
-{
-	if (GetAsyncKeyState(VK_INSERT) & 1) {
-		std::cout << "hello world! [0x" << std::hex << ptr << "]\n";
-		std::cout << ptr->object->static_fields->LocalPlayer->reloading << '\n';
-	}
-
-	G_PlayerThing_f(ptr);
-
-
-
-}
+//void __fastcall g::G_PlayerThing(PlayerController_c* ptr)
+//{
+//	if (GetAsyncKeyState(VK_INSERT) & 1) {
+//		std::cout << "hello world! [0x" << std::hex << ptr << "]\n";
+//		std::cout << ptr->object->static_fields->LocalPlayer->reloading << '\n';
+//	}
+//
+//	G_PlayerThing_f(ptr);
+//
+//
+//
+//}
 bool g::WorldToScreen(int64_t camFields, vec3_t pos, vec3_t out)
 {
 	if (!fnWorldToScreenPoint || !&camFields)
@@ -162,25 +162,25 @@ bool g::WorldToScreen(int64_t camFields, vec3_t pos, vec3_t out)
 	return true;
 }
 
-intptr_t __fastcall g::PrintChat(intptr_t* chat_manager, textobject* a2, uint32_t local, char target, intptr_t a5)
-{
-	auto TextToBytes = [](const char* text, char* buffer, size_t size) -> void { //123 -> \x31\x00\x32\x00\x33
-		int j = 0;
-		for (int i = 0; i < size; i++) {
-			buffer[i] = (text[j]);
-			i++;
-			buffer[i] = 0x00;
-			j++;
-		}
-
-	};
-
-	char message[48*2]{};
-
-	TextToBytes("Reported Player ID 76561198988912515 (D_Prison)", message, 48*2);
-	//message[45*2] = '\0';
-
-	memcpy(a2->message, &message, 48*2);
-
-	return PrintChat_f(chat_manager, a2, local, target, a5);
-}
+//intptr_t __fastcall g::PrintChat(intptr_t* chat_manager, textobject* a2, uint32_t local, char target, intptr_t a5)
+//{
+//	auto TextToBytes = [](const char* text, char* buffer, size_t size) -> void { //123 -> \x31\x00\x32\x00\x33
+//		int j = 0;
+//		for (int i = 0; i < size; i++) {
+//			buffer[i] = (text[j]);
+//			i++;
+//			buffer[i] = 0x00;
+//			j++;
+//		}
+//
+//	};
+//
+//	char message[48*2]{};
+//
+//	TextToBytes("Reported Player ID 76561198988912515 (D_Prison)", message, 48*2);
+//	//message[45*2] = '\0';
+//
+//	memcpy(a2->message, &message, 48*2);
+//
+//	return PrintChat_f(chat_manager, a2, local, target, a5);
+//}

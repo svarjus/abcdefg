@@ -66,7 +66,7 @@ void g::G_SetVariables()
 			std::cout << "GameObjectManager: " << &GameObjectManager << '\n';
 		}
 	}
-	G_DebugVariables(LocalPlayer);
+	//G_DebugVariables(LocalPlayer);
 }
 void g::G_Init()
 {
@@ -97,16 +97,16 @@ void g::G_Init()
 	//a->nop((GameAssembly + 0x3FEBFC));
 	a->install(&(PVOID&)Update_h, PlayerController_Update); //hook PlayerController.Update() to steal the PlayerController object :x
 	a->install(&(PVOID&)UE_PlayerTransform_h, UE_PlayerTransform);
-	a->install(&(PVOID&)OpenURL_h, UE_OpenURL);
+	//a->install(&(PVOID&)OpenURL_h, UE_OpenURL);
 	a->install(&(PVOID&)PlayerInfo_f, UE_PlayerInfo);
-	a->install(&(PVOID&)G_PlayerThing_f, G_PlayerThing);
-	a->install(&(PVOID&)PrintChat_f, PrintChat);
+	//a->install(&(PVOID&)G_PlayerThing_f, G_PlayerThing);
+	//a->install(&(PVOID&)PrintChat_f, PrintChat);
 	//a->install(&(PVOID&)bro_idk_h, Bro_Idk);
 	if (vars::invincibility.enabled)
-		a->write_addr((GameAssembly + 0x27AB90), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
+		a->write_addr((GameAssembly + 0x1284D30), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
 
 	if (vars::no_fire_delay.enabled)
-		a->nop((GameAssembly + 0x27BCDA)); //no fire delay
+		a->nop((GameAssembly + 0x1285E3A)); //no fire delay
 
 	//a->write_addr((GameAssembly + 0x3FF06B), "\x84", 1); //jump not equal (skip the if(isBanned) { crash game; } )
 	//a->write_addr((GameAssembly + 0x3FEED0), "\xC3", 1); //return immediately

@@ -91,9 +91,9 @@ void g::R_OpenMenu()
 			
 
 			if (vars::invincibility.enabled) 
-				a->write_addr((GameAssembly + 0x27AB90), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
+				a->write_addr((GameAssembly + 0x1284D30), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
 			else 
-				a->write_addr((GameAssembly + 0x27AB90), "\x40", 1); //write a push rbx instruction at the beginning of PlayerController::Die()
+				a->write_addr((GameAssembly + 0x1284D30), "\x40", 1); //write a push rbx instruction at the beginning of PlayerController::Die()
 
 			
 		}
@@ -101,9 +101,9 @@ void g::R_OpenMenu()
 			Evar_SetValue(&vars::no_fire_delay, vars::no_fire_delay.enabled);
 
 			if (vars::no_fire_delay.enabled)
-				a->nop((GameAssembly + 0x27BCDA)); //no fire delay
+				a->nop((GameAssembly + 0x1285E3A)); //no fire delay
 			else
-				a->write_addr((GameAssembly + 0x27BCDA), "\xE8\x01\xF5\xB7\x00", 5); //call GameAssembly.dll+DFB1E0
+				a->write_addr((GameAssembly + 0x1285E3A), "\xE8\x01\xF5\xB7\x00", 5); //call GameAssembly.dll+DFB1E0
 
 
 		}
