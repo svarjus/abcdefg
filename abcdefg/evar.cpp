@@ -219,5 +219,8 @@ void Evar_Setup()
 
 	Evar_Register(&vars::tp_spam, "tp_spam", evartype_t::EVAR_BOOL, (float)0);
 
+	Evar_Register(&vars::random_esp, "random_esp", evartype_t::EVAR_BOOL, (float)0);
+
+
 
 }

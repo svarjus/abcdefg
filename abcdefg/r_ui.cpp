@@ -90,10 +90,10 @@ void g::R_OpenMenu()
 
 			
 
-			if (vars::invincibility.enabled) 
-				a->write_addr((GameAssembly + 0x1284D30), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
+			if (vars::invincibility.enabled)
+				a->write_addr((GameAssembly + 0x27C110), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
 			else 
-				a->write_addr((GameAssembly + 0x1284D30), "\x40", 1); //write a push rbx instruction at the beginning of PlayerController::Die()
+				a->write_addr((GameAssembly + 0x27C110), "\x40", 1); //write a push rbx instruction at the beginning of PlayerController::Die()
 
 			
 		}
@@ -143,6 +143,13 @@ void g::R_OpenMenu()
 
 		if (ImGui::Checkbox("Teleport spam", &vars::tp_spam.enabled))
 			Evar_SetValue(&vars::tp_spam, vars::tp_spam.enabled);
+
+		ImGui::NewLine();
+		ImGui::Text("Esp");
+		ImGui::Separator();
+
+		if (ImGui::Checkbox("Random esp shit", &vars::random_esp.enabled))
+			Evar_SetValue(&vars::random_esp, vars::random_esp.enabled);
 
 		ImGui::End();
 

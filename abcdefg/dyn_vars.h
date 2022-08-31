@@ -24,6 +24,8 @@ namespace vars
 	inline evar_s world_skywalk_z;
 
 	inline evar_s tp_spam;
+
+	inline evar_s random_esp;
 }
 
 #endif

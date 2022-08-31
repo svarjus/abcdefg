@@ -103,7 +103,7 @@ void g::G_Init()
 	//a->install(&(PVOID&)PrintChat_f, PrintChat);
 	//a->install(&(PVOID&)bro_idk_h, Bro_Idk);
 	if (vars::invincibility.enabled)
-		a->write_addr((GameAssembly + 0x1284D30), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
+		a->write_addr((GameAssembly + 0x27C110), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
 
 	if (vars::no_fire_delay.enabled)
 		a->nop((GameAssembly + 0x1285E3A)); //no fire delay
