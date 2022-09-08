@@ -324,9 +324,18 @@ namespace g
 		uint32_t damageMultiplierRoomSetting; 
 		bool noscope; 
 	}; 
+
 	struct PlayerController_fields
 	{
-		char pad_0000[104];
+		int collisionMask;
+		int damagerMask;
+		char flybyAudioManager[32];
+		char cameraHolder[16];
+		char shieldObject[16];
+		char cam[16];
+		char rainEffects[16];
+		char battleRoyalEffects[16];
+		char spotLight[16];
 		ItemArray* items;
 		char pad_0070[136]; 
 		class N000006E5* N0000035F;
@@ -371,6 +380,7 @@ namespace g
 	struct PlayerController_o
 	{
 		char pad_0000[184]; 
+		char pad[40];
 		PlayerController_staticfields* static_fields;
 	}; 
 

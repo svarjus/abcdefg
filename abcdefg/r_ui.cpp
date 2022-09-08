@@ -25,9 +25,9 @@ void g::R_MenuStyle()
 	style->Colors[ImGuiCol_PopupBg] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
 	style->Colors[ImGuiCol_Border] = ImVec4(0.80f, 0.80f, 0.83f, 0.88f);
 	style->Colors[ImGuiCol_BorderShadow] = ImVec4(0.92f, 0.91f, 0.88f, 0.00f);
-	style->Colors[ImGuiCol_FrameBg] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-	style->Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
-	style->Colors[ImGuiCol_FrameBgActive] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
+	style->Colors[ImGuiCol_FrameBg] = ImVec4(0.10f, 0.09f, 0.12f, 0.85f);
+	style->Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.24f, 0.23f, 0.29f, 0.85f);
+	style->Colors[ImGuiCol_FrameBgActive] = ImVec4(0.56f, 0.56f, 0.58f, 0.85f);
 	style->Colors[ImGuiCol_TitleBg] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
 	style->Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(1.00f, 0.98f, 0.95f, 0.75f);
 	style->Colors[ImGuiCol_TitleBgActive] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
@@ -85,15 +85,20 @@ void g::R_OpenMenu()
 
 		ImGui::Text("epic big hack");
 		hook* a = nullptr;
+		ImGui::BeginGroup();
 		if (ImGui::Checkbox("Invincibility", &vars::invincibility.enabled)) {
 			Evar_SetValue(&vars::invincibility, vars::invincibility.enabled);
 
-			
+			if (!PlayerController_Die) {
+				MessageBoxA(NULL, "failed to find pattern!", "ERROR", 0);
+				exit(-1);
+				return;
+			}
 
 			if (vars::invincibility.enabled)
-				a->write_addr((GameAssembly + 0x27C110), "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
+				a->write_addr(PlayerController_Die, "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
 			else 
-				a->write_addr((GameAssembly + 0x27C110), "\x40", 1); //write a push rbx instruction at the beginning of PlayerController::Die()
+				a->write_addr(PlayerController_Die, "\x40", 1); //write a push rbx instruction at the beginning of PlayerController::Die()
 
 			
 		}
@@ -101,14 +106,15 @@ void g::R_OpenMenu()
 			Evar_SetValue(&vars::no_fire_delay, vars::no_fire_delay.enabled);
 
 			if (vars::no_fire_delay.enabled)
-				a->nop((GameAssembly + 0x1285E3A)); //no fire delay
+				a->nop(PlayerController_Fire_Delay); //no fire delay
 			else
-				a->write_addr((GameAssembly + 0x1285E3A), "\xE8\x01\xF5\xB7\x00", 5); //call GameAssembly.dll+DFB1E0
+				a->write_addr(PlayerController_Fire_Delay, "\xE8\xE1\x0B\xA0\xFF", 5); //call GameAssembly.dll+DFB1E0
 
-
+	
 		}
-
-		ImGui::NewLine();
+		ImGui::EndGroup();
+		ImGui::SameLine();
+		ImGui::BeginGroup();
 		ImGui::Text("Weapon");
 		ImGui::Separator();
 
@@ -121,7 +127,10 @@ void g::R_OpenMenu()
 		ImGui::DragFloat("Spread", &vars::weapon_spread.arrayValue[selected_weap], 1, 0, 360, "%.3f", 1);
 		ImGui::DragFloat("Magazine", &vars::weapon_magazineSize.arrayValue[selected_weap], 1, 0, 99999, "%.3f", 1);
 
-		ImGui::NewLine();
+		ImGui::EndGroup();
+		ImGui::SameLine();
+		ImGui::BeginGroup();
+
 		ImGui::Text("World");
 		ImGui::Separator();
 
@@ -137,20 +146,24 @@ void g::R_OpenMenu()
 		if (!vars::world_skywalk.enabled)
 			ImGui::EndDisabled();
 
-		ImGui::NewLine();
+		ImGui::EndGroup();
+		ImGui::SameLine();
+		ImGui::BeginGroup();
 		ImGui::Text("Teleport");
 		ImGui::Separator();
 
-		if (ImGui::Checkbox("Teleport spam", &vars::tp_spam.enabled))
+		if (ImGui::Checkbox("Spam", &vars::tp_spam.enabled))
 			Evar_SetValue(&vars::tp_spam, vars::tp_spam.enabled);
 
-		ImGui::NewLine();
+		ImGui::EndGroup();
+		ImGui::SameLine();
+		ImGui::BeginGroup();
 		ImGui::Text("Esp");
 		ImGui::Separator();
 
-		if (ImGui::Checkbox("Random esp shit", &vars::random_esp.enabled))
+		if (ImGui::Checkbox("ESP", &vars::random_esp.enabled))
 			Evar_SetValue(&vars::random_esp, vars::random_esp.enabled);
-
+		ImGui::EndGroup();
 		ImGui::End();
 
 	}
