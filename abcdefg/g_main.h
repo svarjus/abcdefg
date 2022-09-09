@@ -14,6 +14,8 @@ namespace g
 	void G_Init();
 	void G_OffsetsAndHooks();
 
+	inline uintptr_t* chatmanager = NULL;
+
 }
 
 #endif

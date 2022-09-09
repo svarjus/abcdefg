@@ -16,56 +16,65 @@ LRESULT __stdcall g::WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 	return CallWindowProcA(oWndProc, hWnd, uMsg, wParam, lParam);
 }
+typedef void(*AchievementEvaluator_LearningTheABCs__OnKill_h)(void* obj_ptr, uintptr_t obj_ptr2);
+AchievementEvaluator_LearningTheABCs__OnKill_h AchievementEvaluator_LearningTheABCs__OnKill_f = (AchievementEvaluator_LearningTheABCs__OnKill_h)(g::GameAssembly + 19604144);
+//D0 55 1E 98 48 02 00 00 00 00 00 00 00 00 00 00
+void AchievementEvaluator_LearningTheABCs__OnKill(void* obj_ptr, uintptr_t obj_ptr2)
+{
+	//std::cout << "AchievementEvaluator_LearningTheABCs_o*: 0x" << std::hex << obj_ptr << '\n';
 
+	//int32_t val = AchievementEvaluator_LearningTheABCs__get_achievement_f(obj_ptr);
+	//const bool keyPressed = GetAsyncKeyState(VK_PRIOR) & 1;
+	//if (keyPressed)
+	//	std::cout << "AchievementEvaluator_LearningTheABCs__get_achievement(): " << val << '\n';
+	std::cout << "AchievementEvaluator_LearningTheABCs__OnKill()\n";
+	return/* AchievementEvaluator_LearningTheABCs__OnKill_f(obj_ptr, obj_ptr2)*/;
+}
+typedef bool(*SteamDLCManager__HasDLC_h)(int32_t dlc);
+SteamDLCManager__HasDLC_h SteamDLCManager__HasDLC_f = (SteamDLCManager__HasDLC_h)(g::GameAssembly + 20156832);
+
+bool SteamDLCManager__HasDLC(int32_t dlc)
+{
+	return true;
+}
 long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UINT flags)
 {
 	R_GetID3D11_Device(p_swap_chain);
 
+	static bool once = true;
+
+	if (once) {
+		once = false;
+		hook* a = nullptr;
+		std::cout << "hook it\n";
+		a->install(&(PVOID&)SteamDLCManager__HasDLC_f, SteamDLCManager__HasDLC);
+	}
 
 	R_OpenMenu();
-
-
 	G_SetVariables();
 
-	if (&PlayerController != nullptr) {
+	const bool keyPressed = GetAsyncKeyState(VK_DELETE) & 1;
 
+	if (keyPressed) {
 
-		if (PlayerController.object) {
-			//PlayerController_fields* LocalPlayer = PlayerController.object->static_fields->LocalPlayer;
-			//PlayerController.klass->static_fields->LocalPlayer->bulletSpread = vars::spread_angle.floatValue;
+		int* code = ((int* (*)())(GameAssembly + 19801440))();
+		int _codeArray[4];
+		for (int i = 0; i < 4; i++)
+			_codeArray[i] = code[8 + i];
+		for (int i = 0; i < 4; i++)
+			std::cout << std::dec << _codeArray[i];
+	}
 
-			const bool keyPressed = GetAsyncKeyState(VK_DELETE) & 1;
-
-			if (keyPressed) {
-				int* code = ((int* (*)())(GameAssembly + 6500560))();
-				int _codeArray[4];
-				for (int i = 0; i < 4; i++)
-					_codeArray[i] = code[8 + i];
-
-				
-				std::cout << "returns: 0x" << std::hex << code << '\n';
-
-				for (int i = 0; i < 4; i++)
-					std::cout << std::dec << _codeArray[i];
-
-				std::cout << '\n';
-				//if (LocalPlayer->spotLight) {
-				//	std::cout << "LocalPlayer->spotLight: 0x" << std::hex << &LocalPlayer->spotLight << '\n';
-				//}
-				//else
-				//	std::cout << "localplayer->spotLight invalid\n";
-			}
-
-			if (vars::random_esp.enabled) {
-				if (&PlayerTransform != nullptr && fnGetMainCamera() && _tp.tpcoords) {
-					vec3_t out;
-					_tp.tpcoords[1] += 0.75;
-					WorldToScreen((uint64_t)fnGetMainCamera(), _tp.tpcoords, out); {
-						ImGui::GetBackgroundDrawList()->AddCircle(ImVec2(out[0], r::X(1080.f) - out[1]), 30, IM_COL32(0, 255, 0, 255), 10, 1.f);
-					}
-				}
+	if (vars::random_esp.enabled) {
+		if (&PlayerTransform != nullptr && fnGetMainCamera() && _tp.tpcoords) {
+			vec3_t out;
+			_tp.tpcoords[1] += 0.75;
+			WorldToScreen((uint64_t)fnGetMainCamera(), _tp.tpcoords, out); {
+				ImGui::GetBackgroundDrawList()->AddCircle(ImVec2(out[0], r::X(1080.f) - out[1]), 30, IM_COL32(0, 255, 0, 255), 10, 1.f);
 			}
 		}
+			
+		
 	}
 
 	R_EndRender();

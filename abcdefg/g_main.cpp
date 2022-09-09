@@ -93,7 +93,7 @@ void g::G_OffsetsAndHooks()
 	fnWorldToScreenPoint = (tp_WorldToScreenPoint*)fnIl2cpp_resolve_icall("UnityEngine.Camera::WorldToScreenPoint_Injected");
 	fnGetMainCamera = (tpGetMainCamera*)fnIl2cpp_resolve_icall("UnityEngine.Camera::get_main()");
 
-	uintptr_t pat = a->find_pattern("GameAssembly.dll", "40 55 57 48 8D 6C 24 C8 48 81 EC 38 01 00 00 80 3D 4F 54 7F 00 00 48 8B F9 0F 29 B4 24 10 01 00 00 75 12 8B 0D 83 D3 32"); //playecontroller
+	uintptr_t pat = GameAssembly + 19848880; //playecontroller
 
 	if (!pat) {
 		MessageBoxA(NULL, "failed to find pattern (playercontroller update)!", "ERROR", 0);
@@ -103,13 +103,13 @@ void g::G_OffsetsAndHooks()
 
 	//gameassembly hooks
 	Update_h				= (Update_hook)(pat);  //40 55 57 48 8D 6C 24 C8 48 81 EC 38 01 00 00 80 3D 4F 54 7F 00 00 48 8B F9 0F 29 B4 24 10 01 00 00 75 12 8B 0D 83 D3 32
-	PrintChat_f				= (PrintChat_hook)(a->find_pattern("GameAssembly.dll", "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 56 48 83 EC 20 48 8B 74 24 50 4C 8B F1 48 8B 0D 1F 0E 88"));   //ChatManager$$SendChatMessage
+	PrintChat_f				= (PrintChat_hook)(GameAssembly + 19671008);   //ChatManager$$SendChatMessage
 
 	//unity engine hooks
 	UE_PlayerTransform_h	= (UE_PlayerTransform_hook)	(UnityPlayer + 0x10C08E0);
 	PlayerInfo_f			= (PlayerInfo_h)			(UnityPlayer + 0x10B8B60);
 
-	PlayerController_Die = a->find_pattern("GameAssembly.dll", "40 53 57 48 83 EC 68 80 3D E7 CB 7F 00 00 48 8B F9 75 12 8B 0D F3 47 33 00 E8 A2 B3 E4 FE C6 05");
+	PlayerController_Die = GameAssembly + 19818272;
 	PlayerController_Fire_Delay = a->find_pattern("GameAssembly.dll", "E8 E1 0B A0 FF 0F 28 C8 48 8B 47 58 48 63");
 
 	a->install(&(PVOID&)Update_h, PlayerController_Update); //hook PlayerController.Update() to steal the PlayerController object :x
@@ -127,16 +127,16 @@ void g::G_OffsetsAndHooks()
 
 		a->write_addr(PlayerController_Die, "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
 	}
-	if (vars::no_fire_delay.enabled) {
+	//if (vars::no_fire_delay.enabled) {
 
-		if (!PlayerController_Die) {
-			MessageBoxA(NULL, "failed to find pattern (no fire delay)!", "ERROR", 0);
-			exit(-1);
-			return;
-		}
+	//	if (!PlayerController_Die) {
+	//		MessageBoxA(NULL, "failed to find pattern (no fire delay)!", "ERROR", 0);
+	//		exit(-1);
+	//		return;
+	//	}
 
-		a->nop(PlayerController_Fire_Delay); //no fire delay
-	}
+	//	a->nop(PlayerController_Fire_Delay); //no fire delay
+	//}
 
 	//48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 56 48 83 EC 20 48 8B 74 24 50 4C 8B F1 48 8B 0D 1F 0E 88
 }
