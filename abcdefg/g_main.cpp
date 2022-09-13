@@ -27,35 +27,43 @@ void g::G_SetVariables()
 	//PlayerController_fields* LocalPlayer = PlayerController.object->static_fields->LocalPlayer;
 	////PlayerController.klass->static_fields->LocalPlayer->bulletSpread = vars::spread_angle.floatValue;
 
-	//const bool keyPressed = GetAsyncKeyState(VK_DELETE) & 1;
+	const bool keyPressed = GetAsyncKeyState(VK_DELETE) & 1;
 
-	//if (keyPressed) {
-	//	if (LocalPlayer->spotLight) {
-	//		std::cout << "LocalPlayer->spotLight: 0x" << std::hex << &LocalPlayer->spotLight << '\n';
-	//	}else
-	//		std::cout << "localplayer->spotLight invalid\n";
-	//}
-	//if (!LocalPlayer)
-	//	return;
-	/*for (int i = 0; i < 3; i++) {
-		const ItemPointer element = LocalPlayer->items->elements[i];
+	if (!&PlayerController)
+		return;
+
+	if (!PlayerController.items)
+		return;
+
+	for (int i = 0; i < 3; i++) {
+		const ItemPointer element = PlayerController.items->elements[i];
 
 		element.item->info->damage = vars::weapon_damage.arrayValue[i];
 		element.item->info->bulletSpread = vars::weapon_spread.arrayValue[i];
 		element.item->info->maxbulletSpread = vars::weapon_spread.arrayValue[i];
 		element.item->info->normalSpread = vars::weapon_spread.arrayValue[i];
-		element.item->info->movementSpreadMultiplier = 0;
+		element.item->info->movementSpreadMultiplier = 1;
 		element.item->info->adsSpread = vars::weapon_spread.arrayValue[i];
 		element.item->info->adsBulletSpread = vars::weapon_spread.arrayValue[i];
-		element.item->info->bulletSpreadDecrease = 0;
-		element.item->info->cameraADSBobMultiplier = 0;
-		element.item->info->cameraADSBobMultiplier = 0;
+		element.item->info->bulletSpreadDecrease = 1;
+		element.item->info->cameraADSBobMultiplier = 1;
+		element.item->info->cameraADSBobMultiplier = 1;
+		element.item->info->kickback = 0;
+		//element.item->bulletSpread = 360;
+
 		element.item->totalAmmo.value = 9999;
 		element.item->ammo.value = 9999;
+		PlayerController.animationSmoothTime = 1.f;
+		PlayerController.smoothTime = 1.f;
+
+		if (keyPressed) {
+			std::cout << "&bulletspread: " << &element.item->bulletSpread << '\n';
+		}
 
 	}
-	if (keyPressed) {
-	}*/
+	//if (keyPressed) {
+	//	std::cout << "&bulletspread: " element.item->bulletSpread << '\n';
+	//}
 	//G_DebugVariables(LocalPlayer);
 }
 void g::G_Init()
@@ -93,7 +101,7 @@ void g::G_OffsetsAndHooks()
 	fnWorldToScreenPoint = (tp_WorldToScreenPoint*)fnIl2cpp_resolve_icall("UnityEngine.Camera::WorldToScreenPoint_Injected");
 	fnGetMainCamera = (tpGetMainCamera*)fnIl2cpp_resolve_icall("UnityEngine.Camera::get_main()");
 
-	uintptr_t pat = GameAssembly + 19848880; //playecontroller
+	uintptr_t pat = GameAssembly + 3952912; //PlayerController$$Update
 
 	if (!pat) {
 		MessageBoxA(NULL, "failed to find pattern (playercontroller update)!", "ERROR", 0);
@@ -103,14 +111,15 @@ void g::G_OffsetsAndHooks()
 
 	//gameassembly hooks
 	Update_h				= (Update_hook)(pat);  //40 55 57 48 8D 6C 24 C8 48 81 EC 38 01 00 00 80 3D 4F 54 7F 00 00 48 8B F9 0F 29 B4 24 10 01 00 00 75 12 8B 0D 83 D3 32
-	PrintChat_f				= (PrintChat_hook)(GameAssembly + 19671008);   //ChatManager$$SendChatMessage
+	PrintChat_f				= (PrintChat_hook)(GameAssembly + 3484704);   //ChatManager$$SendChatMessage
 
 	//unity engine hooks
 	UE_PlayerTransform_h	= (UE_PlayerTransform_hook)	(UnityPlayer + 0x10C08E0);
 	PlayerInfo_f			= (PlayerInfo_h)			(UnityPlayer + 0x10B8B60);
 
-	PlayerController_Die = GameAssembly + 19818272;
-	PlayerController_Fire_Delay = a->find_pattern("GameAssembly.dll", "E8 E1 0B A0 FF 0F 28 C8 48 8B 47 58 48 63");
+	PlayerController_Die = GameAssembly + 3922272;
+	PlayerController_Fire_Delay = (GameAssembly + 3926672 + 0x14F); 
+	a->get_bytes((void*)PlayerController_Fire_Delay, 5, PlayerController_Fire_Delay_orgbytes);
 
 	a->install(&(PVOID&)Update_h, PlayerController_Update); //hook PlayerController.Update() to steal the PlayerController object :x
 	a->install(&(PVOID&)UE_PlayerTransform_h, UE_PlayerTransform);
@@ -127,16 +136,16 @@ void g::G_OffsetsAndHooks()
 
 		a->write_addr(PlayerController_Die, "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
 	}
-	//if (vars::no_fire_delay.enabled) {
+	if (vars::no_fire_delay.enabled) {
 
-	//	if (!PlayerController_Die) {
-	//		MessageBoxA(NULL, "failed to find pattern (no fire delay)!", "ERROR", 0);
-	//		exit(-1);
-	//		return;
-	//	}
+		if (!PlayerController_Die) {
+			MessageBoxA(NULL, "failed to find pattern (no fire delay)!", "ERROR", 0);
+			exit(-1);
+			return;
+		}
 
-	//	a->nop(PlayerController_Fire_Delay); //no fire delay
-	//}
+		a->nop(PlayerController_Fire_Delay); //no fire delay
+	}
 
 	//48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 56 48 83 EC 20 48 8B 74 24 50 4C 8B F1 48 8B 0D 1F 0E 88
 }

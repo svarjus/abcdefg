@@ -69,6 +69,8 @@ void g::R_OpenMenu()
 		std::cout << "POSSIBLY NO CONTEXT!!!!\n";
 		return;
 	}
+
+
 	static bool save_file = false;
 
 	ImGui_ImplDX11_NewFrame();
@@ -78,10 +80,6 @@ void g::R_OpenMenu()
 	if (GetKeyState(MENU_KEY) == 1) {
 		
 		save_file = true; //save after closing
-
-		R_MenuStyle();
-		
-		ImGui::Begin("REDMATCH 3", 0, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize);
 
 		ImGui::Text("epic big hack");
 		hook* a = nullptr;
@@ -108,7 +106,7 @@ void g::R_OpenMenu()
 			if (vars::no_fire_delay.enabled)
 				a->nop(PlayerController_Fire_Delay); //no fire delay
 			else
-				a->write_addr(PlayerController_Fire_Delay, "\xE8\xE1\x0B\xA0\xFF", 5); //call GameAssembly.dll+DFB1E0
+				a->write_addr(PlayerController_Fire_Delay, (char*)PlayerController_Fire_Delay_orgbytes, 5); //call GameAssembly.dll+DFB1E0
 
 	
 		}
@@ -123,9 +121,9 @@ void g::R_OpenMenu()
 		ImGui::PushItemWidth(100);
 		ImGui::Combo("Weapon", &selected_weap, weapon, IM_ARRAYSIZE(weapon));
 		ImGui::Separator();
-		ImGui::DragFloat("Damage", &vars::weapon_damage.arrayValue[selected_weap], 2, 0, 99999, "%.3f", 1);
-		ImGui::DragFloat("Spread", &vars::weapon_spread.arrayValue[selected_weap], 1, 0, 360, "%.3f", 1);
-		ImGui::DragFloat("Magazine", &vars::weapon_magazineSize.arrayValue[selected_weap], 1, 0, 99999, "%.3f", 1);
+		ImGui::DragFloat("Damage", &vars::weapon_damage.arrayValue[selected_weap], 2.f, 0.f, 99999.f, "%.3f");
+		ImGui::DragFloat("Spread", &vars::weapon_spread.arrayValue[selected_weap], 1.f, 0.f, 360.f, "%.3f");
+		ImGui::DragFloat("Magazine", &vars::weapon_magazineSize.arrayValue[selected_weap], 1.f, 0.f, 99999.f, "%.3f");
 
 		ImGui::EndGroup();
 		ImGui::SameLine();
@@ -185,8 +183,11 @@ void g::R_EndRender()
 	}
 	ImGui::EndFrame();
 	ImGui::Render();
-	ImDrawData* data = ImGui::GetDrawData();
+	
 	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
 
-	ImGui_ImplDX11_RenderDrawData(data);
+
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+
 }

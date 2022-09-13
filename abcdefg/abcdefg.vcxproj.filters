@@ -28,9 +28,6 @@
     <Filter Include="Source Files\render">
       <UniqueIdentifier>{7ac60eeb-c761-4755-a1e6-14f64c259974}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\_lib\imgui">
-      <UniqueIdentifier>{e69640b1-1548-419f-8da1-0659c3dd6de8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\fs">
       <UniqueIdentifier>{69c1199e-f11e-41b5-be43-b3e11f751eb9}</UniqueIdentifier>
     </Filter>
@@ -42,6 +39,9 @@
     </Filter>
     <Filter Include="Source Files\math">
       <UniqueIdentifier>{c4911f4c-ceef-49ba-8162-3f2a224b6e1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\_lib\imgui">
+      <UniqueIdentifier>{ed51f116-f3a8-463a-8c60-58644cf5198d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,8 +96,17 @@
     <ClInclude Include="u_objects.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_dx11.h">
-      <Filter>Header Files\_lib\imgui</Filter>
+    <ClInclude Include="matrix.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="g_gameobject.h">
+      <Filter>Source Files\game</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui_impl_win32.h">
       <Filter>Header Files\_lib\imgui</Filter>
@@ -120,17 +129,8 @@
     <ClInclude Include="ImGui\imgui.h">
       <Filter>Header Files\_lib\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="matrix.h">
-      <Filter>Source Files\math</Filter>
-    </ClInclude>
-    <ClInclude Include="vector.h">
-      <Filter>Source Files\math</Filter>
-    </ClInclude>
-    <ClInclude Include="math.h">
-      <Filter>Source Files\math</Filter>
-    </ClInclude>
-    <ClInclude Include="g_gameobject.h">
-      <Filter>Source Files\game</Filter>
+    <ClInclude Include="ImGui\imgui_impl_dx11.h">
+      <Filter>Header Files\_lib\imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -173,14 +173,17 @@
     <ClCompile Include="r_utils.cpp">
       <Filter>Source Files\render\utils</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_demo.cpp">
-      <Filter>Header Files\_lib\imgui</Filter>
+    <ClCompile Include="matrix.cpp">
+      <Filter>Source Files\math</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_draw.cpp">
-      <Filter>Header Files\_lib\imgui</Filter>
+    <ClCompile Include="vector.cpp">
+      <Filter>Source Files\math</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
-      <Filter>Header Files\_lib\imgui</Filter>
+    <ClCompile Include="math.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="g_gameobject.cpp">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_impl_win32.cpp">
       <Filter>Header Files\_lib\imgui</Filter>
@@ -194,17 +197,14 @@
     <ClCompile Include="ImGui\imgui.cpp">
       <Filter>Header Files\_lib\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="matrix.cpp">
-      <Filter>Source Files\math</Filter>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <Filter>Header Files\_lib\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="vector.cpp">
-      <Filter>Source Files\math</Filter>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>Header Files\_lib\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="math.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="g_gameobject.cpp">
-      <Filter>Source Files\game</Filter>
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
+      <Filter>Header Files\_lib\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

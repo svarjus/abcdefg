@@ -7,7 +7,7 @@
 struct textobject
 {
 	char pad[20];
-	char message[128];
+	char message[256];
 };
 namespace g {
 
@@ -30,6 +30,7 @@ namespace g {
 
 	inline uintptr_t PlayerController_Die;
 	inline uintptr_t PlayerController_Fire_Delay;
+	inline BYTE PlayerController_Fire_Delay_orgbytes[5];
 
 	inline Update_hook Update_h;
 	inline PlayerInfo_h PlayerInfo_f;

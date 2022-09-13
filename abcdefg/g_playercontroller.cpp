@@ -6,7 +6,14 @@
 
 void g::PlayerController_Update(PlayerController_c* playercontroller)
 {
-	memcpy(&g::PlayerController, playercontroller, sizeof(playercontroller));
+
+	if (GetAsyncKeyState(VK_HOME)&1) {
+		std::cout << "yep: 0x" << std::hex << playercontroller << '\n';
+		std::cout << "&smoothTime: 0x" << std::hex << &playercontroller->smoothTime << '\n';
+
+	}
+
+ 	memcpy(&g::PlayerController, playercontroller, sizeof(PlayerController_c));
 	g::hasPlayerController = true;
 
 	return Update_h(playercontroller);
@@ -136,6 +143,10 @@ bool g::WorldToScreen(int64_t camFields, vec3_t pos, vec3_t out)
 intptr_t __fastcall g::PrintChat(intptr_t* chat_manager, textobject* a2, uint32_t local, char target, intptr_t a5)
 {
 	//memcpy_s(&chatmanager, 64, chat_manager, 64);
+
+	return PrintChat_f(chat_manager, a2, local, target, a5);
+
+
 	chatmanager = reinterpret_cast<uintptr_t*>(chat_manager);
 	auto TextToBytes = [](const char* text, char* buffer, size_t size) -> void { //123 -> \x31\x00\x32\x00\x33
 		int j = 0;
@@ -147,13 +158,17 @@ intptr_t __fastcall g::PrintChat(intptr_t* chat_manager, textobject* a2, uint32_
 		}
 
 	};
+	char message[59];
 
-	char message[48*2]{};
-
-	TextToBytes("Reported Player ID 76561198988912515 (D_Prison)", message, 48*2);
+	TextToBytes("Reported Player ID 76561199058900546 ([BLACKS4TRUMP] miche)", message, 58 * 2);
 	//message[45*2] = '\0';
 
-	memcpy(a2->message, &message, 48*2);
+	//D_Prison -> 8
+	//micheal -> 30
+
+
+	memcpy(a2->message, &message, 58 *2);
+
 
 	return PrintChat_f(chat_manager, a2, local, target, a5);
 }

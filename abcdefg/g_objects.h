@@ -327,15 +327,16 @@ namespace g
 
 	struct PlayerController_fields
 	{
-		int collisionMask;
-		int damagerMask;
-		char flybyAudioManager[32];
-		char cameraHolder[16];
-		char shieldObject[16];
-		char cam[16];
-		char rainEffects[16];
-		char battleRoyalEffects[16];
-		char spotLight[16];
+		//int collisionMask;
+		//int damagerMask;
+		//char flybyAudioManager[32];
+		//char cameraHolder[16];
+		//char shieldObject[16];
+		//char cam[16];
+		//char rainEffects[16];
+		//char battleRoyalEffects[16];
+		//char spotLight[16];
+		char _pad00[0x58];
 		ItemArray* items;
 		char pad_0070[136]; 
 		class N000006E5* N0000035F;
@@ -378,15 +379,57 @@ namespace g
 	};
 
 	struct PlayerController_o
-	{
-		char pad_0000[184]; 
-		char pad[40];
+	{ 
+		char pad_0000[184]; //0x0000
 		PlayerController_staticfields* static_fields;
 	}; 
 
 	struct PlayerController_c
 	{
-		PlayerController_o* object; 
+		//int collisionMask;
+//int damagerMask;
+//char flybyAudioManager[32];
+//char cameraHolder[16];
+//char shieldObject[16];
+//char cam[16];
+//char rainEffects[16];
+//char battleRoyalEffects[16];
+//char spotLight[16];
+		char _pad00[0x58];
+		ItemArray* items;
+		char _pad01[0x50-8];
+		float smoothTime;
+		float animationSmoothTime;
+		char _pad02[112];
+		bool toJump;
+		bool ads;
+		bool reloading;
+		bool meleeing;
+		bool sprinting;
+		bool dead;
+		float bulletSpread;
+		char pad[12]; //Interactable_o* lastInteractable;
+		bool wasInteractable;
+		char pad_0154[47];
+		float lastTimeTookDamage;
+		float nextTimeToRegen;
+		int32_t regenAmount;
+		float regenInterval;
+		float lastTimeGrounded;
+		float lastTimeJumped;
+		float lastTimePulledOutItem;
+		float nextTimeToCircleDamage;
+		char rigidbody_pad[16];
+		vec3_t rigid_origin; //forward, up, right
+		float rigid_time;
+		int crosshairIndex;
+		char stressReceiver_pad[12];
+		bool isActingAsLocalPlayer;
+		vec3_t constantForce;
+		vec3_t pushForce;
+		char idk_pad[36];
+		float additiveFov;
+		int16_t lastDamagePacketID;
 	}; 
 
 }
