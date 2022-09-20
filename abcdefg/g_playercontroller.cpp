@@ -143,9 +143,7 @@ bool g::WorldToScreen(int64_t camFields, vec3_t pos, vec3_t out)
 intptr_t __fastcall g::PrintChat(intptr_t* chat_manager, textobject* a2, uint32_t local, char target, intptr_t a5)
 {
 	//memcpy_s(&chatmanager, 64, chat_manager, 64);
-
 	return PrintChat_f(chat_manager, a2, local, target, a5);
-
 
 	chatmanager = reinterpret_cast<uintptr_t*>(chat_manager);
 	auto TextToBytes = [](const char* text, char* buffer, size_t size) -> void { //123 -> \x31\x00\x32\x00\x33
@@ -158,14 +156,9 @@ intptr_t __fastcall g::PrintChat(intptr_t* chat_manager, textobject* a2, uint32_
 		}
 
 	};
-	char message[59];
+	char message[59*2];
 
 	TextToBytes("Reported Player ID 76561199058900546 ([BLACKS4TRUMP] miche)", message, 58 * 2);
-	//message[45*2] = '\0';
-
-	//D_Prison -> 8
-	//micheal -> 30
-
 
 	memcpy(a2->message, &message, 58 *2);
 

@@ -27,7 +27,7 @@ void g::G_SetVariables()
 	//PlayerController_fields* LocalPlayer = PlayerController.object->static_fields->LocalPlayer;
 	////PlayerController.klass->static_fields->LocalPlayer->bulletSpread = vars::spread_angle.floatValue;
 
-	const bool keyPressed = GetAsyncKeyState(VK_DELETE) & 1;
+	//const bool keyPressed = GetAsyncKeyState(VK_DELETE) & 1;
 
 	if (!&PlayerController)
 		return;
@@ -37,6 +37,9 @@ void g::G_SetVariables()
 
 	for (int i = 0; i < 3; i++) {
 		const ItemPointer element = PlayerController.items->elements[i];
+
+		if (!PlayerController.items->elements)
+			continue;
 
 		element.item->info->damage = vars::weapon_damage.arrayValue[i];
 		element.item->info->bulletSpread = vars::weapon_spread.arrayValue[i];
@@ -55,10 +58,6 @@ void g::G_SetVariables()
 		element.item->ammo.value = 9999;
 		PlayerController.animationSmoothTime = 1.f;
 		PlayerController.smoothTime = 1.f;
-
-		if (keyPressed) {
-			std::cout << "&bulletspread: " << &element.item->bulletSpread << '\n';
-		}
 
 	}
 	//if (keyPressed) {
@@ -92,6 +91,16 @@ void g::G_Init()
 	
 
 }
+bool(*MyceliumBanManager__IsBanned_f)(int64_t);
+bool(*TimeoutManager__IsBanned_f)(int64_t);
+bool MyceliumBanManager__IsBanned(int64_t player)
+{
+	return false;
+}
+bool TimeoutManager__IsBanned(int64_t player)
+{
+	return false;
+}
 void g::G_OffsetsAndHooks()
 {
 	hook* a = nullptr;
@@ -117,6 +126,9 @@ void g::G_OffsetsAndHooks()
 	UE_PlayerTransform_h	= (UE_PlayerTransform_hook)	(UnityPlayer + 0x10C08E0);
 	PlayerInfo_f			= (PlayerInfo_h)			(UnityPlayer + 0x10B8B60);
 
+	MyceliumBanManager__IsBanned_f	= (bool(*)(int64_t))	(GameAssembly + 3004624);
+	TimeoutManager__IsBanned_f		= (bool(*)(int64_t))	(GameAssembly + 3846864);
+
 	PlayerController_Die = GameAssembly + 3922272;
 	PlayerController_Fire_Delay = (GameAssembly + 3926672 + 0x14F); 
 	a->get_bytes((void*)PlayerController_Fire_Delay, 5, PlayerController_Fire_Delay_orgbytes);
@@ -125,6 +137,8 @@ void g::G_OffsetsAndHooks()
 	a->install(&(PVOID&)UE_PlayerTransform_h, UE_PlayerTransform);
 	a->install(&(PVOID&)PlayerInfo_f, UE_PlayerInfo);
 	a->install(&(PVOID&)PrintChat_f, PrintChat);
+	a->install(&(PVOID&)MyceliumBanManager__IsBanned_f, MyceliumBanManager__IsBanned);
+	a->install(&(PVOID&)TimeoutManager__IsBanned_f, TimeoutManager__IsBanned);
 
 	if (vars::invincibility.enabled) {
 
@@ -146,6 +160,6 @@ void g::G_OffsetsAndHooks()
 
 		a->nop(PlayerController_Fire_Delay); //no fire delay
 	}
-
+	a->write_addr(GameAssembly + 0x808540, "\xC3", 1);
 	//48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 56 48 83 EC 20 48 8B 74 24 50 4C 8B F1 48 8B 0D 1F 0E 88
 }

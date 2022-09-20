@@ -2,7 +2,7 @@
 #include "pch.h"
 LRESULT __stdcall g::WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
-	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam) || GetKeyState(MENU_KEY) == true)
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
 		return 1l;
 
 	switch (uMsg) {
@@ -31,7 +31,7 @@ void AchievementEvaluator_LearningTheABCs__OnKill(void* obj_ptr, uintptr_t obj_p
 	return/* AchievementEvaluator_LearningTheABCs__OnKill_f(obj_ptr, obj_ptr2)*/;
 }
 typedef bool(*SteamDLCManager__HasDLC_h)(int32_t dlc);
-SteamDLCManager__HasDLC_h SteamDLCManager__HasDLC_f = (SteamDLCManager__HasDLC_h)(g::GameAssembly + 20156832);
+SteamDLCManager__HasDLC_h SteamDLCManager__HasDLC_f = (SteamDLCManager__HasDLC_h)(g::GameAssembly + 3020752);
 
 bool SteamDLCManager__HasDLC(int32_t dlc)
 {
@@ -57,12 +57,12 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 
 	if (keyPressed) {
 
-		//int* code = ((int* (*)())(GameAssembly + 3905472))(); //System_Int32_array* OutskirtsCodeGenerator__get_Code (const MethodInfo* method);
-		//int _codeArray[4];
-		//for (int i = 0; i < 4; i++)
-		//	_codeArray[i] = code[8 + i];
-		//for (int i = 0; i < 4; i++)
-		//	std::cout << std::dec << _codeArray[i];
+		int* code = ((int* (*)())(GameAssembly + 3905472))(); //System_Int32_array* OutskirtsCodeGenerator__get_Code (const MethodInfo* method);
+		int _codeArray[4];
+		for (int i = 0; i < 4; i++)
+			_codeArray[i] = code[8 + i];
+		for (int i = 0; i < 4; i++)
+			std::cout << std::dec << _codeArray[i];
 
 		//if (&PlayerController) {
 		//	std::cout << "yep: 0x" << std::hex << &PlayerController << '\n';
