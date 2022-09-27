@@ -209,9 +209,9 @@ void Evar_Setup()
 	Evar_Register(&vars::no_fire_delay, "no_fire_delay", evartype_t::EVAR_BOOL, (float)0);
 	//Evar_Register(&vars::spread_angle,  "spread_angle",  evartype_t::EVAR_FLOAT, 10);
 
-	Evar_Register(&vars::weapon_damage, "weapon_damage", evartype_t::EVAR_ARRAY, 30, 3);
-	Evar_Register(&vars::weapon_spread, "weapon_spread", evartype_t::EVAR_ARRAY, 0, 3);
-	Evar_Register(&vars::weapon_magazineSize, "weapon_magazineSize", evartype_t::EVAR_ARRAY, 30, 3);
+	Evar_Register(&vars::weapon_damage, "weapon_damage", evartype_t::EVAR_ARRAY, 30, 4);
+	Evar_Register(&vars::weapon_spread, "weapon_spread", evartype_t::EVAR_ARRAY, 0, 4);
+	Evar_Register(&vars::weapon_magazineSize, "weapon_magazineSize", evartype_t::EVAR_ARRAY, 30, 4);
 
 
 	Evar_Register(&vars::world_skywalk, "world_skywalk", evartype_t::EVAR_BOOL, (float)0); 

@@ -35,7 +35,7 @@ void g::G_SetVariables()
 	if (!PlayerController.items)
 		return;
 
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < PlayerController.items->count; i++) {
 		const ItemPointer element = PlayerController.items->elements[i];
 
 		if (!PlayerController.items->elements)
@@ -91,16 +91,16 @@ void g::G_Init()
 	
 
 }
-bool(*MyceliumBanManager__IsBanned_f)(int64_t);
-bool(*TimeoutManager__IsBanned_f)(int64_t);
-bool MyceliumBanManager__IsBanned(int64_t player)
-{
-	return false;
-}
-bool TimeoutManager__IsBanned(int64_t player)
-{
-	return false;
-}
+//bool(*MyceliumBanManager__IsBanned_f)(int64_t);
+//bool(*TimeoutManager__IsBanned_f)(int64_t);
+//bool MyceliumBanManager__IsBanned(int64_t player)
+//{
+//	return false;
+//}
+//bool TimeoutManager__IsBanned(int64_t player)
+//{
+//	return false;
+//}
 void g::G_OffsetsAndHooks()
 {
 	hook* a = nullptr;
@@ -110,7 +110,7 @@ void g::G_OffsetsAndHooks()
 	fnWorldToScreenPoint = (tp_WorldToScreenPoint*)fnIl2cpp_resolve_icall("UnityEngine.Camera::WorldToScreenPoint_Injected");
 	fnGetMainCamera = (tpGetMainCamera*)fnIl2cpp_resolve_icall("UnityEngine.Camera::get_main()");
 
-	uintptr_t pat = GameAssembly + 3952912; //PlayerController$$Update
+	uintptr_t pat = GameAssembly + 4057200; //PlayerController$$Update
 
 	if (!pat) {
 		MessageBoxA(NULL, "failed to find pattern (playercontroller update)!", "ERROR", 0);
@@ -120,25 +120,25 @@ void g::G_OffsetsAndHooks()
 
 	//gameassembly hooks
 	Update_h				= (Update_hook)(pat);  //40 55 57 48 8D 6C 24 C8 48 81 EC 38 01 00 00 80 3D 4F 54 7F 00 00 48 8B F9 0F 29 B4 24 10 01 00 00 75 12 8B 0D 83 D3 32
-	PrintChat_f				= (PrintChat_hook)(GameAssembly + 3484704);   //ChatManager$$SendChatMessage
+	PrintChat_f				= (PrintChat_hook)(GameAssembly + 3493344);   //ChatManager$$SendChatMessage
 
 	//unity engine hooks
 	UE_PlayerTransform_h	= (UE_PlayerTransform_hook)	(UnityPlayer + 0x10C08E0);
 	PlayerInfo_f			= (PlayerInfo_h)			(UnityPlayer + 0x10B8B60);
 
-	MyceliumBanManager__IsBanned_f	= (bool(*)(int64_t))	(GameAssembly + 3004624);
-	TimeoutManager__IsBanned_f		= (bool(*)(int64_t))	(GameAssembly + 3846864);
+	//MyceliumBanManager__IsBanned_f	= (bool(*)(int64_t))	(GameAssembly + 3004624);
+	//TimeoutManager__IsBanned_f		= (bool(*)(int64_t))	(GameAssembly + 3846864);
 
-	PlayerController_Die = GameAssembly + 3922272;
-	PlayerController_Fire_Delay = (GameAssembly + 3926672 + 0x14F); 
+	PlayerController_Die = GameAssembly + 4026384; //PlayerController$$Die
+	PlayerController_Fire_Delay = (GameAssembly + 0x3D8140 + 0x149); //PlayerController$$Fire + 0x149
 	a->get_bytes((void*)PlayerController_Fire_Delay, 5, PlayerController_Fire_Delay_orgbytes);
 
 	a->install(&(PVOID&)Update_h, PlayerController_Update); //hook PlayerController.Update() to steal the PlayerController object :x
 	a->install(&(PVOID&)UE_PlayerTransform_h, UE_PlayerTransform);
 	a->install(&(PVOID&)PlayerInfo_f, UE_PlayerInfo);
 	a->install(&(PVOID&)PrintChat_f, PrintChat);
-	a->install(&(PVOID&)MyceliumBanManager__IsBanned_f, MyceliumBanManager__IsBanned);
-	a->install(&(PVOID&)TimeoutManager__IsBanned_f, TimeoutManager__IsBanned);
+	//a->install(&(PVOID&)MyceliumBanManager__IsBanned_f, MyceliumBanManager__IsBanned);
+	//a->install(&(PVOID&)TimeoutManager__IsBanned_f, TimeoutManager__IsBanned);
 
 	if (vars::invincibility.enabled) {
 
@@ -160,6 +160,6 @@ void g::G_OffsetsAndHooks()
 
 		a->nop(PlayerController_Fire_Delay); //no fire delay
 	}
-	a->write_addr(GameAssembly + 0x808540, "\xC3", 1);
+	//a->write_addr(GameAssembly + 0x808540, "\xC3", 1);
 	//48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 56 48 83 EC 20 48 8B 74 24 50 4C 8B F1 48 8B 0D 1F 0E 88
 }

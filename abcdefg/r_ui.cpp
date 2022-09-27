@@ -116,7 +116,7 @@ void g::R_OpenMenu()
 		ImGui::Text("Weapon");
 		ImGui::Separator();
 
-		const char* weapon[3] = { "ak", "shotgun", "sniper"};
+		const char* weapon[4] = { "ak", "shotgun", "sniper", "revolver"};
 		static int selected_weap;
 		ImGui::PushItemWidth(100);
 		ImGui::Combo("Weapon", &selected_weap, weapon, IM_ARRAYSIZE(weapon));

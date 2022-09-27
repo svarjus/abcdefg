@@ -30,13 +30,13 @@ void AchievementEvaluator_LearningTheABCs__OnKill(void* obj_ptr, uintptr_t obj_p
 	std::cout << "AchievementEvaluator_LearningTheABCs__OnKill()\n";
 	return/* AchievementEvaluator_LearningTheABCs__OnKill_f(obj_ptr, obj_ptr2)*/;
 }
-typedef bool(*SteamDLCManager__HasDLC_h)(int32_t dlc);
-SteamDLCManager__HasDLC_h SteamDLCManager__HasDLC_f = (SteamDLCManager__HasDLC_h)(g::GameAssembly + 3020752);
-
-bool SteamDLCManager__HasDLC(int32_t dlc)
-{
-	return true;
-}
+//typedef bool(*SteamDLCManager__HasDLC_h)(int32_t dlc);
+//SteamDLCManager__HasDLC_h SteamDLCManager__HasDLC_f = (SteamDLCManager__HasDLC_h)(g::GameAssembly + 3020752);
+//
+//bool SteamDLCManager__HasDLC(int32_t dlc)
+//{
+//	return true;
+//}
 long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UINT flags)
 {
 	R_GetID3D11_Device(p_swap_chain);
@@ -45,9 +45,9 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 
 	if (once) {
 		once = false;
-		hook* a = nullptr;
-		std::cout << "hook it\n";
-		a->install(&(PVOID&)SteamDLCManager__HasDLC_f, SteamDLCManager__HasDLC);
+		//hook* a = nullptr;
+		//std::cout << "hook it\n";
+		//a->install(&(PVOID&)SteamDLCManager__HasDLC_f, SteamDLCManager__HasDLC);
 	}
 
 	R_OpenMenu();
