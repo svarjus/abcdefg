@@ -214,8 +214,7 @@ namespace g
 		char pad_0056[10]; //0x0056
 		char* name; //0x0060
 	}; //Size: 0x0068
-
-	struct GameObjectManager_s
+	struct GameObjectManager_o
 	{
 		class LastObjectBase* LastTaggedObject; //0x0000
 		class BaseObject* TaggedObjects; //0x0008
@@ -223,6 +222,10 @@ namespace g
 		class BaseObject* ActiveObjects; //0x0018
 		class LastObjectBase* LastTaggedObject2; //0x0020
 		class BaseObject* TaggedObject2; //0x0028
+	};
+	struct GameObjectManager_s
+	{
+		GameObjectManager_o* GameObjectManagerObj;
 	}; 
 	struct WeaponModPart_VTable {
 		VirtualInvokeData _0_Equals;
@@ -289,29 +292,30 @@ namespace g
 	struct WeaponStats
 	{
 		char pad_0000[24];
-		uint32_t type; 
-		uint32_t damage;
+		int32_t type;
+		int32_t damage;
 		float kickback;
 		float useDelay;
-		uint32_t shots;
-		float cameraShake; 
-		float adsCameraShake; 
-		float reloadTime; 
-		uint32_t magazineSize; 
-		uint32_t startingAmmo; 
-		uint32_t individualReload; 
-		float bulletSpread; 
-		float adsBulletSpread; 
-		float maxbulletSpread; 
-		float bulletSpreadDecrease; 
-		float normalSpread; 
-		float adsSpread; 
+		int32_t shots;
+		float cameraShake;
+		float adsCameraShake;
+		float reloadTime;
+		int32_t magazineSize;
+		int32_t startingAmmo;
+		bool individualReload;
+		bool walkWhileReloading;
+		float bulletSpread;
+		float adsBulletSpread;
+		float maxBulletSpread;
+		float bulletSpreadDecrease;
+		float normalSpread;
+		float adsSpread;
 		float movementSpreadMultiplier;
-		float adsMovementSpreadMultiplier; 
+		float adsMovementSpreadMultiplier;
 		float movementADSAnimationMultiplier;
 		float adsFOVChange;
 		float cameraADSBobMultiplier;
-		bool useScopedMouseSensitivity; 
+		bool useScopedMouseSensitivity;
 		char pad_006D[3]; 
 		void* animationLayers; 
 		void* fireSound;
@@ -321,7 +325,7 @@ namespace g
 		void* permanentEffectPrefab; 
 		uint32_t projectileColliderMask;
 		uint32_t crosshairType; 
-		uint32_t damageMultiplierRoomSetting; 
+		uint32_t damageLobbyData;
 		bool noscope; 
 	}; 
 
@@ -400,7 +404,9 @@ namespace g
 		char _pad01[0x50-8];
 		float smoothTime;
 		float animationSmoothTime;
-		char _pad02[112];
+		char _pad02[112-24];
+		vec3_t groundedTransformLastPosition;
+		vec3_t momentum;
 		bool toJump;
 		bool ads;
 		bool reloading;

@@ -1,19 +1,19 @@
 #include "pch.h"
 
 
-void g::G_DebugVariables(PlayerController_fields* LocalPlayer)
+void g::G_DebugVariables(PlayerController_c* LocalPlayer)
 {
 	ImDrawList* draw = ImGui::GetBackgroundDrawList();
 
 
 	char buff[1024];
 	//bool lastTimeJumped = LocalPlayer->lastTimeJumped;
-	vec3_t _rigid_origin;
-	XZY2XYZ(LocalPlayer->rigid_origin, _rigid_origin);
+	//vec3_t _rigid_origin;
+	//XZY2XYZ(LocalPlayer->rigid_origin, _rigid_origin);
 
 	float yaw = UE_ConvertGameYaw(PlayerTransform.yaw);
 
-	sprintf_s(buff, "X: %.3f\nY: %.3f\nZ: %.3f\nyaw: %.3f", _rigid_origin[0], _rigid_origin[1], _rigid_origin[2], yaw);
+	sprintf_s(buff, "X: %.3f\nY: %.3f\nZ: %.3f\nyaw: %.3f", _tp.myCoords[0], _tp.myCoords[1], _tp.myCoords[2], yaw);
 
 	draw->AddText(ImVec2(0, 400), IM_COL32(0, 255, 0, 255), buff);
 
@@ -23,7 +23,6 @@ void g::G_SetVariables()
 {
 	if (!g::hasPlayerController || (&PlayerController) == nullptr || (&PlayerTransform) == nullptr)
 		return;
-
 	//PlayerController_fields* LocalPlayer = PlayerController.object->static_fields->LocalPlayer;
 	////PlayerController.klass->static_fields->LocalPlayer->bulletSpread = vars::spread_angle.floatValue;
 
@@ -43,15 +42,15 @@ void g::G_SetVariables()
 
 		element.item->info->damage = vars::weapon_damage.arrayValue[i];
 		element.item->info->bulletSpread = vars::weapon_spread.arrayValue[i];
-		element.item->info->maxbulletSpread = vars::weapon_spread.arrayValue[i];
+		element.item->info->maxBulletSpread = vars::weapon_spread.arrayValue[i];
 		element.item->info->normalSpread = vars::weapon_spread.arrayValue[i];
-		element.item->info->movementSpreadMultiplier = 1;
+		element.item->info->movementSpreadMultiplier =01;
 		element.item->info->adsSpread = vars::weapon_spread.arrayValue[i];
 		element.item->info->adsBulletSpread = vars::weapon_spread.arrayValue[i];
-		element.item->info->bulletSpreadDecrease = 1;
+		element.item->info->bulletSpreadDecrease = 0;
 		element.item->info->cameraADSBobMultiplier = 1;
 		element.item->info->cameraADSBobMultiplier = 1;
-		element.item->info->kickback = 0;
+		element.item->info->kickback = 100;
 		//element.item->bulletSpread = 360;
 
 		element.item->totalAmmo.value = 9999;
@@ -63,7 +62,7 @@ void g::G_SetVariables()
 	//if (keyPressed) {
 	//	std::cout << "&bulletspread: " element.item->bulletSpread << '\n';
 	//}
-	//G_DebugVariables(LocalPlayer);
+	G_DebugVariables(&PlayerController);
 }
 void g::G_Init()
 {
@@ -110,7 +109,7 @@ void g::G_OffsetsAndHooks()
 	fnWorldToScreenPoint = (tp_WorldToScreenPoint*)fnIl2cpp_resolve_icall("UnityEngine.Camera::WorldToScreenPoint_Injected");
 	fnGetMainCamera = (tpGetMainCamera*)fnIl2cpp_resolve_icall("UnityEngine.Camera::get_main()");
 
-	uintptr_t pat = GameAssembly + 4057200; //PlayerController$$Update
+	uintptr_t pat = GameAssembly + 20347120; //PlayerController$$Update
 
 	if (!pat) {
 		MessageBoxA(NULL, "failed to find pattern (playercontroller update)!", "ERROR", 0);
@@ -120,7 +119,7 @@ void g::G_OffsetsAndHooks()
 
 	//gameassembly hooks
 	Update_h				= (Update_hook)(pat);  //40 55 57 48 8D 6C 24 C8 48 81 EC 38 01 00 00 80 3D 4F 54 7F 00 00 48 8B F9 0F 29 B4 24 10 01 00 00 75 12 8B 0D 83 D3 32
-	PrintChat_f				= (PrintChat_hook)(GameAssembly + 3493344);   //ChatManager$$SendChatMessage
+	PrintChat_f				= (PrintChat_hook)(GameAssembly + 3696768);   //ChatManager$$SendChatMessage
 
 	//unity engine hooks
 	UE_PlayerTransform_h	= (UE_PlayerTransform_hook)	(UnityPlayer + 0x10C08E0);
@@ -129,8 +128,8 @@ void g::G_OffsetsAndHooks()
 	//MyceliumBanManager__IsBanned_f	= (bool(*)(int64_t))	(GameAssembly + 3004624);
 	//TimeoutManager__IsBanned_f		= (bool(*)(int64_t))	(GameAssembly + 3846864);
 
-	PlayerController_Die = GameAssembly + 4026384; //PlayerController$$Die
-	PlayerController_Fire_Delay = (GameAssembly + 0x3D8140 + 0x149); //PlayerController$$Fire + 0x149
+	PlayerController_Die = GameAssembly + 20316320; //PlayerController$$Die
+	PlayerController_Fire_Delay = (GameAssembly + 20320720 + 0x149); //PlayerController$$Fire + 0x149
 	a->get_bytes((void*)PlayerController_Fire_Delay, 5, PlayerController_Fire_Delay_orgbytes);
 
 	a->install(&(PVOID&)Update_h, PlayerController_Update); //hook PlayerController.Update() to steal the PlayerController object :x

@@ -81,6 +81,67 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 		
 	}
 
+
+	GameObject* lastTaggedGameObject = GameObjectManager->GameObjectManagerObj->LastTaggedObject2->gameObject;
+	BaseObject* nextNode = GameObjectManager->GameObjectManagerObj->TaggedObject2;
+
+	std::vector<players_s> players;
+
+	int found = 0;
+	if (nextNode) {
+
+		while(true){
+
+			GameObject* gameObject = nextNode->gameObject;
+			if (!gameObject || gameObject == NULL) 
+				break; 
+
+			if (strstr(gameObject->name, "PlayerAvatar")) {
+				found++;
+				uint64_t compList = (uint64_t)gameObject->ComponentList;
+				uint64_t tranform = getComponentById(compList, 0);
+				uint64_t tranform_internal = *(uint64_t*)(tranform + 0x38);
+				tranform_internal += 144;
+				vec3_t org;
+				org[0] = *(float*)(tranform_internal);
+				org[1] = *(float*)(tranform_internal + 4);
+				org[2] = *(float*)(tranform_internal + 8);
+
+				players_s thisPlayer;
+
+				thisPlayer.gameObj = gameObject;
+				XZY2XYZ(org, thisPlayer.originXYZ);
+				VectorCopy(org, thisPlayer.origin);
+
+				players.push_back(thisPlayer);
+
+			}
+
+			if (gameObject == lastTaggedGameObject) 
+				break; 
+			nextNode = nextNode->nextObject;
+
+
+		}
+
+
+
+	}
+	for (auto& i : players) {
+		vec3_t xy;
+
+		if (!isnormal(i.origin[0]) || !isnormal(i.origin[0]) || !isnormal(i.origin[0]))
+			continue;
+
+		if (WorldToScreen((uint64_t)fnGetMainCamera(), i.origin, xy)) {
+			const float y = (float)((int(*)())g::fnIl2cpp_resolve_icall(UE_GET_HEIGHT))();
+
+			ImGui::GetBackgroundDrawList()->AddCircleFilled(ImVec2(r::X(xy[0]), r::Y(y - xy[1])), 10, IM_COL32(255, 255, 0, 255), 5);
+
+		}
+	}
+
+	
 	R_EndRender();
 
 	return pEndScene(p_swap_chain, sync_interval, flags);

@@ -22,6 +22,10 @@ uint32_t __fastcall g::UE_PlayerTransform(PlayerTransform_s* transform, void* a2
 {
 	memcpy(&PlayerTransform, transform, sizeof(PlayerTransform_s));
 	//UE_Noclip(transform);
+
+	XZY2XYZ(transform->origin, _tp.myCoords);
+
+
 	if(vars::world_skywalk.enabled)
 		transform->origin[1] = vars::world_skywalk_z.floatValue;
 

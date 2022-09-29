@@ -15,6 +15,7 @@ namespace g {
 	{
 		bool needs_teleport;
 		vec3_t tpcoords;
+		vec3_t myCoords;
 	};
 
 	typedef void(*Update_hook)(g::PlayerController_c*);
