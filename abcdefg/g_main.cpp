@@ -40,7 +40,10 @@ void g::G_SetVariables()
 		if (!PlayerController.items->elements)
 			continue;
 
-		element.item->info->damage = vars::weapon_damage.arrayValue[i];
+		if (!&PlayerController.items->elements[i])
+			continue;
+
+		//element.item->info->damage = vars::weapon_damage.arrayValue[i];
 		element.item->info->bulletSpread = vars::weapon_spread.arrayValue[i];
 		element.item->info->maxBulletSpread = vars::weapon_spread.arrayValue[i];
 		element.item->info->normalSpread = vars::weapon_spread.arrayValue[i];
@@ -50,7 +53,7 @@ void g::G_SetVariables()
 		element.item->info->bulletSpreadDecrease = 0;
 		element.item->info->cameraADSBobMultiplier = 1;
 		element.item->info->cameraADSBobMultiplier = 1;
-		element.item->info->kickback = 100;
+		//element.item->info->kickback = 100;
 		//element.item->bulletSpread = 360;
 
 		element.item->totalAmmo.value = 9999;

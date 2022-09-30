@@ -81,11 +81,13 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 		
 	}
 
-
+	players.erase(players.begin(), players.end());
+	players.clear();
+	players.resize(0);
 	GameObject* lastTaggedGameObject = GameObjectManager->GameObjectManagerObj->LastTaggedObject2->gameObject;
 	BaseObject* nextNode = GameObjectManager->GameObjectManagerObj->TaggedObject2;
 
-	std::vector<players_s> players;
+	
 
 	int found = 0;
 	if (nextNode) {
@@ -93,29 +95,49 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 		while(true){
 
 			GameObject* gameObject = nextNode->gameObject;
-			if (!gameObject || gameObject == NULL) 
+			if (!gameObject) 
 				break; 
 
-			if (strstr(gameObject->name, "PlayerAvatar")) {
-				found++;
-				uint64_t compList = (uint64_t)gameObject->ComponentList;
-				uint64_t tranform = getComponentById(compList, 0);
-				uint64_t tranform_internal = *(uint64_t*)(tranform + 0x38);
-				tranform_internal += 144;
-				vec3_t org;
-				org[0] = *(float*)(tranform_internal);
-				org[1] = *(float*)(tranform_internal + 4);
-				org[2] = *(float*)(tranform_internal + 8);
+			if (!&gameObject->name)
+				break;
 
-				players_s thisPlayer;
+			const uintptr_t validLoc = (uintptr_t)(gameObject->name);
 
-				thisPlayer.gameObj = gameObject;
-				XZY2XYZ(org, thisPlayer.originXYZ);
-				VectorCopy(org, thisPlayer.origin);
-
-				players.push_back(thisPlayer);
-
+			if (!validLoc || validLoc > 0xFFFFFFFFFFFFFFF) {
+				std::cout << "wtf very invalid\n";
+				break;
 			}
+
+			try {
+				if (strstr(gameObject->name, "PlayerAvatar")) {
+					found++;
+					uint64_t compList = (uint64_t)gameObject->ComponentList;
+					uint64_t tranform = getComponentById(compList, 0);
+					uint64_t tranform_internal = *(uint64_t*)(tranform + 0x38);
+					tranform_internal += 144;
+					vec3_t org;
+					org[0] = *(float*)(tranform_internal);
+					org[1] = *(float*)(tranform_internal + 4);
+					org[2] = *(float*)(tranform_internal + 8);
+
+					players_s thisPlayer;
+
+					thisPlayer.gameObj = gameObject;
+					XZY2XYZ(org, thisPlayer.originXYZ);
+					VectorCopy(org, thisPlayer.origin);
+
+					players.push_back(thisPlayer);
+
+				}
+			}
+			catch (std::exception& ex) {
+				
+				std::cout << "exception caught: " << ex.what() << '\n';
+
+				break;
+			}
+
+
 
 			if (gameObject == lastTaggedGameObject) 
 				break; 
@@ -128,17 +150,27 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 
 	}
 	for (auto& i : players) {
-		vec3_t xy;
+		vec3_t xy{0,0,0}, xy_head{0,0,0};
 
-		if (!isnormal(i.origin[0]) || !isnormal(i.origin[0]) || !isnormal(i.origin[0]))
+		if (!isnormal(i.origin[0]) || !isnormal(i.origin[1]) || !isnormal(i.origin[2]))
 			continue;
 
-		if (WorldToScreen((uint64_t)fnGetMainCamera(), i.origin, xy)) {
-			const float y = (float)((int(*)())g::fnIl2cpp_resolve_icall(UE_GET_HEIGHT))();
-
-			ImGui::GetBackgroundDrawList()->AddCircleFilled(ImVec2(r::X(xy[0]), r::Y(y - xy[1])), 10, IM_COL32(255, 255, 0, 255), 5);
-
+		if (GetAsyncKeyState(VK_NUMPAD2) & 1) {
+			system("cls");
+			for (int j = 0; j < 3; j++) {
+				std::cout << "org[" << j << "]: " << i.origin[j] << '\n';
+			}
 		}
+
+		//const bool a = WorldToScreen((uint64_t)fnGetMainCamera(), vec3_t{0,0,0}, xy);
+		////const bool b = WorldToScreen((uint64_t)fnGetMainCamera(), head, xy_head);
+
+		//if (a) {
+		//	const float y = (float)((int(*)())g::fnIl2cpp_resolve_icall(UE_GET_HEIGHT))();
+
+		//	ImGui::GetBackgroundDrawList()->AddCircleFilled(ImVec2(r::X(xy[0]), r::Y(y - xy[1])), 5, IM_COL32(255, 255, 0, 255));
+
+		//}
 	}
 
 	

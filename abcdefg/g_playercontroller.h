@@ -45,7 +45,7 @@ namespace g {
 	uint32_t __fastcall UE_PlayerTransform(g::PlayerTransform_s* transform, void* a2, float a3, void* a4);
 	int64_t __fastcall UE_OpenURL(intptr_t* unsure);
 
-
+	inline std::vector<players_s> players;
 
 	intptr_t __fastcall PrintChat(intptr_t* a1, textobject* a2, uint32_t a3, char a4, intptr_t a5);
 

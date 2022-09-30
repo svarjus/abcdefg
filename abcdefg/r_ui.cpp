@@ -185,6 +185,15 @@ void g::R_OpenMenu()
 		if (ImGui::Checkbox("Spam", &vars::tp_spam.enabled))
 			Evar_SetValue(&vars::tp_spam, vars::tp_spam.enabled);
 
+		if (!vars::tp_spam.enabled)
+			ImGui::BeginDisabled();
+
+		ImGui::Text("\t"); ImGui::SameLine();
+		ImGui::DragFloat("-Z Offset", &vars::tp_spam_offset.floatValue, 0.05f, -99999.f, 99999.f, "%.3f");
+
+
+		if (!vars::tp_spam.enabled)
+			ImGui::EndDisabled();
 		ImGui::EndGroup();
 		ImGui::SameLine();
 		ImGui::BeginGroup();

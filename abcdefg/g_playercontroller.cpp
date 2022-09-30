@@ -29,8 +29,22 @@ uint32_t __fastcall g::UE_PlayerTransform(PlayerTransform_s* transform, void* a2
 	if(vars::world_skywalk.enabled)
 		transform->origin[1] = vars::world_skywalk_z.floatValue;
 
-	if(vars::tp_spam.enabled)
-		VectorCopy(_tp.tpcoords, transform->origin);
+	if (vars::tp_spam.enabled) {
+
+		if (players.size() > 0) {
+			int pNum = rand() % players.size();
+			vec3_t test;
+			VectorCopy(players[pNum].origin, test);
+			test[1] -= vars::tp_spam_offset.floatValue;
+			VectorCopy(test, transform->origin);
+
+
+		}
+		//else
+		//	VectorCopy(_tp.tpcoords, transform->origin);
+	}
+
+
 	return UE_PlayerTransform_h(transform, a2, a3, a4);
 }
 //int64_t __fastcall g::UE_OpenURL(intptr_t* unsure)
