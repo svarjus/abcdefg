@@ -37,6 +37,7 @@ namespace g {
 	inline PlayerInfo_h PlayerInfo_f;
 	inline UE_PlayerTransform_hook UE_PlayerTransform_h;
 	inline PrintChat_hook PrintChat_f;
+	inline uintptr_t OutskirtsCodeGenerator__get_Code;
 
 	inline __tp _tp;
 	void PlayerController_Update(g::PlayerController_c* playercontroller);

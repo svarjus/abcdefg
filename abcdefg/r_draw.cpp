@@ -57,13 +57,13 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 
 	if (keyPressed) {
 
-		int* code = ((int* (*)())(GameAssembly + 4540528))(); //System_Int32_array* OutskirtsCodeGenerator__get_Code (const MethodInfo* method);
+		int* code = ((int* (*)())(OutskirtsCodeGenerator__get_Code))(); //System_Int32_array* OutskirtsCodeGenerator__get_Code (const MethodInfo* method);
 		int _codeArray[4];
 		for (int i = 0; i < 4; i++)
 			_codeArray[i] = code[8 + i];
 		for (int i = 0; i < 4; i++)
 			std::cout << std::dec << _codeArray[i];
-
+		std::cout << '\n';
 		//if (&PlayerController) {
 		//	std::cout << "yep: 0x" << std::hex << &PlayerController << '\n';
 		//}

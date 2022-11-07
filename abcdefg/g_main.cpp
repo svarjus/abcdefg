@@ -112,18 +112,11 @@ void g::G_OffsetsAndHooks()
 	fnWorldToScreenPoint = (tp_WorldToScreenPoint*)fnIl2cpp_resolve_icall("UnityEngine.Camera::WorldToScreenPoint_Injected");
 	fnGetMainCamera = (tpGetMainCamera*)fnIl2cpp_resolve_icall("UnityEngine.Camera::get_main()");
 
-	uintptr_t pat = GameAssembly + 4587680; //PlayerController$$Update
-
-	if (!pat) {
-		MessageBoxA(NULL, "failed to find pattern (playercontroller update)!", "ERROR", 0);
-		exit(-1);
-		return;
-	}
 
 	//gameassembly hooks
-	Update_h				= (Update_hook)(pat);  //40 55 57 48 8D 6C 24 C8 48 81 EC 38 01 00 00 80 3D 4F 54 7F 00 00 48 8B F9 0F 29 B4 24 10 01 00 00 75 12 8B 0D 83 D3 32
-	PrintChat_f				= (PrintChat_hook)(GameAssembly + 3667344);   //ChatManager$$SendChatMessage
-
+	Update_h							= (Update_hook)(GameAssembly + 4391360); //PlayerController$$Update
+	PrintChat_f							= (PrintChat_hook)(GameAssembly + 3470256);   //ChatManager$$SendChatMessage
+	OutskirtsCodeGenerator__get_Code	= (uintptr_t)(GameAssembly + 4344256); //OutskirtsCodeGenerator__get_Code
 	//unity engine hooks
 	UE_PlayerTransform_h	= (UE_PlayerTransform_hook)	(UnityPlayer + 0x10C08E0);
 	PlayerInfo_f			= (PlayerInfo_h)			(UnityPlayer + 0x10B8B60);
@@ -131,8 +124,8 @@ void g::G_OffsetsAndHooks()
 	//MyceliumBanManager__IsBanned_f	= (bool(*)(int64_t))	(GameAssembly + 3004624);
 	//TimeoutManager__IsBanned_f		= (bool(*)(int64_t))	(GameAssembly + 3846864);
 
-	PlayerController_Die = GameAssembly + 4556864; //PlayerController$$Die
-	PlayerController_Fire_Delay = (GameAssembly + 4561264 + 0x149); //PlayerController$$Fire + 0x149
+	PlayerController_Die = GameAssembly + 4360592; //PlayerController$$Die
+	PlayerController_Fire_Delay = (GameAssembly + 4364880 + 0x149); //PlayerController$$Fire + 0x149
 	a->get_bytes((void*)PlayerController_Fire_Delay, 5, PlayerController_Fire_Delay_orgbytes);
 
 	a->install(&(PVOID&)Update_h, PlayerController_Update); //hook PlayerController.Update() to steal the PlayerController object :x
