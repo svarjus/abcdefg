@@ -38,7 +38,10 @@ namespace g {
 	inline UE_PlayerTransform_hook UE_PlayerTransform_h;
 	inline PrintChat_hook PrintChat_f;
 	inline uintptr_t OutskirtsCodeGenerator__get_Code;
-
+	inline uintptr_t MyceliumNetwork$$get_LocalPlayer;
+	inline uintptr_t PlayerController$$OnKill;
+	inline void(*PlayerController__OnKill_f)(PlayerController_c* __this, KillData_o* data);
+	void PlayerController$$OnKill_(PlayerController_c* __this, KillData_o* data);
 	inline __tp _tp;
 	void PlayerController_Update(g::PlayerController_c* playercontroller);
 	bool WorldToScreen(int64_t camFields, vec3_t pos, vec3_t out);

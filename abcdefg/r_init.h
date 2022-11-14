@@ -21,6 +21,7 @@ namespace g
 	long __stdcall D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UINT flags);
 	void R_InitImGui();
 	void R_GetID3D11_Device(IDXGISwapChain* p_swap_chain);
+	void R_DrawThroughWalls();
 
 	inline WNDPROC oWndProc;
 	extern LRESULT WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

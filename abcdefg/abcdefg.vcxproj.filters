@@ -132,6 +132,9 @@
     <ClInclude Include="ImGui\imgui_impl_dx11.h">
       <Filter>Header Files\_lib\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="r_pc_editor.h">
+      <Filter>Source Files\render\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -205,6 +208,9 @@
     </ClCompile>
     <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
       <Filter>Header Files\_lib\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="r_pc_editor.cpp">
+      <Filter>Source Files\render\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

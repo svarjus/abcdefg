@@ -90,7 +90,7 @@ typedef vec_t vec4_t[4];
 #include "r_init.h"
 #include "r_ui.h"
 #include "r_utils.h"
-
+#include "r_pc_editor.h"
 
 #include "vector.h"
 #include "matrix.h"

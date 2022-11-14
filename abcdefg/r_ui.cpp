@@ -203,6 +203,13 @@ void g::R_OpenMenu()
 		if (ImGui::Checkbox("ESP", &vars::random_esp.enabled))
 			Evar_SetValue(&vars::random_esp, vars::random_esp.enabled);
 		ImGui::EndGroup();
+
+		static bool isOpen;
+		if (ImGui::Button("PC Editor"))
+			isOpen = !isOpen;
+
+		R_PlayerControllerEditor(isOpen);
+
 		ImGui::End();
 
 	}

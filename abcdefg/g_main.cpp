@@ -21,51 +21,51 @@ void g::G_DebugVariables(PlayerController_c* LocalPlayer)
 
 void g::G_SetVariables()
 {
-	if (!g::hasPlayerController || (&PlayerController) == nullptr || (&PlayerTransform) == nullptr)
-		return;
-	//PlayerController_fields* LocalPlayer = PlayerController.object->static_fields->LocalPlayer;
-	////PlayerController.klass->static_fields->LocalPlayer->bulletSpread = vars::spread_angle.floatValue;
+	//if (!g::hasPlayerController || (&PlayerController) == nullptr || (&PlayerTransform) == nullptr)
+	//	return;
+	////PlayerController_fields* LocalPlayer = PlayerController.object->static_fields->LocalPlayer;
+	//////PlayerController.klass->static_fields->LocalPlayer->bulletSpread = vars::spread_angle.floatValue;
 
-	//const bool keyPressed = GetAsyncKeyState(VK_DELETE) & 1;
+	////const bool keyPressed = GetAsyncKeyState(VK_DELETE) & 1;
 
-	if (!&PlayerController)
-		return;
+	//if (!&PlayerController)
+	//	return;
 
-	if (!PlayerController.items)
-		return;
+	//if (!PlayerController.items)
+	//	return;
 
-	for (int i = 0; i < PlayerController.items->count; i++) {
-		const ItemPointer element = PlayerController.items->elements[i];
+	//for (int i = 0; i < PlayerController.items->count; i++) {
+	//	const ItemPointer element = PlayerController.items->elements[i];
 
-		if (!PlayerController.items->elements)
-			continue;
+	//	if (!PlayerController.items->elements)
+	//		continue;
 
-		if (!&PlayerController.items->elements[i])
-			continue;
+	//	if (!&PlayerController.items->elements[i])
+	//		continue;
 
-		//element.item->info->damage = vars::weapon_damage.arrayValue[i];
-		element.item->info->bulletSpread = vars::weapon_spread.arrayValue[i];
-		element.item->info->maxBulletSpread = vars::weapon_spread.arrayValue[i];
-		element.item->info->normalSpread = vars::weapon_spread.arrayValue[i];
-		element.item->info->movementSpreadMultiplier =01;
-		element.item->info->adsSpread = vars::weapon_spread.arrayValue[i];
-		element.item->info->adsBulletSpread = vars::weapon_spread.arrayValue[i];
-		element.item->info->bulletSpreadDecrease = 0;
-		element.item->info->cameraADSBobMultiplier = 1;
-		element.item->info->cameraADSBobMultiplier = 1;
-		//element.item->info->kickback = 100;
-		//element.item->bulletSpread = 360;
+	//	//element.item->info->damage = vars::weapon_damage.arrayValue[i];
+	//	element.item->info->bulletSpread = vars::weapon_spread.arrayValue[i];
+	//	element.item->info->maxBulletSpread = vars::weapon_spread.arrayValue[i];
+	//	element.item->info->normalSpread = vars::weapon_spread.arrayValue[i];
+	//	element.item->info->movementSpreadMultiplier =01;
+	//	element.item->info->adsSpread = vars::weapon_spread.arrayValue[i];
+	//	element.item->info->adsBulletSpread = vars::weapon_spread.arrayValue[i];
+	//	element.item->info->bulletSpreadDecrease = 0;
+	//	element.item->info->cameraADSBobMultiplier = 1;
+	//	element.item->info->cameraADSBobMultiplier = 1;
+	//	//element.item->info->kickback = 100;
+	//	//element.item->bulletSpread = 360;
 
-		element.item->totalAmmo.value = 9999;
-		element.item->ammo.value = 9999;
-		PlayerController.animationSmoothTime = 1.f;
-		PlayerController.smoothTime = 1.f;
+	//	element.item->totalAmmo.value = 9999;
+	//	element.item->ammo.value = 9999;
+	//	PlayerController.animationSmoothTime = 1.f;
+	//	PlayerController.smoothTime = 1.f;
 
-	}
-	//if (keyPressed) {
-	//	std::cout << "&bulletspread: " element.item->bulletSpread << '\n';
 	//}
-	G_DebugVariables(&PlayerController);
+	////if (keyPressed) {
+	////	std::cout << "&bulletspread: " element.item->bulletSpread << '\n';
+	////}
+	//G_DebugVariables(&PlayerController);
 }
 void g::G_Init()
 {
@@ -103,6 +103,7 @@ void g::G_Init()
 //{
 //	return false;
 //}
+
 void g::G_OffsetsAndHooks()
 {
 	hook* a = nullptr;
@@ -117,6 +118,9 @@ void g::G_OffsetsAndHooks()
 	Update_h							= (Update_hook)(GameAssembly + 4593264); //PlayerController$$Update
 	PrintChat_f							= (PrintChat_hook)(GameAssembly + 3873824);   //ChatManager$$SendChatMessage
 	OutskirtsCodeGenerator__get_Code	= (uintptr_t)(GameAssembly + 4545952); //OutskirtsCodeGenerator__get_Code
+	MyceliumNetwork$$get_LocalPlayer	= (uintptr_t)(GameAssembly + 3993360);  //MyceliumNetwork$$get_LocalPlayer
+	PlayerController__OnKill_f			= (void(*)(PlayerController_c*, KillData_o*))(GameAssembly + 4578416); //PlayerController$$OnKill
+
 	//unity engine hooks
 	UE_PlayerTransform_h	= (UE_PlayerTransform_hook)	(UnityPlayer + 0x10C08E0);
 	PlayerInfo_f			= (PlayerInfo_h)			(UnityPlayer + 0x10B8B60);
@@ -128,12 +132,17 @@ void g::G_OffsetsAndHooks()
 	PlayerController_Fire_Delay = (GameAssembly + 4566576 + 0x137); //PlayerController$$Fire + 0x149
 	a->get_bytes((void*)PlayerController_Fire_Delay, 5, PlayerController_Fire_Delay_orgbytes);
 
+	printf("PlayerController__OnKill_f: (0x%p)\n", PlayerController__OnKill_f);
+
+
 	a->install(&(PVOID&)Update_h, PlayerController_Update); //hook PlayerController.Update() to steal the PlayerController object :x
 	a->install(&(PVOID&)UE_PlayerTransform_h, UE_PlayerTransform);
 	a->install(&(PVOID&)PlayerInfo_f, UE_PlayerInfo);
 	a->install(&(PVOID&)PrintChat_f, PrintChat);
+	a->install(&(PVOID&)PlayerController__OnKill_f, PlayerController$$OnKill_);
 	//a->install(&(PVOID&)MyceliumBanManager__IsBanned_f, MyceliumBanManager__IsBanned);
 	//a->install(&(PVOID&)TimeoutManager__IsBanned_f, TimeoutManager__IsBanned);
+
 
 	if (vars::invincibility.enabled) {
 

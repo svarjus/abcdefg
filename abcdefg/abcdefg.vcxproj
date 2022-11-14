@@ -173,6 +173,7 @@
     <ClInclude Include="matrix.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="r_init.h" />
+    <ClInclude Include="r_pc_editor.h" />
     <ClInclude Include="r_ui.h" />
     <ClInclude Include="r_utils.h" />
     <ClInclude Include="u_objects.h" />
@@ -226,6 +227,7 @@
     </ClCompile>
     <ClCompile Include="r_draw.cpp" />
     <ClCompile Include="r_init.cpp" />
+    <ClCompile Include="r_pc_editor.cpp" />
     <ClCompile Include="r_ui.cpp" />
     <ClCompile Include="r_utils.cpp" />
     <ClCompile Include="vector.cpp" />

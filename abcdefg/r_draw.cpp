@@ -37,6 +37,25 @@ void AchievementEvaluator_LearningTheABCs__OnKill(void* obj_ptr, uintptr_t obj_p
 //{
 //	return true;
 //}
+g::PlayerController_c* me;
+g::KillData_o* killdata;
+
+void g::PlayerController$$OnKill_(PlayerController_c* __this, KillData_o* data)
+{
+
+	//memcpy_s(&killdata, sizeof(g::KillData_o), &data, sizeof(g::KillData_o));
+
+
+	PlayerController__OnKill_f(__this, data);
+
+	printf("playercontroller: 0x%p\n", __this);
+	printf("killdata: 0x%p\n", data);
+
+	me = reinterpret_cast<PlayerController_c*>(__this);
+	killdata = reinterpret_cast<KillData_o*>(data);
+
+	return;
+}
 long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UINT flags)
 {
 	R_GetID3D11_Device(p_swap_chain);
@@ -81,22 +100,41 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 		
 	}
 
+	R_DrawThroughWalls();
+
+	if (GetAsyncKeyState(VK_NUMPAD0) & 1) {
+
+		if (me) {
+			//PlayerController__OnKill_f(me, killdata);
+			((void(*)(PlayerController_c*))(GameAssembly + 4562016))(me);
+		}
+
+		//std::cout << "playerCount: " << GetAlivePlayers() << '\n';
+	}
+	
+	R_EndRender();
+
+	return pEndScene(p_swap_chain, sync_interval, flags);
+}
+
+void g::R_DrawThroughWalls()
+{
 	players.erase(players.begin(), players.end());
 	players.clear();
 	players.resize(0);
 	GameObject* lastTaggedGameObject = GameObjectManager->GameObjectManagerObj->LastTaggedObject2->gameObject;
 	BaseObject* nextNode = GameObjectManager->GameObjectManagerObj->TaggedObject2;
 
-	
+
 
 	int found = 0;
 	if (nextNode) {
 
-		while(true){
+		while (true) {
 
 			GameObject* gameObject = nextNode->gameObject;
-			if (!gameObject) 
-				break; 
+			if (!gameObject)
+				break;
 
 			if (!&gameObject->name)
 				break;
@@ -104,7 +142,7 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 			const uintptr_t validLoc = (uintptr_t)(gameObject->name);
 
 			if (!validLoc || validLoc > 0xFFFFFFFFFFFFFFF) {
-				std::cout << "wtf very invalid\n";
+				//std::cout << "wtf very invalid\n";
 				break;
 			}
 
@@ -131,7 +169,7 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 				}
 			}
 			catch (std::exception& ex) {
-				
+
 				std::cout << "exception caught: " << ex.what() << '\n';
 
 				break;
@@ -139,8 +177,8 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 
 
 
-			if (gameObject == lastTaggedGameObject) 
-				break; 
+			if (gameObject == lastTaggedGameObject)
+				break;
 			nextNode = nextNode->nextObject;
 
 
@@ -150,7 +188,7 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 
 	}
 	for (auto& i : players) {
-		vec3_t xy{0,0,0}, xy_head{0,0,0};
+		vec3_t xy{ 0,0,0 }, xy_head{ 0,0,0 };
 
 		if (!isnormal(i.origin[0]) || !isnormal(i.origin[1]) || !isnormal(i.origin[2]))
 			continue;
@@ -162,7 +200,7 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 			}
 		}
 
-		//const bool a = WorldToScreen((uint64_t)fnGetMainCamera(), vec3_t{0,0,0}, xy);
+		//const bool a = WorldToScreen((uint64_t)fnGetMainCamera(), i.origin, xy);
 		////const bool b = WorldToScreen((uint64_t)fnGetMainCamera(), head, xy_head);
 
 		//if (a) {
@@ -173,8 +211,4 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 		//}
 	}
 
-	
-	R_EndRender();
-
-	return pEndScene(p_swap_chain, sync_interval, flags);
 }

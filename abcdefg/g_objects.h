@@ -387,24 +387,50 @@ namespace g
 		char pad_0000[184]; //0x0000
 		PlayerController_staticfields* static_fields;
 	}; 
+	struct UnityEngine_LayerMask_Fields {
+		int32_t m_Mask;
+	};
+	struct UnityEngine_LayerMask_o {
+		UnityEngine_LayerMask_Fields fields;
+	};
+	constexpr int ah = sizeof(UnityEngine_LayerMask_o);
 
 	struct PlayerController_c
 	{
-		//int collisionMask;
-//int damagerMask;
-//char flybyAudioManager[32];
-//char cameraHolder[16];
-//char shieldObject[16];
-//char cam[16];
-//char rainEffects[16];
-//char battleRoyalEffects[16];
-//char spotLight[16];
-		char _pad00[0x58];
+		char _pad00[0x58];// ->ItemArray*
+		//struct UnityEngine_LayerMask_o collisionMask;
+		//struct UnityEngine_LayerMask_o damagerMask;
+		//void* flybyAudioManager;
+		//void* cameraHolder;
+		//void* shieldObject;
+		//void* cam;
+		//void* rainEffects;
+		//void* battleRoyalEffects;
+		//void* spotLight;
 		ItemArray* items;
-		char _pad01[0x50-8];
+		struct ItemInfo_array* ownedItems;
+		struct System_Collections_Generic_Dictionary_int__int__o* itemToOwnedItemIndex;
+		struct WeaponModPart_array* weaponModParts;
+		struct UnityEngine_GameObject_array* deactivateIfNotOwner;
+		char crosshair[20];
+		struct UnityEngine_Renderer_o* renderer;
+		struct UnityEngine_GameObject_o* damageIndicatorCanvasPrefab;
+		char pad22[16];
 		float smoothTime;
 		float animationSmoothTime;
-		char _pad02[112-24];
+		struct UnityEngine_LayerMask_o localCullingMask;
+		struct System_Action_o* OnShowLocalParts;
+		struct System_Action_o* OnHideLocalParts;
+		int32_t itemIndex;
+		bool shielded;
+		struct System_Collections_Generic_Dictionary_string__StatInfo__o* stats;
+		float verticalLookRotation;
+		vec3_t moveAmount;
+		vec3_t smoothMoveVelocity;
+		bool grounded;
+		bool groundedLastTick;
+		struct UnityEngine_Transform_o* groundedTransform;
+		struct UnityEngine_Transform_o* lastGroundedTransform;
 		vec3_t groundedTransformLastPosition;
 		vec3_t momentum;
 		bool toJump;
@@ -437,7 +463,30 @@ namespace g
 		float additiveFov;
 		int16_t lastDamagePacketID;
 	}; 
-
+	struct MyceliumNetwork_Fields
+	{
+		float SendRate;
+		void* _Players_k__BackingField;
+		struct MyceliumPlayer_o* _localPlayer;
+		bool InLobby;
+	};
+	struct MyceliumNetwork_o
+	{
+		void* HUH;
+		MyceliumNetwork_Fields fields;
+		void* monitor;
+		//MyceliumNetwork_Fields fields;
+	};
+	
+	struct KillData_Fields {
+		struct MyceliumPlayer_o* victim;
+		struct DamageData_array* damageData;
+		float distance;
+		int16_t damagePacketID;
+	};
+	struct KillData_o {
+		KillData_Fields fields;
+	};
 }
 
 #endif

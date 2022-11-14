@@ -17,6 +17,7 @@ namespace g
 
 	uintptr_t getComponentById(uintptr_t ComponentList, int id);
 	GameObject* GetPlayer(int playerIndex);
+	int GetAlivePlayers();
 }
 
 #endif

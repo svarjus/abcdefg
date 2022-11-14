@@ -6,7 +6,7 @@
 
 void g::PlayerController_Update(PlayerController_c* playercontroller)
 {
-
+	//playercontroller
 	if (GetAsyncKeyState(VK_HOME)&1) {
 		std::cout << "yep: 0x" << std::hex << playercontroller << '\n';
 		std::cout << "&smoothTime: 0x" << std::hex << &playercontroller->smoothTime << '\n';
