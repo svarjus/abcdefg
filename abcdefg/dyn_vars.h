@@ -6,27 +6,24 @@
 
 #include "pch.h"
 
-namespace vars
+namespace v
 {
 	namespace cfg
 	{
 		inline std::string cfgDirectory;
 	}
-	inline evar_s invincibility;
-	inline evar_s no_fire_delay;
-
-	inline evar_s spread_angle;
-	inline evar_s weapon_damage;
-	inline evar_s weapon_spread;
-	inline evar_s weapon_magazineSize;
-
-	inline evar_s world_skywalk;
-	inline evar_s world_skywalk_z;
-
-	inline evar_s tp_spam;
-	inline evar_s tp_spam_offset;
-
-	inline evar_s random_esp;
+	inline evar_o 
+		invincibility,
+		no_fire_delay,
+		spread_angle,
+		weapon_damage,
+		weapon_spread,
+		weapon_magazineSize,
+		world_skywalk,
+		world_skywalk_z,
+		tp_spam,
+		tp_spam_offset,
+		random_esp;
 }
 
 #endif

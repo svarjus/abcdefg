@@ -80,6 +80,9 @@ typedef vec_t vec4_t[4];
 #include "dyn_vars.h"
 
 #include "u_objects.h"
+#include "u_player.hpp"
+#include "u_world.hpp"
+
 #include "g_objects.h"
 #include "g_offsets.h"
 #include "g_gameobject.h"
@@ -87,10 +90,16 @@ typedef vec_t vec4_t[4];
 #include "g_main.h"
 #include "g_playercontroller.h"
 
+#include "g_dlc.hpp"
+#include "g_secrets.hpp"
+#include "g_weapons.hpp"
+
 #include "r_init.h"
 #include "r_ui.h"
 #include "r_utils.h"
 #include "r_pc_editor.h"
+
+#include "mod_vis.hpp"
 
 #include "vector.h"
 #include "matrix.h"

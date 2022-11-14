@@ -216,12 +216,12 @@ namespace g
 	}; //Size: 0x0068
 	struct GameObjectManager_o
 	{
-		class LastObjectBase* LastTaggedObject; //0x0000
-		class BaseObject* TaggedObjects; //0x0008
-		class LastObjectBase* LastActiveObject; //0x0010
-		class BaseObject* ActiveObjects; //0x0018
-		class LastObjectBase* LastTaggedObject2; //0x0020
-		class BaseObject* TaggedObject2; //0x0028
+		LastObjectBase* LastTaggedObject; //0x0000
+		BaseObject* TaggedObjects; //0x0008
+		LastObjectBase* LastActiveObject; //0x0010
+		BaseObject* ActiveObjects; //0x0018
+		LastObjectBase* LastTaggedObject2; //0x0020
+		BaseObject* TaggedObject2; //0x0028
 	};
 	struct GameObjectManager_s
 	{

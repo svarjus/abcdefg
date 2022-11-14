@@ -234,7 +234,7 @@ float Distance(vec3_t src, vec3_t dst)
 }
 float getHyp(float x, float y)
 {
-	float hyp = sqrt(pow(x, 2) + pow(y, 2));
+	float hyp = (float)sqrt(pow(x, 2) + pow(y, 2));
 	return hyp;
 }
 float GetYaw(float yaw, vec3_t src, vec3_t dst)

@@ -23,6 +23,8 @@ namespace g
 	void R_GetID3D11_Device(IDXGISwapChain* p_swap_chain);
 	void R_DrawThroughWalls();
 
+	void R_MainLoop();
+
 	inline WNDPROC oWndProc;
 	extern LRESULT WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 }

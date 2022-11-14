@@ -39,7 +39,7 @@ void g::R_Init()
 	a->install(&(PVOID&)pEndScene, D3D_Draw);
 
 	Evar_Setup();
-	Evar_LoadFromFile(vars::cfg::cfgDirectory);
+	Evar_LoadFromFile(v::cfg::cfgDirectory);
 
 	G_Init();
 }

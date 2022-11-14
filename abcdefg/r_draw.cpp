@@ -16,102 +16,33 @@ LRESULT __stdcall g::WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 	return CallWindowProcA(oWndProc, hWnd, uMsg, wParam, lParam);
 }
-typedef void(*AchievementEvaluator_LearningTheABCs__OnKill_h)(void* obj_ptr, uintptr_t obj_ptr2);
-AchievementEvaluator_LearningTheABCs__OnKill_h AchievementEvaluator_LearningTheABCs__OnKill_f = (AchievementEvaluator_LearningTheABCs__OnKill_h)(g::GameAssembly + 19604144);
-//D0 55 1E 98 48 02 00 00 00 00 00 00 00 00 00 00
-void AchievementEvaluator_LearningTheABCs__OnKill(void* obj_ptr, uintptr_t obj_ptr2)
+void g::R_MainLoop()
 {
-	//std::cout << "AchievementEvaluator_LearningTheABCs_o*: 0x" << std::hex << obj_ptr << '\n';
+	//imgui drawing can be used in this function
 
-	//int32_t val = AchievementEvaluator_LearningTheABCs__get_achievement_f(obj_ptr);
-	//const bool keyPressed = GetAsyncKeyState(VK_PRIOR) & 1;
-	//if (keyPressed)
-	//	std::cout << "AchievementEvaluator_LearningTheABCs__get_achievement(): " << val << '\n';
-	std::cout << "AchievementEvaluator_LearningTheABCs__OnKill()\n";
-	return/* AchievementEvaluator_LearningTheABCs__OnKill_f(obj_ptr, obj_ptr2)*/;
-}
-//typedef bool(*SteamDLCManager__HasDLC_h)(int32_t dlc);
-//SteamDLCManager__HasDLC_h SteamDLCManager__HasDLC_f = (SteamDLCManager__HasDLC_h)(g::GameAssembly + 3020752);
-//
-//bool SteamDLCManager__HasDLC(int32_t dlc)
-//{
-//	return true;
-//}
-g::PlayerController_c* me;
-g::KillData_o* killdata;
+	if (GetAsyncKeyState(VK_NUMPAD0) & 1)
+		std::cout << "alive players: " << GetAlivePlayers()<<'\n';
 
-void g::PlayerController$$OnKill_(PlayerController_c* __this, KillData_o* data)
-{
+	const int AlivePlayers = GetAlivePlayers();
 
-	//memcpy_s(&killdata, sizeof(g::KillData_o), &data, sizeof(g::KillData_o));
+	if (AlivePlayers > 0) {
 
 
-	PlayerController__OnKill_f(__this, data);
+		G_SetWeaponData();
+		R_DrawThroughWalls();
+	}
 
-	printf("playercontroller: 0x%p\n", __this);
-	printf("killdata: 0x%p\n", data);
 
-	me = reinterpret_cast<PlayerController_c*>(__this);
-	killdata = reinterpret_cast<KillData_o*>(data);
-
-	return;
 }
 long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UINT flags)
 {
 	R_GetID3D11_Device(p_swap_chain);
 
-	static bool once = true;
-
-	if (once) {
-		once = false;
-		//hook* a = nullptr;
-		//std::cout << "hook it\n";
-		//a->install(&(PVOID&)SteamDLCManager__HasDLC_f, SteamDLCManager__HasDLC);
-	}
 
 	R_OpenMenu();
-	G_SetVariables();
+	GetAllPlayers();
+	R_MainLoop();
 
-	const bool keyPressed = GetAsyncKeyState(VK_DELETE) & 1;
-
-	if (keyPressed) {
-
-		int* code = ((int* (*)())(OutskirtsCodeGenerator__get_Code))(); //System_Int32_array* OutskirtsCodeGenerator__get_Code (const MethodInfo* method);
-		int _codeArray[4];
-		for (int i = 0; i < 4; i++)
-			_codeArray[i] = code[8 + i];
-		for (int i = 0; i < 4; i++)
-			std::cout << std::dec << _codeArray[i];
-		std::cout << '\n';
-		//if (&PlayerController) {
-		//	std::cout << "yep: 0x" << std::hex << &PlayerController << '\n';
-		//}
-	}
-
-	if (vars::random_esp.enabled) {
-		if (&PlayerTransform != nullptr && fnGetMainCamera() && _tp.tpcoords) {
-			vec3_t out;
-			_tp.tpcoords[1] += 0.75;
-			WorldToScreen((uint64_t)fnGetMainCamera(), _tp.tpcoords, out); {
-				ImGui::GetBackgroundDrawList()->AddCircle(ImVec2(out[0], r::X(1080.f) - out[1]), 30, IM_COL32(0, 255, 0, 255), 10, 1.f);
-			}
-		}
-			
-		
-	}
-
-	R_DrawThroughWalls();
-
-	if (GetAsyncKeyState(VK_NUMPAD0) & 1) {
-
-		if (me) {
-			//PlayerController__OnKill_f(me, killdata);
-			((void(*)(PlayerController_c*))(GameAssembly + 4562016))(me);
-		}
-
-		//std::cout << "playerCount: " << GetAlivePlayers() << '\n';
-	}
-	
 	R_EndRender();
 
 	return pEndScene(p_swap_chain, sync_interval, flags);
@@ -119,96 +50,23 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 
 void g::R_DrawThroughWalls()
 {
-	players.erase(players.begin(), players.end());
-	players.clear();
-	players.resize(0);
-	GameObject* lastTaggedGameObject = GameObjectManager->GameObjectManagerObj->LastTaggedObject2->gameObject;
-	BaseObject* nextNode = GameObjectManager->GameObjectManagerObj->TaggedObject2;
+	if (!v::random_esp.isEnabled())
+		return;
 
-
-
-	int found = 0;
-	if (nextNode) {
-
-		while (true) {
-
-			GameObject* gameObject = nextNode->gameObject;
-			if (!gameObject)
-				break;
-
-			if (!&gameObject->name)
-				break;
-
-			const uintptr_t validLoc = (uintptr_t)(gameObject->name);
-
-			if (!validLoc || validLoc > 0xFFFFFFFFFFFFFFF) {
-				//std::cout << "wtf very invalid\n";
-				break;
-			}
-
-			try {
-				if (strstr(gameObject->name, "PlayerAvatar")) {
-					found++;
-					uint64_t compList = (uint64_t)gameObject->ComponentList;
-					uint64_t tranform = getComponentById(compList, 0);
-					uint64_t tranform_internal = *(uint64_t*)(tranform + 0x38);
-					tranform_internal += 144;
-					vec3_t org;
-					org[0] = *(float*)(tranform_internal);
-					org[1] = *(float*)(tranform_internal + 4);
-					org[2] = *(float*)(tranform_internal + 8);
-
-					players_s thisPlayer;
-
-					thisPlayer.gameObj = gameObject;
-					XZY2XYZ(org, thisPlayer.originXYZ);
-					VectorCopy(org, thisPlayer.origin);
-
-					players.push_back(thisPlayer);
-
-				}
-			}
-			catch (std::exception& ex) {
-
-				std::cout << "exception caught: " << ex.what() << '\n';
-
-				break;
-			}
-
-
-
-			if (gameObject == lastTaggedGameObject)
-				break;
-			nextNode = nextNode->nextObject;
-
-
-		}
-
-
-
-	}
+	vec3_t org;
 	for (auto& i : players) {
-		vec3_t xy{ 0,0,0 }, xy_head{ 0,0,0 };
 
-		if (!isnormal(i.origin[0]) || !isnormal(i.origin[1]) || !isnormal(i.origin[2]))
-			continue;
+		GetPlayerOrigin(i, org);
+		const vec3 a(org[0], org[1], org[2]);
 
-		if (GetAsyncKeyState(VK_NUMPAD2) & 1) {
-			system("cls");
-			for (int j = 0; j < 3; j++) {
-				std::cout << "org[" << j << "]: " << i.origin[j] << '\n';
-			}
+		const vec3 out = WorldToScreenPoint((uintptr_t*)fnGetMainCamera(), a);
+
+		if (out.z >= 1.f) {
+			const g::box_s box(org, vec3_t{ .4f,.75f,.4f }, vec3_t{ .4f,.75f,.4f });
+			box.R_DrawConstructedBoxEdges(vec4_t{ 255,0,0,255 });
+			box.R_DrawConstructedBox(vec4_t{ 255,0,0,55 });
 		}
 
-		//const bool a = WorldToScreen((uint64_t)fnGetMainCamera(), i.origin, xy);
-		////const bool b = WorldToScreen((uint64_t)fnGetMainCamera(), head, xy_head);
-
-		//if (a) {
-		//	const float y = (float)((int(*)())g::fnIl2cpp_resolve_icall(UE_GET_HEIGHT))();
-
-		//	ImGui::GetBackgroundDrawList()->AddCircleFilled(ImVec2(r::X(xy[0]), r::Y(y - xy[1])), 5, IM_COL32(255, 255, 0, 255));
-
-		//}
 	}
 
 }

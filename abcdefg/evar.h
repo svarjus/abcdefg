@@ -10,6 +10,7 @@ enum evartype_t
 	EVAR_BOOL,
 	EVAR_INT,
 	EVAR_FLOAT,
+	EVAR_STRING,
 	EVAR_VEC2,
 	EVAR_VEC3,
 	EVAR_VEC4,
@@ -22,37 +23,52 @@ struct evar_s
 	const char* name;
 	int intValue;
 	float floatValue;
-	vec2_t vec2Value;
-	vec3_t vec3Value;
-	vec4_t vec4Value;
+	std::string stringValue;
+	vec4_t vecValue;
 	std::vector<float> arrayValue;
 	bool enabled;
 	float value;
+	bool save; //save to config
 	evartype_t type;
-	evar_s* Next;
+	struct evar_o* Next;
 };
-
-
-inline evar_s* evar;
-inline evar_s* evarList[256]{};
-inline uint32_t evarCount;
-
-evar_s* Evar_FindByName(const char* name);
-void Evar_Register(evar_s* evar, const char* name, evartype_t type, float defaultValue);
-void Evar_Register(evar_s* evar, const char* name, evartype_t type, float* defaultValue);
-void Evar_Register(evar_s* evar, const char* name, evartype_t type, float defaultValue, uint32_t size); //arrays
-
-
 void Evar_Setup();
-void Evar_SetValue(evar_s* evar, float value);
-void Evar_SetValue(evar_s* evar, float* value);
-void Evar_SetValue(evar_s* evar, float* valueArray, uint32_t items, uint32_t beginIndex);
+
+struct evar_o
+{
+	evar_o() {
+		this->evar = new evar_s;
+	}
+	~evar_o()
+	{
+		if (this->evar)
+			delete this->evar;
+	}
+	void Register(const char* name, evartype_t type, float defaultValue, bool save);
+	void Register(const char* name, evartype_t type, float* defaultValue, bool save);
+	void Register(const char* name, evartype_t type, const char* defaultValue, bool save);
+	void Register(const char* name, evartype_t type, float* defaultValue, uint32_t size, bool save); //arrays
 
 
+	int GetInt();
+	float GetFloat();
+	float GetVector(uint32_t prm);
+	float GetArray(uint32_t prm);
+	const char* GetString();
+	bool isEnabled();
+
+	void SetValue(float value);
+	void SetValue(float* value);
+	void SetValue(float* valueArray, uint32_t items, uint32_t beginIndex);
+	void SetValue(const char* value);
+
+	evar_s* evar;
+
+};
+evar_o* Evar_FindByName(const char* name);
 std::vector<evar_s*> Evar_GetAlphabetically();
 
-inline uint32_t (*Com_HashString)(char* string) = (uint32_t(__cdecl*)(char*))0x569DA0;
-static std::string evar_save_path_cstr;
-
+inline evar_o* evarList[256]{};
+inline uint32_t evarCount;
 
 #endif

@@ -154,12 +154,15 @@
     <ClInclude Include="evar_config.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="fs_funcs.h" />
+    <ClInclude Include="g_dlc.hpp" />
     <ClInclude Include="g_entrypoint.h" />
     <ClInclude Include="g_gameobject.h" />
     <ClInclude Include="g_objects.h" />
     <ClInclude Include="g_offsets.h" />
     <ClInclude Include="g_main.h" />
     <ClInclude Include="g_playercontroller.h" />
+    <ClInclude Include="g_secrets.hpp" />
+    <ClInclude Include="g_weapons.hpp" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="ImGui\imgui_impl_dx11.h" />
@@ -171,12 +174,15 @@
     <ClInclude Include="koukku.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="matrix.h" />
+    <ClInclude Include="mod_vis.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="r_init.h" />
     <ClInclude Include="r_pc_editor.h" />
     <ClInclude Include="r_ui.h" />
     <ClInclude Include="r_utils.h" />
+    <ClInclude Include="u_world.hpp" />
     <ClInclude Include="u_objects.h" />
+    <ClInclude Include="u_player.hpp" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>
@@ -184,10 +190,13 @@
     <ClCompile Include="evar.cpp" />
     <ClCompile Include="evar_config.cpp" />
     <ClCompile Include="fs_funcs.cpp" />
+    <ClCompile Include="g_dlc.cpp" />
     <ClCompile Include="g_entrypoint.cpp" />
     <ClCompile Include="g_gameobject.cpp" />
     <ClCompile Include="g_main.cpp" />
     <ClCompile Include="g_playercontroller.cpp" />
+    <ClCompile Include="g_secrets.cpp" />
+    <ClCompile Include="g_weapons.cpp" />
     <ClCompile Include="ImGui\imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -219,6 +228,7 @@
     <ClCompile Include="koukku.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="matrix.cpp" />
+    <ClCompile Include="mod_vis.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -230,6 +240,8 @@
     <ClCompile Include="r_pc_editor.cpp" />
     <ClCompile Include="r_ui.cpp" />
     <ClCompile Include="r_utils.cpp" />
+    <ClCompile Include="u_player.cpp" />
+    <ClCompile Include="u_world.cpp" />
     <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>

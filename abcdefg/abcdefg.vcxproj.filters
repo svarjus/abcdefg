@@ -43,6 +43,24 @@
     <Filter Include="Header Files\_lib\imgui">
       <UniqueIdentifier>{ed51f116-f3a8-463a-8c60-58644cf5198d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game\dlc">
+      <UniqueIdentifier>{75ded9e6-6423-456e-920e-33662a21071d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\uengine">
+      <UniqueIdentifier>{5f8440a7-16e4-4945-b69f-da9ade1f31fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\maps">
+      <UniqueIdentifier>{9c47f872-4f03-4d00-a32c-bc1bd0e3c867}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\essential">
+      <UniqueIdentifier>{b6db753e-f895-465d-a400-61766cb13287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\players">
+      <UniqueIdentifier>{6f347d68-3241-4ec2-a401-a08071b674d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\mod">
+      <UniqueIdentifier>{758e9934-a3d9-463f-8135-c09beba206ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="koukku.h">
@@ -57,12 +75,6 @@
     <ClInclude Include="g_offsets.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="g_main.h">
-      <Filter>Source Files\game</Filter>
-    </ClInclude>
-    <ClInclude Include="g_entrypoint.h">
-      <Filter>Source Files\game</Filter>
-    </ClInclude>
     <ClInclude Include="g_objects.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
@@ -71,9 +83,6 @@
     </ClInclude>
     <ClInclude Include="r_init.h">
       <Filter>Source Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="g_playercontroller.h">
-      <Filter>Source Files\game</Filter>
     </ClInclude>
     <ClInclude Include="r_ui.h">
       <Filter>Source Files\render</Filter>
@@ -105,9 +114,6 @@
     <ClInclude Include="math.h">
       <Filter>Source Files\math</Filter>
     </ClInclude>
-    <ClInclude Include="g_gameobject.h">
-      <Filter>Source Files\game</Filter>
-    </ClInclude>
     <ClInclude Include="ImGui\imconfig.h">
       <Filter>Header Files\_lib\imgui</Filter>
     </ClInclude>
@@ -135,6 +141,36 @@
     <ClInclude Include="r_pc_editor.h">
       <Filter>Source Files\render\utils</Filter>
     </ClInclude>
+    <ClInclude Include="g_dlc.hpp">
+      <Filter>Source Files\game\dlc</Filter>
+    </ClInclude>
+    <ClInclude Include="u_player.hpp">
+      <Filter>Source Files\uengine</Filter>
+    </ClInclude>
+    <ClInclude Include="g_secrets.hpp">
+      <Filter>Source Files\game\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="g_entrypoint.h">
+      <Filter>Source Files\game\essential</Filter>
+    </ClInclude>
+    <ClInclude Include="g_gameobject.h">
+      <Filter>Source Files\game\essential</Filter>
+    </ClInclude>
+    <ClInclude Include="g_main.h">
+      <Filter>Source Files\game\essential</Filter>
+    </ClInclude>
+    <ClInclude Include="g_playercontroller.h">
+      <Filter>Source Files\game\essential</Filter>
+    </ClInclude>
+    <ClInclude Include="g_weapons.hpp">
+      <Filter>Source Files\game\players</Filter>
+    </ClInclude>
+    <ClInclude Include="mod_vis.hpp">
+      <Filter>Source Files\mod</Filter>
+    </ClInclude>
+    <ClInclude Include="u_world.hpp">
+      <Filter>Source Files\uengine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -146,17 +182,8 @@
     <ClCompile Include="koukku.cpp">
       <Filter>Header Files\_lib</Filter>
     </ClCompile>
-    <ClCompile Include="g_main.cpp">
-      <Filter>Source Files\game</Filter>
-    </ClCompile>
-    <ClCompile Include="g_entrypoint.cpp">
-      <Filter>Source Files\game</Filter>
-    </ClCompile>
     <ClCompile Include="r_init.cpp">
       <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="g_playercontroller.cpp">
-      <Filter>Source Files\game</Filter>
     </ClCompile>
     <ClCompile Include="r_draw.cpp">
       <Filter>Source Files\render</Filter>
@@ -185,9 +212,6 @@
     <ClCompile Include="math.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
-    <ClCompile Include="g_gameobject.cpp">
-      <Filter>Source Files\game</Filter>
-    </ClCompile>
     <ClCompile Include="ImGui\imgui.cpp">
       <Filter>Header Files\_lib\imgui</Filter>
     </ClCompile>
@@ -211,6 +235,36 @@
     </ClCompile>
     <ClCompile Include="r_pc_editor.cpp">
       <Filter>Source Files\render\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="g_dlc.cpp">
+      <Filter>Source Files\game\dlc</Filter>
+    </ClCompile>
+    <ClCompile Include="u_player.cpp">
+      <Filter>Source Files\uengine</Filter>
+    </ClCompile>
+    <ClCompile Include="g_secrets.cpp">
+      <Filter>Source Files\game\maps</Filter>
+    </ClCompile>
+    <ClCompile Include="g_entrypoint.cpp">
+      <Filter>Source Files\game\essential</Filter>
+    </ClCompile>
+    <ClCompile Include="g_gameobject.cpp">
+      <Filter>Source Files\game\essential</Filter>
+    </ClCompile>
+    <ClCompile Include="g_main.cpp">
+      <Filter>Source Files\game\essential</Filter>
+    </ClCompile>
+    <ClCompile Include="g_playercontroller.cpp">
+      <Filter>Source Files\game\essential</Filter>
+    </ClCompile>
+    <ClCompile Include="g_weapons.cpp">
+      <Filter>Source Files\game\players</Filter>
+    </ClCompile>
+    <ClCompile Include="mod_vis.cpp">
+      <Filter>Source Files\mod</Filter>
+    </ClCompile>
+    <ClCompile Include="u_world.cpp">
+      <Filter>Source Files\uengine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

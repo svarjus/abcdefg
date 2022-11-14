@@ -15,8 +15,12 @@ namespace g
 	};
 
 
-	uintptr_t getComponentById(uintptr_t ComponentList, int id);
-	GameObject* GetPlayer(int playerIndex);
+	uintptr_t getComponentById(const uintptr_t ComponentList, const int id);
+	GameObject* GetPlayer(const int playerIndex);
+	void GetPlayerOrigin(const GameObject* obj, vec3_t out);
+	void GetPlayerAngles(const GameObject* obj, vec3_t out);
+
+	void GetAllPlayers();
 	int GetAlivePlayers();
 }
 

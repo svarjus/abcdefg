@@ -116,26 +116,20 @@ void g::R_OpenMenu()
 		ImGui::Begin("epic big hack");
 		hook* a = nullptr;
 		ImGui::BeginGroup();
-		if (ImGui::Checkbox("Invincibility", &vars::invincibility.enabled)) {
-			Evar_SetValue(&vars::invincibility, vars::invincibility.enabled);
+		if (ImGui::Checkbox("Invincibility", &v::invincibility.evar->enabled)) {
+			v::invincibility.SetValue(v::invincibility.isEnabled());
 
-			if (!PlayerController_Die) {
-				MessageBoxA(NULL, "failed to find pattern!", "ERROR", 0);
-				exit(-1);
-				return;
-			}
-
-			if (vars::invincibility.enabled)
+			if (v::invincibility.isEnabled())
 				a->write_addr(PlayerController_Die, "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
 			else 
 				a->write_addr(PlayerController_Die, "\x40", 1); //write a push rbx instruction at the beginning of PlayerController::Die()
 
 			
 		}
-		if (ImGui::Checkbox("No Fire Delay", &vars::no_fire_delay.enabled)) {
-			Evar_SetValue(&vars::no_fire_delay, vars::no_fire_delay.enabled);
+		if (ImGui::Checkbox("No Fire Delay", &v::no_fire_delay.evar->enabled)) {
+			v::no_fire_delay.SetValue(v::no_fire_delay.isEnabled());
 
-			if (vars::no_fire_delay.enabled)
+			if (v::no_fire_delay.isEnabled())
 				a->nop(PlayerController_Fire_Delay); //no fire delay
 			else
 				a->write_addr(PlayerController_Fire_Delay, (char*)PlayerController_Fire_Delay_orgbytes, 5); //call GameAssembly.dll+DFB1E0
@@ -153,9 +147,9 @@ void g::R_OpenMenu()
 		ImGui::PushItemWidth(100);
 		ImGui::Combo("Weapon", &selected_weap, weapon, IM_ARRAYSIZE(weapon));
 		ImGui::Separator();
-		ImGui::DragFloat("Damage", &vars::weapon_damage.arrayValue[selected_weap], 2.f, 0.f, 99999.f, "%.3f");
-		ImGui::DragFloat("Spread", &vars::weapon_spread.arrayValue[selected_weap], 1.f, 0.f, 360.f, "%.3f");
-		ImGui::DragFloat("Magazine", &vars::weapon_magazineSize.arrayValue[selected_weap], 1.f, 0.f, 99999.f, "%.3f");
+		ImGui::DragFloat("Damage", &v::weapon_damage.evar->arrayValue[selected_weap], 2.f, 0.f, 99999.f, "%.3f");
+		ImGui::DragFloat("Spread", &v::weapon_spread.evar->arrayValue[selected_weap], 1.f, 0.f, 360.f, "%.3f");
+		ImGui::DragFloat("Magazine", &v::weapon_magazineSize.evar->arrayValue[selected_weap], 1.f, 0.f, 99999.f, "%.3f");
 
 		ImGui::EndGroup();
 		ImGui::SameLine();
@@ -164,16 +158,16 @@ void g::R_OpenMenu()
 		ImGui::Text("World");
 		ImGui::Separator();
 
-		if (ImGui::Checkbox("Skywalk", &vars::world_skywalk.enabled)) 
-			Evar_SetValue(&vars::world_skywalk, vars::world_skywalk.enabled);
+		if (ImGui::Checkbox("Skywalk", &v::world_skywalk.evar->enabled)) 
+			v::world_skywalk.SetValue(v::world_skywalk.isEnabled());
 		
-		if (!vars::world_skywalk.enabled)
+		if (!v::world_skywalk.isEnabled())
 			ImGui::BeginDisabled(true);
 
-		ImGui::DragFloat("Z height", &vars::world_skywalk_z.floatValue, 2, std::numeric_limits<float>::min(), std::numeric_limits<float>::max(), "%.3f", 1);
+		ImGui::DragFloat("Z height", &v::world_skywalk_z.evar->floatValue, 2, std::numeric_limits<float>::min(), std::numeric_limits<float>::max(), "%.3f", 1);
 
 
-		if (!vars::world_skywalk.enabled)
+		if (!v::world_skywalk.isEnabled())
 			ImGui::EndDisabled();
 
 		ImGui::EndGroup();
@@ -182,17 +176,17 @@ void g::R_OpenMenu()
 		ImGui::Text("Teleport");
 		ImGui::Separator();
 
-		if (ImGui::Checkbox("Spam", &vars::tp_spam.enabled))
-			Evar_SetValue(&vars::tp_spam, vars::tp_spam.enabled);
+		if (ImGui::Checkbox("Spam", &v::tp_spam.evar->enabled)) 
+			v::tp_spam.SetValue(v::tp_spam.isEnabled());
 
-		if (!vars::tp_spam.enabled)
+		if (!v::tp_spam.isEnabled())
 			ImGui::BeginDisabled();
 
 		ImGui::Text("\t"); ImGui::SameLine();
-		ImGui::DragFloat("-Z Offset", &vars::tp_spam_offset.floatValue, 0.05f, -99999.f, 99999.f, "%.3f");
+		ImGui::DragFloat("-Z Offset", &v::tp_spam_offset.evar->floatValue, 0.05f, -99999.f, 99999.f, "%.3f");
 
 
-		if (!vars::tp_spam.enabled)
+		if (!v::tp_spam.isEnabled())
 			ImGui::EndDisabled();
 		ImGui::EndGroup();
 		ImGui::SameLine();
@@ -200,8 +194,8 @@ void g::R_OpenMenu()
 		ImGui::Text("Esp");
 		ImGui::Separator();
 
-		if (ImGui::Checkbox("ESP", &vars::random_esp.enabled))
-			Evar_SetValue(&vars::random_esp, vars::random_esp.enabled);
+		if (ImGui::Checkbox("ESP", &v::random_esp.evar->enabled)) 
+			v::random_esp.SetValue(v::random_esp.isEnabled());
 		ImGui::EndGroup();
 
 		static bool isOpen;
@@ -215,7 +209,7 @@ void g::R_OpenMenu()
 	}
 	else {
 		if (save_file) {
-			Evar_SaveToFile(vars::cfg::cfgDirectory);
+			Evar_SaveToFile(v::cfg::cfgDirectory);
 			std::cout << "save settings!\n";
 			save_file = false;
 		}

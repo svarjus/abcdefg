@@ -10,6 +10,12 @@ LONG hook::install(void** ppPointer, void* pDetour)
 
 	return 0;
 }
+LONG hook::remove(PVOID* ppPointer, PVOID pDetour)
+{
+	DetourTransactionBegin();
+	DetourDetach(ppPointer, pDetour);
+	return DetourTransactionCommit();
+}
 void hook::nop(std::uintptr_t address)
 {
 	write_addr(address, "\x90\x90\x90\x90\x90", 5);
