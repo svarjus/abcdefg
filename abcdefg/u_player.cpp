@@ -11,6 +11,8 @@ uint32_t __fastcall g::UE_PlayerTransform(PlayerTransform_s* transform, void* a2
 	if (v::world_skywalk.isEnabled())
 		transform->origin[1] = v::world_skywalk_z.GetFloat();
 
+	//transform->yaw = 0.5;
+
 	//if (v::tp_spam.isEnabled()) {
 
 	//	if (players.size() > 0) {

@@ -43,8 +43,8 @@ void g::R_PlayerControllerEditor(bool& isOpen)
 		return;
 
 	if (ImGui::Begin("PC Editor", &isOpen, ImGuiWindowFlags_AlwaysAutoResize)) {
-
-		PlayerController_c* pc = &PlayerController;
+		ImGui::BeginChild("pc_editor", ImVec2(400, 600), true);
+		PlayerController_c* pc = PlayerController_ptr;
 
 		R_AppendFloat("additiveFov", &pc->additiveFov);
 		R_AppendBool("ads", &pc->ads);
@@ -77,7 +77,12 @@ void g::R_PlayerControllerEditor(bool& isOpen)
 		R_AppendBool("shielded", &pc->shielded);
 		R_AppendVec3("smoothMoveVelocity", pc->smoothMoveVelocity);
 		R_AppendFloat("smoothTime", &pc->smoothTime);
+		R_AppendBool("sprinting", &pc->sprinting);
+		R_AppendBool("toJump", &pc->toJump);
+		R_AppendFloat("verticalLookRotation", &pc->verticalLookRotation);
+		R_AppendBool("wasInteractable", &pc->wasInteractable);
 
+		ImGui::EndChild();
 	}
 	ImGui::End();
 

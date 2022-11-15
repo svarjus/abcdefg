@@ -19,7 +19,12 @@ namespace g {
 
 	inline uintptr_t PlayerController_Die;
 	inline uintptr_t PlayerController_Fire_Delay;
+	inline uintptr_t PlayerController_Fire_Recoil;
+	inline uintptr_t PlayerController_Fire_Effect;
+
 	inline BYTE PlayerController_Fire_Delay_orgbytes[5];
+	inline BYTE PlayerController_Fire_Recoil_orgbytes[5];
+	inline BYTE PlayerController_Fire_Effect_orgbytes[5];
 
 	inline uintptr_t OutskirtsCodeGenerator__get_Code;
 	inline uintptr_t MyceliumNetwork$$get_LocalPlayer;

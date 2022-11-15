@@ -136,6 +136,27 @@ void g::R_OpenMenu()
 
 	
 		}
+
+		if (ImGui::Checkbox("Visual recoil", &v::visual_recoil.evar->enabled)) {
+			v::visual_recoil.SetValue(v::visual_recoil.isEnabled());
+
+			if (v::visual_recoil.isEnabled())
+				a->nop(PlayerController_Fire_Recoil); //no visual recoil
+			else
+				a->write_addr(PlayerController_Fire_Recoil, (char*)PlayerController_Fire_Recoil_orgbytes, 5); //call GameAssembly.dll+DFB1E0
+
+	
+		}
+		if (ImGui::Checkbox("Fire Effects", &v::fire_effect.evar->enabled)) {
+			v::fire_effect.SetValue(v::fire_effect.isEnabled());
+
+			if (v::fire_effect.isEnabled())
+				a->nop(PlayerController_Fire_Effect); //no visual recoil
+			else
+				a->write_addr(PlayerController_Fire_Effect, (char*)PlayerController_Fire_Effect_orgbytes, 5); //call GameAssembly.dll+DFB1E0
+
+
+		}
 		ImGui::EndGroup();
 		ImGui::SameLine();
 		ImGui::BeginGroup();
@@ -149,7 +170,7 @@ void g::R_OpenMenu()
 		ImGui::Separator();
 		ImGui::DragFloat("Damage", &v::weapon_damage.evar->arrayValue[selected_weap], 2.f, 0.f, 99999.f, "%.3f");
 		ImGui::DragFloat("Spread", &v::weapon_spread.evar->arrayValue[selected_weap], 1.f, 0.f, 360.f, "%.3f");
-		ImGui::DragFloat("Magazine", &v::weapon_magazineSize.evar->arrayValue[selected_weap], 1.f, 0.f, 99999.f, "%.3f");
+		ImGui::DragFloat("Use Delay", &v::weapon_usedelay.evar->arrayValue[selected_weap], 1.f, 0.f, 99999.f, "%.3f");
 
 		ImGui::EndGroup();
 		ImGui::SameLine();

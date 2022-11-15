@@ -7,8 +7,8 @@ bool g::WorldToScreen(vec3_t pos, vec2_t xy)
 	const vec3 a = WorldToScreenPoint(cam, vec3(pos[0], pos[1], pos[2]));
 	const float y = (float)((int(*)())g::fnIl2cpp_resolve_icall(UE_GET_HEIGHT))();
 
-	xy[0] = r::X(a.x);
-	xy[1] = r::Y(y - a.y);
+	xy[0] = a.x;
+	xy[1] = y - a.y;
 
 
 	return a.z >= 1.f;

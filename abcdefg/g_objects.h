@@ -376,6 +376,29 @@ namespace g
 		int16_t lastDamagePacketID;
 
 	}; 
+	struct __declspec(align(8)) System_Collections_Generic_List_byte__Fields {
+		struct System_Byte_array* _items;
+		int32_t _size;
+		int32_t _version;
+		Il2CppObject* _syncRoot;
+	};
+	struct System_Collections_Generic_List_byte__o {
+		struct System_Collections_Generic_List_byte__c* klass;
+		void* monitor;
+		System_Collections_Generic_List_byte__Fields fields;
+	};
+	struct __declspec(align(8)) Message_Fields {
+		int32_t _Header_k__BackingField;
+		struct System_Collections_Generic_List_byte__o* buffer;
+		struct System_Byte_array* readableBuffer;
+		int32_t readPos;
+		bool disposed;
+	};
+	struct Message_o {
+		struct Message_c* klass;
+		void* monitor;
+		Message_Fields fields;
+	};
 	struct PlayerController_staticfields
 	{
 		char pad_0000[24];

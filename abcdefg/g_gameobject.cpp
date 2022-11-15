@@ -46,6 +46,23 @@ void g::GetAllPlayers()
 
 		}
 	}
+	//if (GetAsyncKeyState(VK_NUMPAD4) & 1 && players.empty() == false) {
+	//	int hits(0);
+	//	for (auto& i : players) {
+	//		printf("localplayer: 0x%p\n", PlayerController_ptr);
+	//		printf("gameobject: 0x%p\n", players[0]);
+
+	//		if ((void*)i == (void*)PlayerController_ptr)
+	//			hits++;
+	//	}
+	//	if (hits > 0) {
+	//		printf("localplayer == gameobject\n");
+
+	//	}else
+	//		printf("localplayer != gameobject\n");
+
+
+	//}
 }
 void g::GetPlayerOrigin(const GameObject* obj, vec3_t out)
 {

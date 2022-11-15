@@ -270,7 +270,7 @@ void Evar_Setup()
 
 	v::weapon_damage.Register		("weapon_damage",		evartype_t::EVAR_ARRAY, mod_weapon_damage, 4,	true);
 	v::weapon_spread.Register		("weapon_spread",		evartype_t::EVAR_ARRAY, mod_spread, 4,			true);
-	v::weapon_magazineSize.Register	("weapon_magazineSize", evartype_t::EVAR_ARRAY, mod_weapon_mag, 4,		true);
+	v::weapon_usedelay.Register		("weapon_usedelay", evartype_t::EVAR_ARRAY, mod_weapon_mag, 4,		true);
 
 
 	v::world_skywalk.Register		("world_skywalk",		evartype_t::EVAR_BOOL,	(float)0,				true);
@@ -280,6 +280,8 @@ void Evar_Setup()
 	v::tp_spam_offset.Register		("tp_spam_offset",		evartype_t::EVAR_FLOAT, (float)-.125,			true);
 
 	v::random_esp.Register			("random_esp",			evartype_t::EVAR_BOOL,	(float)0,				true);
+	v::visual_recoil.Register		("visual_recoil",		evartype_t::EVAR_BOOL,	(float)0,				true);
+	v::fire_effect.Register			("fire_effect",			evartype_t::EVAR_BOOL,	(float)0,				true);
 
 
 

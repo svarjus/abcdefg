@@ -38,9 +38,12 @@ void g::G_PrepareHooks()
 
 	PlayerController_Die							= (GameAssembly + 4562016);			//PlayerController$$Die
 	PlayerController_Fire_Delay						= (GameAssembly + 4566576 + 0x137);	//PlayerController$$Fire + 0x149
-
+	PlayerController_Fire_Recoil					= (GameAssembly + 4566576 + 0x23D);  //PlayerController$$Fire + 0x23D    PLayerController.Fire --> StressReceiver.InduceStress
+	PlayerController_Fire_Effect					= (GameAssembly + 4565072 + 279);   // PLayerController.FireLocal --> Item.Fire
 
 	SteamDLCManager__HasDLC_h						= (bool(*)(int32_t dlc))(g::GameAssembly + 2687056); //SteamDLCManager$$HasDLC
+
+	OutskirtsKeyPad_Press_f							= (void(*)(void* keypad, int num, const MethodInfo * method))(GameAssembly + 4547216); //GameMode_TeamDeathmatch$$MessageHandler_SetPointsForTeam
 
 }
 void g::G_InitHooks()
@@ -51,7 +54,7 @@ void g::G_InitHooks()
 	a->install(&(PVOID&)UE_PlayerTransform_h, UE_PlayerTransform);
 	a->install(&(PVOID&)PlayerInfo_f, UE_PlayerInfo);
 	a->install(&(PVOID&)PrintChat_f, PrintChat);
-
+	a->install(&(PVOID&)OutskirtsKeyPad_Press_f, OutskirtsKeyPad_Press);
 }
 void g::G_RemoveHooks()
 {
@@ -61,12 +64,16 @@ void g::G_RemoveHooks()
 	a->remove(&(PVOID&)UE_PlayerTransform_h, UE_PlayerTransform);
 	a->remove(&(PVOID&)PlayerInfo_f, UE_PlayerInfo);
 	a->remove(&(PVOID&)PrintChat_f, PrintChat);
+	a->remove(&(PVOID&)OutskirtsKeyPad_Press_f, OutskirtsKeyPad_Press);
+
 }
 void g::G_OffsetsAndHooks()
 {
 	hook* a = nullptr;
 
 	a->get_bytes((void*)PlayerController_Fire_Delay, 5, PlayerController_Fire_Delay_orgbytes);
+	a->get_bytes((void*)PlayerController_Fire_Recoil, 5, PlayerController_Fire_Recoil_orgbytes);
+	a->get_bytes((void*)PlayerController_Fire_Effect, 5, PlayerController_Fire_Effect_orgbytes);
 
 	if (v::invincibility.isEnabled()) {
 		a->write_addr(PlayerController_Die, "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
@@ -74,5 +81,10 @@ void g::G_OffsetsAndHooks()
 	if (v::no_fire_delay.isEnabled()) {
 		a->nop(PlayerController_Fire_Delay); //no fire delay
 	}
-
+	if (v::visual_recoil.isEnabled()) {
+		a->nop(PlayerController_Fire_Recoil); //no visual recoil
+	}
+	if (v::fire_effect.isEnabled()) {
+		a->nop(PlayerController_Fire_Effect); //no visual recoil
+	}
 }

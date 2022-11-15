@@ -18,12 +18,15 @@ namespace v
 		spread_angle,
 		weapon_damage,
 		weapon_spread,
-		weapon_magazineSize,
+		weapon_usedelay,
 		world_skywalk,
 		world_skywalk_z,
 		tp_spam,
 		tp_spam_offset,
-		random_esp;
+		random_esp,
+		visual_recoil,
+		fire_effect;
+
 }
 
 #endif
