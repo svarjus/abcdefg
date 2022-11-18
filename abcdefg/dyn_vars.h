@@ -25,7 +25,8 @@ namespace v
 		tp_spam_offset,
 		random_esp,
 		visual_recoil,
-		fire_effect;
+		fire_effect,
+		epic_jump;
 
 }
 

@@ -39,7 +39,7 @@ typedef vec_t vec4_t[4];
 #define	YAW						1		// left / right
 #define	ROLL					2		// fall over
 
-#define MENU_KEY VK_PRIOR
+#define MENU_KEY VK_INSERT
 
 #include <Windows.h>
 #include <iostream>

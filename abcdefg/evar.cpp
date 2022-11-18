@@ -282,6 +282,7 @@ void Evar_Setup()
 	v::random_esp.Register			("random_esp",			evartype_t::EVAR_BOOL,	(float)0,				true);
 	v::visual_recoil.Register		("visual_recoil",		evartype_t::EVAR_BOOL,	(float)0,				true);
 	v::fire_effect.Register			("fire_effect",			evartype_t::EVAR_BOOL,	(float)0,				true);
+	v::epic_jump.Register			("epic_jump",			evartype_t::EVAR_BOOL,	(float)0,				true);
 
 
 

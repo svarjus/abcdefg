@@ -13,22 +13,30 @@ uint32_t __fastcall g::UE_PlayerTransform(PlayerTransform_s* transform, void* a2
 
 	//transform->yaw = 0.5;
 
-	//if (v::tp_spam.isEnabled()) {
+	if (v::tp_spam.isEnabled()) {
 
-	//	if (players.size() > 0) {
-	//		int pNum = rand() % players.size();
-	//		vec3_t test;
-	//		VectorCopy(players[pNum].origin, test);
-	//		test[1] -= v::tp_spam_offset.GetFloat();
-	//		VectorCopy(test, transform->origin);
-
-
-	//	}
-	//	//else
-	//	//	VectorCopy(_tp.tpcoords, transform->origin);
-	//}
+		if (players.size() > 0) {
+			int pNum = rand() % players.size();
+			vec3_t test;
+			vec3_t org;
+			GameObject* player = players[pNum];
+			GetPlayerOrigin(player, org);
+			VectorCopy(org, test);
+			test[1] -= v::tp_spam_offset.GetFloat();
+			VectorCopy(test, transform->origin); 
 
 
+		}
+		else
+			VectorCopy(_tp.tpcoords, transform->origin);
+	}
+
+	if (v::epic_jump.isEnabled()) {
+		if (GetAsyncKeyState(VK_SPACE) & 1 && PlayerController_ptr) {
+			transform->zVelocity += 5;
+		}
+		
+	}
 	return UE_PlayerTransform_h(transform, a2, a3, a4);
 }
 //int64_t __fastcall g::UE_OpenURL(intptr_t* unsure)

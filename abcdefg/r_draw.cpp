@@ -21,18 +21,9 @@ void g::R_MainLoop()
 	//imgui drawing can be used in this function
 	const int AlivePlayers = GetAlivePlayers();
 
-	if (GetAsyncKeyState(VK_NUMPAD0) & 1) {
-		for (int i = 0; i < AlivePlayers; i++) {
-
-			for (int j = 0; j < 32; j++) {
-				const uint64_t compList = (uint64_t)players[i]->ComponentList;
-				const uint64_t tranform = getComponentById(compList, j);
-
-				std::cout << "player[" << i << "] at: 0x" << std::hex << tranform << '\n';
-			}
-			std::cout << '\n';
-		}
-	}
+	//if (GetAsyncKeyState(VK_NUMPAD0) & 1) {
+	//	((void(*)(PlayerController_c * pc, bool grounded, UnityEngine_Transform_o * groundedTransform))());
+	//}
 
 	if (AlivePlayers > 0) {
 

@@ -187,9 +187,11 @@ void g::R_OpenMenu()
 
 		ImGui::DragFloat("Z height", &v::world_skywalk_z.evar->floatValue, 2, std::numeric_limits<float>::min(), std::numeric_limits<float>::max(), "%.3f", 1);
 
-
 		if (!v::world_skywalk.isEnabled())
 			ImGui::EndDisabled();
+
+		if (ImGui::Checkbox("Epic Jump", &v::epic_jump.evar->enabled))
+			v::epic_jump.SetValue(v::epic_jump.isEnabled());
 
 		ImGui::EndGroup();
 		ImGui::SameLine();

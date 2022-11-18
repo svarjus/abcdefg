@@ -28,6 +28,8 @@ namespace g
 		float pad[15];
 		float yaw;
 		vec3_t origin; //xzy
+		float pad01[10];
+		float zVelocity;
 
 	};
 	inline PlayerTransform_s PlayerTransform;
