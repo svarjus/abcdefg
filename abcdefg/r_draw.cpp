@@ -27,10 +27,10 @@ void g::R_MainLoop()
 
 	if (AlivePlayers > 0) {
 
-
 		G_SetWeaponData();
 		R_DrawThroughWalls();
 		Mod_DrawCoordinates();
+
 
 	}
 

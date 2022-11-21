@@ -3,6 +3,7 @@
 uint32_t __fastcall g::UE_PlayerTransform(PlayerTransform_s* transform, void* a2, float a3, void* a4)
 {
 	memcpy(&PlayerTransform, transform, sizeof(PlayerTransform_s));
+	PlayerTransform_ptr = reinterpret_cast<PlayerTransform_s*>(transform);
 	//UE_Noclip(transform);
 
 	XZY2XYZ(transform->origin, _tp.myCoords);
@@ -37,6 +38,15 @@ uint32_t __fastcall g::UE_PlayerTransform(PlayerTransform_s* transform, void* a2
 		}
 		
 	}
+	//if (GetAlivePlayers() > 0) {
+	//	GameObject* p = players[0];
+	//	vec3_t org, out;
+	//	GetPlayerOrigin(p, org);
+	//	VectorToAngles(PlayerTransform.origin, org, out);
+
+	//	PlayerTransform_ptr->yaw = out[YAW] / 180.f;
+	//}
+
 	return UE_PlayerTransform_h(transform, a2, a3, a4);
 }
 //int64_t __fastcall g::UE_OpenURL(intptr_t* unsure)
@@ -136,4 +146,13 @@ void __fastcall g::UE_PlayerInfo(float* a1, DWORD* a2)
 	VectorCopy(coords, _tp.tpcoords);
 
 
+}
+char g::UE_PlayerData(uintptr_t* a1, float *a2, char a3)
+{
+
+	if (GetAsyncKeyState(VK_NUMPAD7) & 1) {
+		printf("arg1: 0x%p\n", a1);
+	}
+
+	return PlayerData_f(a1, a2, a3);
 }

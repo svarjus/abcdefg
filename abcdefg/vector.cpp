@@ -264,30 +264,47 @@ void vec::vectoangles(const vec3_t value1, vec3_t angles) {
 	angles[ROLL] = 0;
 }
 
-void vec::vectoangles3(vec3_t src, vec3_t dst, vec3_t out)
+void vectoangles(const vec3_t value1, vec3_t angles) {
+	float forward;
+	float yaw, pitch;
+
+	if (value1[1] == 0 && value1[0] == 0) {
+		yaw = 0;
+		if (value1[2] > 0) {
+			pitch = 90;
+		}
+		else {
+			pitch = 270;
+		}
+	}
+	else {
+		if (value1[0]) {
+			yaw = (atan2(value1[1], value1[0]) * 180 / M_PI);
+		}
+		else if (value1[1] > 0) {
+			yaw = 90;
+		}
+		else {
+			yaw = 270;
+		}
+		if (yaw < 0) {
+			yaw += 360;
+		}
+
+		forward = sqrt(value1[0] * value1[0] + value1[1] * value1[1]);
+		pitch = (atan2(value1[2], forward) * 180 / M_PI);
+		if (pitch < 0) {
+			pitch += 360;
+		}
+	}
+
+	angles[PITCH] = -pitch;
+	angles[YAW] = yaw;
+	angles[ROLL] = 0;
+}
+void VectorsToAngles(vec3_t src, vec3_t dst, vec3_t outA)
 {
-	const auto getHyp = [](float x, float y) -> float {
-		return sqrt(pow(x, 2) + pow(y, 2));
-	};
-	const auto GetYaw = [](float yaw, vec3_t src, vec3_t dst) -> float {
-		if (src[0] > dst[0] && src[1] > dst[1] || src[0] > dst[0] && src[1] < dst[1])
-			yaw += 180;
-		return yaw;
-	};
-
-	float distance, hyp;
-	vec3_t angles{};
-
-	Subtract(src, dst, out);
-	distance = Distance(src, dst);
-
-	hyp = getHyp(out[0], out[1]);
-	angles[YAW] = atan(out[1] / out[0]) * 180.f / PI;
-	angles[YAW] = GetYaw(angles[YAW], src, dst);
-
-	angles[PITCH] = atan(out[2] / hyp) * 180.f / PI;
-
-	out[YAW] = angles[YAW];
-	out[PITCH] = angles[PITCH];
-	out[ROLL] = 0;
+	vec3_t out;
+	VectorSubtract(dst, src, out);
+	vectoangles(out, outA);
 }

@@ -35,6 +35,7 @@ void g::G_PrepareHooks()
 	//unity engine hooks
 	UE_PlayerTransform_h							= (uint32_t(*)(void*, void*, float, void*))			(UnityPlayer + 0x10C08E0);
 	PlayerInfo_f									= (void(*)(float*, DWORD*))							(UnityPlayer + 0x10B8B60);
+	PlayerData_f									= (char(*)(uintptr_t * a1, float* a2, char a3))		(UnityPlayer + 0x07FDB0);
 
 	PlayerController_Die							= (GameAssembly + 4562016);			//PlayerController$$Die
 	PlayerController_Fire_Delay						= (GameAssembly + 4566576 + 0x137);	//PlayerController$$Fire + 0x149
@@ -44,7 +45,7 @@ void g::G_PrepareHooks()
 	SteamDLCManager__HasDLC_h						= (bool(*)(int32_t dlc))(g::GameAssembly + 2687056); //SteamDLCManager$$HasDLC
 
 	OutskirtsKeyPad_Press_f							= (void(*)(void* keypad, int num, const MethodInfo * method))(GameAssembly + 4547216); //GameMode_TeamDeathmatch$$MessageHandler_SetPointsForTeam
-
+	
 }
 void g::G_InitHooks()
 {
@@ -55,6 +56,8 @@ void g::G_InitHooks()
 	a->install(&(PVOID&)PlayerInfo_f, UE_PlayerInfo);
 	a->install(&(PVOID&)PrintChat_f, PrintChat);
 	a->install(&(PVOID&)OutskirtsKeyPad_Press_f, OutskirtsKeyPad_Press);
+	//a->install(&(PVOID&)PlayerData_f, UE_PlayerData);
+
 }
 void g::G_RemoveHooks()
 {
@@ -65,6 +68,7 @@ void g::G_RemoveHooks()
 	a->remove(&(PVOID&)PlayerInfo_f, UE_PlayerInfo);
 	a->remove(&(PVOID&)PrintChat_f, PrintChat);
 	a->remove(&(PVOID&)OutskirtsKeyPad_Press_f, OutskirtsKeyPad_Press);
+	a->remove(&(PVOID&)PlayerData_f, UE_PlayerData);
 
 }
 void g::G_OffsetsAndHooks()

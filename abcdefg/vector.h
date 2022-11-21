@@ -44,6 +44,8 @@ namespace vec {
 	vec_t Q3_VectorNormalize2(const vec3_t v, vec3_t out);
 	void vectoangles(const vec3_t value1, vec3_t angles);
 	void vectoangles3(vec3_t src, vec3_t dst, vec3_t out);
+	void vectoangles(const vec3_t value1, vec3_t angles);
+	void VectorsToAngles(vec3_t src, vec3_t dst, vec3_t outA);
 }
 
 #endif

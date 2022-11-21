@@ -34,6 +34,14 @@ void g::G_SetWeaponData()
 		element.item->info->bulletSpread = v::weapon_spread.evar->arrayValue[i];
 		element.item->totalAmmo.value = 9999;
 		element.item->ammo.value = 9999;
+		//if (element.item->sway) {
+
+		//	element.item->sway->maxMove = 0.01f;
+		//	//element.item->sway->maxRotate= 0;
+		//	element.item->sway->moveAmount = 0.01f;
+		//	//element.item->sway->rotateSmoothAmount = 0;
+
+		//}
 		//element.item->info->useDelay = v::weapon_usedelay.evar->arrayValue[i];
 
 		PlayerController_ptr->bulletSpread = v::weapon_spread.evar->arrayValue[i];

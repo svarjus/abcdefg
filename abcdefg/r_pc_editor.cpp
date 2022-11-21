@@ -4,37 +4,48 @@
 void g::R_AppendBool(const char* name, bool* value)
 {
 	ImGui::Checkbox(name, value);
+	ImGui::SameLine(); ImGui::Text("(0x%p)", value);
+
 }
 void g::R_AppendInt(const char* name, int* value)
 {
 	ImGui::PushItemWidth(150);
 	ImGui::InputInt(name, value);
+	ImGui::SameLine(); ImGui::Text("(0x%p)", value);
 }
 void g::R_AppendInt16(const char* name, int16_t* value)
 {
 	ImGui::PushItemWidth(200);
 	ImGui::InputInt(name, (int*)value);
+	ImGui::SameLine(); ImGui::Text("(0x%p)", value);
+
 }
 void g::R_AppendFloat(const char* name, float* value)
 {
 	ImGui::PushItemWidth(100);
 	ImGui::InputFloat(name, value, 0, 0, "%.3f");
+	ImGui::SameLine(); ImGui::Text("(0x%p)", value);
+
 }
 void g::R_AppendVec2(const char* name, vec2_t value)
 {
 	ImGui::PushItemWidth(160);
 	ImGui::InputFloat2(name, value, "%.3f");
+	ImGui::SameLine(); ImGui::Text("(0x%p)", value);
 
 }
 void g::R_AppendVec3(const char* name, vec3_t value)
 {
 	ImGui::PushItemWidth(250);
 	ImGui::InputFloat3(name, value, "%.3f");
+	ImGui::SameLine(); ImGui::Text("(0x%p)", value);
+
 }
 void g::R_AppendString(const char* name, char* buff, size_t size, const char* value)
 {
 	ImGui::PushItemWidth(100);
 	ImGui::InputText(name, buff, size);
+
 }
 
 void g::R_PlayerControllerEditor(bool& isOpen)
@@ -42,8 +53,10 @@ void g::R_PlayerControllerEditor(bool& isOpen)
 	if (!&PlayerController || !isOpen)
 		return;
 
+	constexpr int ah = sizeof(PlayerController_c);
+
 	if (ImGui::Begin("PC Editor", &isOpen, ImGuiWindowFlags_AlwaysAutoResize)) {
-		ImGui::BeginChild("pc_editor", ImVec2(400, 600), true);
+		ImGui::BeginChild("pc_editor", ImVec2(800, 600), true);
 		PlayerController_c* pc = PlayerController_ptr;
 
 		R_AppendFloat("additiveFov", &pc->additiveFov);

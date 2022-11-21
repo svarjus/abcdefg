@@ -9,12 +9,6 @@ void g::PlayerController_Update(PlayerController_c* playercontroller)
 	//playercontroller
 	Update_h(playercontroller);
 
-	if (GetAsyncKeyState(VK_HOME)&1) {
-		std::cout << "PlayerController: 0x" << std::hex << playercontroller << '\n';
-		std::cout << "&smoothTime: 0x" << std::hex << &playercontroller->smoothTime << '\n';
-
-	}
-
  	memcpy(&g::PlayerController, playercontroller, sizeof(PlayerController_c));
 	PlayerController_ptr = reinterpret_cast<PlayerController_c*>(playercontroller);;
 	g::hasPlayerController = true;

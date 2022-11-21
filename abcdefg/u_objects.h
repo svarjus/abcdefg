@@ -33,6 +33,7 @@ namespace g
 
 	};
 	inline PlayerTransform_s PlayerTransform;
+	inline PlayerTransform_s* PlayerTransform_ptr;
 }
 
 #endif

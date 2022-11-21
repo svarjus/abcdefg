@@ -260,12 +260,24 @@ namespace g
 		WeaponModPart_o* m_Items[65535];
 	};
 
-
+	struct ItemSway_o {
+		float moveAmount;
+		float rotateAmount;
+		float maxMove;
+		float maxRotate;
+		float moveSmoothAmount;
+		float rotateSmoothAmount;
+		struct MyceliumIdentity_o* identity;
+		vec3_t initialPosition;
+		vec4_t initialRotation;
+		float weight;
+	};
 	struct Item
 	{
 		char pad_0000[24]; //0x0000
 		class WeaponStats* info; //0x0018
-		char pad_0020[8]; //0x0020
+		struct UnityEngine_GameObject_o* graphics;
+		ItemSway_o* sway;
 		float bulletSpread; //0x0028
 		ObscuredInt ammo; //0x002C
 		ObscuredInt totalAmmo; //0x0034
@@ -354,7 +366,11 @@ namespace g
 		float bulletSpread;
 		char pad[12]; //Interactable_o* lastInteractable;
 		bool wasInteractable;
-		char pad_0154[47]; 
+		struct UnityEngine_Rigidbody_o* rb;
+		struct MyceliumIdentity_o* _identity_k__BackingField;
+		struct UnityEngine_Animator_o* anim;
+		struct AudioManager_o* am;
+		struct IDamageable_o* myDamagable;
 		float lastTimeTookDamage;
 		float nextTimeToRegen;
 		int32_t regenAmount;
@@ -363,17 +379,27 @@ namespace g
 		float lastTimeJumped;
 		float lastTimePulledOutItem;
 		float nextTimeToCircleDamage;
-		char rigidbody_pad[16];
-		vec3_t rigid_origin; //forward, up, right
-		float rigid_time; 
-		int crosshairIndex; 
-		char stressReceiver_pad[12];
+		void* lastDamager;
+		void* lastDamageData;
+		vec3_t lastNonLocalPos;
+		float footstepDistance;
+		float footstepInterval;
+		struct UnityEngine_Coroutine_o* individualReloadCoroutine;
+		struct System_Collections_Generic_List_ItemIcon__o* itemIcons;
+		int32_t crosshairIndex;
+		struct StressReceiver_o* stressReceiver;
 		bool isActingAsLocalPlayer;
 		vec3_t constantForce;
 		vec3_t pushForce;
-		char idk_pad[36];
-		float additiveFov;
+		float additiveFOV;
+		vec3_t focusedPosition;
 		int16_t lastDamagePacketID;
+		struct ShadowOnlyIfLocalPlayer_array* shadowOnlyIfLocalPlayers;
+		struct Hat_o* hat;
+		bool identityIsMine;
+		bool leftTriggerDownLastFrame;
+		bool firstSwitch;
+
 
 	}; 
 	struct __declspec(align(8)) System_Collections_Generic_List_byte__Fields {
