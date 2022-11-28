@@ -52,6 +52,7 @@ long __stdcall g::D3D_Draw(IDXGISwapChain* p_swap_chain, UINT sync_interval, UIN
 
 void g::R_DrawThroughWalls()
 {
+	return;
 	if (!v::random_esp.isEnabled())
 		return;
 
@@ -66,7 +67,7 @@ void g::R_DrawThroughWalls()
 
 		if (out.z >= 1.f) {
 			const float y = (float)((int(*)())g::fnIl2cpp_resolve_icall(UE_GET_HEIGHT))();
-			//ImGui::GetBackgroundDrawList()->AddCircleFilled(ImVec2(out.x, r::Y(y - out.y)), 30, IM_COL32(0, 255, 0, 255));
+			ImGui::GetBackgroundDrawList()->AddCircleFilled(ImVec2(out.x, r::Y(y - out.y)), 30, IM_COL32(0, 255, 0, 255));
 
 			const g::box_s box(org, vec3_t{ .4f,.75f,.4f }, vec3_t{ .4f,.75f,.4f });
 			box.R_DrawConstructedBoxEdges(vec4_t{ 255,0,0,255 });

@@ -27,24 +27,24 @@ void g::G_PrepareHooks()
 
 
 	//gameassembly hooks
-	Update_h										= (void(*)(g::PlayerController_c*))(GameAssembly + 4593264);			//PlayerController$$Update
+	Update_h										= (void(*)(g::PlayerController_c*))(GameAssembly + 4251968);			//PlayerController$$Update
 	PrintChat_f										= (intptr_t(*)(intptr_t * a1, textobject * a2, uint32_t a3, char a4, intptr_t a5))(GameAssembly + 3873824);   //ChatManager$$SendChatMessage
-	OutskirtsCodeGenerator__get_Code				= (uintptr_t)(GameAssembly + 4545952);									//OutskirtsCodeGenerator__get_Code
-	MyceliumNetwork$$get_LocalPlayer				= (uintptr_t)(GameAssembly + 3993360);									//MyceliumNetwork$$get_LocalPlayer
+	OutskirtsCodeGenerator__get_Code				= (uintptr_t)(GameAssembly + 4204992);									//OutskirtsCodeGenerator__get_Code
+	MyceliumNetwork$$get_LocalPlayer				= (uintptr_t)(GameAssembly + 2726800);									//MyceliumNetwork$$get_LocalPlayer
 
 	//unity engine hooks
 	UE_PlayerTransform_h							= (uint32_t(*)(void*, void*, float, void*))			(UnityPlayer + 0x10C08E0);
 	PlayerInfo_f									= (void(*)(float*, DWORD*))							(UnityPlayer + 0x10B8B60);
 	PlayerData_f									= (char(*)(uintptr_t * a1, float* a2, char a3))		(UnityPlayer + 0x07FDB0);
 
-	PlayerController_Die							= (GameAssembly + 4562016);			//PlayerController$$Die
-	PlayerController_Fire_Delay						= (GameAssembly + 4566576 + 0x137);	//PlayerController$$Fire + 0x149
-	PlayerController_Fire_Recoil					= (GameAssembly + 4566576 + 0x23D);  //PlayerController$$Fire + 0x23D    PLayerController.Fire --> StressReceiver.InduceStress
-	PlayerController_Fire_Effect					= (GameAssembly + 4565072 + 279);   // PLayerController.FireLocal --> Item.Fire
+	PlayerController_Die							= (GameAssembly + 4221392);			//PlayerController$$Die
+	PlayerController_Fire_Delay						= (GameAssembly + 4225600 + 0x137);	//PlayerController$$Fire + 0x137
+	PlayerController_Fire_Recoil					= (GameAssembly + 4225600 + 0x23D);  //PlayerController$$Fire + 0x23D			--> StressReceiver.InduceStress
+	PlayerController_Fire_Effect					= (GameAssembly + 4224096 + 279);   // PLayerController$$FireLocal + 279		--> Item.Fire
 
-	SteamDLCManager__HasDLC_h						= (bool(*)(int32_t dlc))(g::GameAssembly + 2687056); //SteamDLCManager$$HasDLC
+	SteamDLCManager__HasDLC_h						= (bool(*)(int32_t dlc))(g::GameAssembly + 20482832); //SteamDLCManager$$HasDLC
 
-	OutskirtsKeyPad_Press_f							= (void(*)(void* keypad, int num, const MethodInfo * method))(GameAssembly + 4547216); //GameMode_TeamDeathmatch$$MessageHandler_SetPointsForTeam
+	OutskirtsKeyPad_Press_f							= (void(*)(void* keypad, int num, const MethodInfo * method))(GameAssembly + 4206256); //OutskirtsKeypad$$Press
 	
 }
 void g::G_InitHooks()
