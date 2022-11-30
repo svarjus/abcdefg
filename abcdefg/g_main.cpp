@@ -23,13 +23,13 @@ void g::G_PrepareHooks()
 	fnIl2cpp_resolve_icall							= (tpIl2cpp_resolve_icall*)GetProcAddress((HMODULE)GameAssembly, EXPORT_IL2CPP_RESOLVE_ICALL);
 	fnWorldToScreenPoint							= (tp_WorldToScreenPoint*)fnIl2cpp_resolve_icall("UnityEngine.Camera::WorldToScreenPoint_Injected");
 	fnGetMainCamera									= (tpGetMainCamera*)fnIl2cpp_resolve_icall("UnityEngine.Camera::get_current()");
-	WorldToScreenPoint								= (vec3(*)(void* camera, vec3 position))(GameAssembly + 14018864); //UnityEngine.Camera$$WorldToScreenPoint
+	WorldToScreenPoint								= (vec3(*)(void* camera, vec3 position))(GameAssembly + 14259792); //UnityEngine.Camera$$WorldToScreenPoint
 
 
 	//gameassembly hooks
-	Update_h										= (void(*)(g::PlayerController_c*))(GameAssembly + 4271520);			//PlayerController$$Update
-	PrintChat_f										= (intptr_t(*)(intptr_t * a1, textobject * a2, uint32_t a3, char a4, intptr_t a5))(GameAssembly + 3907328);   //ChatManager$$SendChatMessage
-	OutskirtsCodeGenerator__get_Code				= (uintptr_t)(GameAssembly + 4224544);									//OutskirtsCodeGenerator$$get_Code
+	Update_h										= (void(*)(g::PlayerController_c*))(GameAssembly + 4440480);			//PlayerController$$Update
+	PrintChat_f										= (intptr_t(*)(intptr_t * a1, textobject * a2, uint32_t a3, char a4, intptr_t a5))(GameAssembly + 4076240);   //ChatManager$$SendChatMessage
+	OutskirtsCodeGenerator__get_Code				= (uintptr_t)(GameAssembly + 4393504);									//OutskirtsCodeGenerator$$get_Code
 	MyceliumNetwork$$get_LocalPlayer				= (uintptr_t)(GameAssembly + 2726800);									//MyceliumNetwork$$get_LocalPlayer
 
 	//unity engine hooks
@@ -37,14 +37,14 @@ void g::G_PrepareHooks()
 	PlayerInfo_f									= (void(*)(float*, DWORD*))							(UnityPlayer + 0x10B8B60);
 	PlayerData_f									= (char(*)(uintptr_t * a1, float* a2, char a3))		(UnityPlayer + 0x07FDB0);
 
-	PlayerController_Die							= (GameAssembly + 4240944);			//PlayerController$$Die
-	PlayerController_Fire_Delay						= (GameAssembly + 4245152 + 0x137);	//PlayerController$$Fire + 0x137
-	PlayerController_Fire_Recoil					= (GameAssembly + 4245152 + 0x23D);  //PlayerController$$Fire + 0x23D			--> StressReceiver.InduceStress
-	PlayerController_Fire_Effect					= (GameAssembly + 4243648 + 279);   // PLayerController$$FireLocal + 279		--> Item.Fire
+	PlayerController_Die							= (GameAssembly + 4409904);			//PlayerController$$Die
+	PlayerController_Fire_Delay						= (GameAssembly + 4414112 + 0x137);	//PlayerController$$Fire + 0x137
+	PlayerController_Fire_Recoil					= (GameAssembly + 4414112 + 0x23D);  //PlayerController$$Fire + 0x23D			--> StressReceiver.InduceStress
+	PlayerController_Fire_Effect					= (GameAssembly + 4412608 + 279);   // PLayerController$$FireLocal + 279		--> Item.Fire
 
-	SteamDLCManager__HasDLC_h						= (bool(*)(int32_t dlc))(g::GameAssembly + 2858192); //SteamDLCManager$$HasDLC
+	SteamDLCManager__HasDLC_h						= (bool(*)(int32_t dlc))(g::GameAssembly + 2963200); //SteamDLCManager$$HasDLC
 
-	OutskirtsKeyPad_Press_f							= (void(*)(void* keypad, int num, const MethodInfo * method))(GameAssembly + 4225808); //OutskirtsKeypad$$Press
+	OutskirtsKeyPad_Press_f							= (void(*)(void* keypad, int num, const MethodInfo * method))(GameAssembly + 4394768); //OutskirtsKeypad$$Press
 	
 }
 void g::G_InitHooks()
