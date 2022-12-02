@@ -18,7 +18,7 @@ namespace v
 		spread_angle,
 		weapon_damage,
 		weapon_spread,
-		//weapon_usedelay,
+		weapon_usedelay,
 		world_skywalk,
 		world_skywalk_z,
 		tp_spam,

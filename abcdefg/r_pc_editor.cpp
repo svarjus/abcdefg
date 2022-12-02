@@ -59,7 +59,7 @@ void g::R_PlayerControllerEditor(bool& isOpen)
 		ImGui::BeginChild("pc_editor", ImVec2(800, 600), true);
 		PlayerController_c* pc = PlayerController_ptr;
 
-		R_AppendFloat("additiveFov", &pc->additiveFov);
+		R_AppendFloat("additiveFov", &pc->additiveFOV);
 		R_AppendBool("ads", &pc->ads);
 		R_AppendFloat("animationSmoothTime", &pc->animationSmoothTime);
 		R_AppendFloat("bulletSpread", &pc->bulletSpread);
@@ -85,8 +85,8 @@ void g::R_PlayerControllerEditor(bool& isOpen)
 		R_AppendInt("regenAmount", &pc->regenAmount);
 		R_AppendFloat("regenAmount", &pc->regenInterval);
 		R_AppendBool("reloading", &pc->reloading);
-		R_AppendVec3("rigid_origin", pc->rigid_origin);
-		R_AppendFloat("rigid_time", &pc->rigid_time);
+		//R_AppendVec3("rigid_origin", pc->rigid_origin);
+		//R_AppendFloat("rigid_time", &pc->rigid_time);
 		R_AppendBool("shielded", &pc->shielded);
 		R_AppendVec3("smoothMoveVelocity", pc->smoothMoveVelocity);
 		R_AppendFloat("smoothTime", &pc->smoothTime);

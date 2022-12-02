@@ -170,8 +170,13 @@ void g::R_OpenMenu()
 		ImGui::Separator();
 		ImGui::DragFloat("Damage", &v::weapon_damage.evar->arrayValue[selected_weap], 2.f, 0.f, 99999.f, "%.3f");
 		ImGui::DragFloat("Spread", &v::weapon_spread.evar->arrayValue[selected_weap], 1.f, 0.f, 360.f, "%.3f");
-		//ImGui::DragFloat("Use Delay", &v::weapon_usedelay.evar->arrayValue[selected_weap], 1.f, 0.f, 99999.f, "%.3f");
-
+		ImGui::DragFloat("Use Delay", &v::weapon_usedelay.evar->arrayValue[selected_weap], 0.02f, 0.f, 10.f, "%.3f");
+		if(ImGui::Button("Set Defaults")){
+			v::weapon_usedelay.evar->arrayValue[0] = 0.1f;
+			v::weapon_usedelay.evar->arrayValue[1] = 0.5f;
+			v::weapon_usedelay.evar->arrayValue[2] = 1.f;
+			v::weapon_usedelay.evar->arrayValue[3] = 0.5f;
+		}
 		ImGui::EndGroup();
 		ImGui::SameLine();
 		ImGui::BeginGroup();

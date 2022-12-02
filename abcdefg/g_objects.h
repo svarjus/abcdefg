@@ -158,6 +158,14 @@ namespace g
 		VirtualInvokeData _25_System_Collections_Generic_IEnumerable_System_Char__GetEnumerator;
 		VirtualInvokeData _26_Equals;
 	};
+	struct UnityEngine_Vector3_Fields {
+		float x;
+		float y;
+		float z;
+	};
+	struct UnityEngine_Vector3_o {
+		UnityEngine_Vector3_Fields fields;
+	};
 	struct System_String_c {
 		Il2CppClass_1 _1;
 		struct System_String_StaticFields* static_fields;
@@ -443,7 +451,12 @@ namespace g
 		UnityEngine_LayerMask_Fields fields;
 	};
 	constexpr int ah = sizeof(UnityEngine_LayerMask_o);
-
+	struct Interactable_Fields {
+		bool interacting;
+	};
+	struct Interactable_o {
+		Interactable_Fields fields;
+	};
 	struct PlayerController_c
 	{
 		char _pad00[0x58];// ->ItemArray*
@@ -489,9 +502,13 @@ namespace g
 		bool sprinting;
 		bool dead;
 		float bulletSpread;
-		char pad[12]; //Interactable_o* lastInteractable;
+		Interactable_o* lastInteractable; //Interactable_o* lastInteractable;
 		bool wasInteractable;
-		char pad_0154[47];
+		struct UnityEngine_Rigidbody_o* rb;
+		struct MyceliumIdentity_o* _identity_k__BackingField;
+		struct UnityEngine_Animator_o* anim;
+		struct AudioManager_o* am;
+		struct IDamageable_o* myDamagable;
 		float lastTimeTookDamage;
 		float nextTimeToRegen;
 		int32_t regenAmount;
@@ -500,17 +517,26 @@ namespace g
 		float lastTimeJumped;
 		float lastTimePulledOutItem;
 		float nextTimeToCircleDamage;
-		char rigidbody_pad[16];
-		vec3_t rigid_origin; //forward, up, right
-		float rigid_time;
-		int crosshairIndex;
-		char stressReceiver_pad[12];
+		void* lastDamager;
+		void* lastDamageData;
+		vec3_t lastNonLocalPos;
+		float footstepDistance;
+		float footstepInterval;
+		struct UnityEngine_Coroutine_o* individualReloadCoroutine;
+		struct System_Collections_Generic_List_ItemIcon__o* itemIcons;
+		int32_t crosshairIndex;
+		struct StressReceiver_o* stressReceiver;
 		bool isActingAsLocalPlayer;
 		vec3_t constantForce;
 		vec3_t pushForce;
-		char idk_pad[36];
-		float additiveFov;
+		float additiveFOV;
+		vec3_t focusedPosition;
 		int16_t lastDamagePacketID;
+		struct ShadowOnlyIfLocalPlayer_array* shadowOnlyIfLocalPlayers;
+		struct Hat_o* hat;
+		bool identityIsMine;
+		bool leftTriggerDownLastFrame;
+		bool firstSwitch;
 	}; 
 	struct MyceliumNetwork_Fields
 	{
