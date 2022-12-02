@@ -30,8 +30,14 @@ namespace g {
 	inline uintptr_t MyceliumNetwork$$get_LocalPlayer;
 	inline uintptr_t PlayerController$$OnKill;
 
-	
-	void PlayerController$$OnKill_(PlayerController_c* __this, KillData_o* data);
+	inline void (*PlayerManager__GotKilledByPlayer_f)(MyceliumPlayer_o* killer, void* damageData, float distance, int16_t damagePacketID);
+	inline void (*AntiCheat_Boost__OnAnyoneDeath_f)(MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
+	inline void (*SpectatorControllerOnAnyoneDeath_f)(void* _this, MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
+
+	void SpectatorControllerOnAnyoneDeath(void* _this, MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
+	std::string ResolveSystemString(System_String_o* name);
+	void AntiCheat_Boost__OnAnyoneDeath(MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
+	void PlayerManager__GotKilledByPlayer(MyceliumPlayer_o* killer, void* damageData, float distance, int16_t damagePacketID);
 	void PlayerController_Update(g::PlayerController_c* playercontroller);
 	bool WorldToScreen(int64_t camFields, vec3_t pos, vec3_t out);
 	bool WorldToScreen(vec3_t pos, vec2_t xy);

@@ -46,6 +46,9 @@ void g::G_PrepareHooks()
 
 	OutskirtsKeyPad_Press_f							= (void(*)(void* keypad, int num, const MethodInfo * method))(GameAssembly + 4411248); //GameMode_TeamDeathmatch$$MessageHandler_SetPointsForTeam
 	
+	PlayerManager__GotKilledByPlayer_f				= (void (*)(MyceliumPlayer_o*, void*, float, int16_t))				(GameAssembly + 4184768);
+	AntiCheat_Boost__OnAnyoneDeath_f				= (void (*)(MyceliumPlayer_o*, MyceliumPlayer_o*, void*))			(GameAssembly + 4033424);
+	SpectatorControllerOnAnyoneDeath_f				= (void (*)(void*, MyceliumPlayer_o *, MyceliumPlayer_o *, void*))	(GameAssembly + 2946432);
 }
 void g::G_InitHooks()
 {
@@ -56,7 +59,9 @@ void g::G_InitHooks()
 	a->install(&(PVOID&)PlayerInfo_f, UE_PlayerInfo);
 	a->install(&(PVOID&)PrintChat_f, PrintChat);
 	a->install(&(PVOID&)OutskirtsKeyPad_Press_f, OutskirtsKeyPad_Press);
-	//a->install(&(PVOID&)PlayerData_f, UE_PlayerData);
+	a->install(&(PVOID&)PlayerManager__GotKilledByPlayer_f, PlayerManager__GotKilledByPlayer);
+	a->install(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
+	a->install(&(PVOID&)SpectatorControllerOnAnyoneDeath_f, SpectatorControllerOnAnyoneDeath);
 
 }
 void g::G_RemoveHooks()
@@ -68,7 +73,10 @@ void g::G_RemoveHooks()
 	a->remove(&(PVOID&)PlayerInfo_f, UE_PlayerInfo);
 	a->remove(&(PVOID&)PrintChat_f, PrintChat);
 	a->remove(&(PVOID&)OutskirtsKeyPad_Press_f, OutskirtsKeyPad_Press);
-	a->remove(&(PVOID&)PlayerData_f, UE_PlayerData);
+	//a->remove(&(PVOID&)PlayerData_f, UE_PlayerData);
+	a->remove(&(PVOID&)PlayerManager__GotKilledByPlayer_f, PlayerManager__GotKilledByPlayer);
+	a->remove(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
+	a->remove(&(PVOID&)SpectatorControllerOnAnyoneDeath_f, SpectatorControllerOnAnyoneDeath);
 
 }
 void g::G_OffsetsAndHooks()

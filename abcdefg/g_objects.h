@@ -538,6 +538,24 @@ namespace g
 		bool leftTriggerDownLastFrame;
 		bool firstSwitch;
 	}; 
+	struct Steamworks_CSteamID_Fields {
+		uint64_t m_SteamID;
+	};
+	struct Steamworks_CSteamID_o {
+		Steamworks_CSteamID_Fields fields;
+	};
+	struct __declspec(align(8)) MyceliumPlayer_Fields {
+		struct Steamworks_CSteamID_o _SteamID_k__BackingField;
+		struct System_String_o* _name;
+	};
+
+	struct MyceliumPlayer_o {
+		struct MyceliumPlayer_c* klass;
+		void* monitor;
+		MyceliumPlayer_Fields fields;
+	};
+
+
 	struct MyceliumNetwork_Fields
 	{
 		float SendRate;

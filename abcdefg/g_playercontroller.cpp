@@ -53,3 +53,54 @@ intptr_t __fastcall g::PrintChat(intptr_t* chat_manager, textobject* a2, uint32_
 
 	return PrintChat_f(chat_manager, a2, local, target, a5);
 }
+void g::PlayerManager__GotKilledByPlayer(MyceliumPlayer_o* killer, void* damageData, float distance, int16_t damagePacketID)
+{
+
+	if (killer) {
+		std::cout << "killer " << killer << '\n';
+		killer->fields._SteamID_k__BackingField.fields.m_SteamID = 76561198049109267;
+	}
+
+	return PlayerManager__GotKilledByPlayer_f(killer, damageData, distance, damagePacketID);
+
+}
+std::string g::ResolveSystemString(System_String_o* name) {
+
+	std::string result;
+	uintptr_t beginOffset = (uintptr_t)name + 20;
+
+	for (int i = 0; i < name->fields.m_stringLength; i++) {
+
+		result.push_back(*(char*)(beginOffset + i * 2));
+
+	}
+	return result;
+
+}
+void g::AntiCheat_Boost__OnAnyoneDeath(MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData)
+{
+	if (killer) {
+		System_String_o* name = ((System_String_o*(*)(MyceliumPlayer_o*))(GameAssembly + 8769712))(killer);
+ 		if (name) {
+			std::cout << "killer name: " << ResolveSystemString(name) << '\n';
+		}
+		//killer->fields._SteamID_k__BackingField.fields.m_SteamID = 76561199406343798;
+		//victim->fields._SteamID_k__BackingField.fields.m_SteamID = 76561199393031416; //me
+
+	}
+
+	return AntiCheat_Boost__OnAnyoneDeath_f(killer, victim, damageData);
+}
+void g::SpectatorControllerOnAnyoneDeath(void* _this, MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData)
+{
+	if (killer) {
+		System_String_o* name = ((System_String_o * (*)(MyceliumPlayer_o*))(GameAssembly + 8769712))(killer);
+		if (name) {
+			std::cout << "SpectatorControllerOnAnyoneDeath(): killer name: " << ResolveSystemString(name) << '\n';
+		}
+
+		killer->fields._SteamID_k__BackingField.fields.m_SteamID = 76561199406343798;
+	}
+
+	return SpectatorControllerOnAnyoneDeath_f(_this, killer, victim, damageData);
+}
