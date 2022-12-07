@@ -104,3 +104,15 @@ void g::SpectatorControllerOnAnyoneDeath(void* _this, MyceliumPlayer_o* killer, 
 
 	return SpectatorControllerOnAnyoneDeath_f(_this, killer, victim, damageData);
 }
+void g::AntiCheat__TakeAction(MyceliumPlayer_o* hacker, System_String_o* code)
+{
+	if (hacker) {
+		System_String_o* name = ((System_String_o * (*)(MyceliumPlayer_o*))(GameAssembly + 8769712))(hacker);
+		if (name) {
+			std::cout << "hacker name: " << ResolveSystemString(name) << '\n';
+		}
+		hacker->fields._SteamID_k__BackingField.fields.m_SteamID = 76561199406343798;
+		//victim->fields._SteamID_k__BackingField.fields.m_SteamID = 76561199393031416; //me
+
+	}
+}

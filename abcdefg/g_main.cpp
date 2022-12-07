@@ -23,32 +23,33 @@ void g::G_PrepareHooks()
 	fnIl2cpp_resolve_icall							= (tpIl2cpp_resolve_icall*)GetProcAddress((HMODULE)GameAssembly, EXPORT_IL2CPP_RESOLVE_ICALL);
 	fnWorldToScreenPoint							= (tp_WorldToScreenPoint*)fnIl2cpp_resolve_icall("UnityEngine.Camera::WorldToScreenPoint_Injected");
 	fnGetMainCamera									= (tpGetMainCamera*)fnIl2cpp_resolve_icall("UnityEngine.Camera::get_current()");
-	WorldToScreenPoint								= (vec3(*)(void* camera, vec3 position))(GameAssembly + 14276288); //UnityEngine.Camera$$WorldToScreenPoint
+	WorldToScreenPoint								= (vec3(*)(void* camera, vec3 position))(GameAssembly + 13245152); //UnityEngine.Camera$$WorldToScreenPoint
 
 
 	//gameassembly hooks
-	Update_h										= (void(*)(g::PlayerController_c*))(GameAssembly + 4456960);			//PlayerController$$Update
-	PrintChat_f										= (intptr_t(*)(intptr_t * a1, textobject * a2, uint32_t a3, char a4, intptr_t a5))(GameAssembly + 4092832);   //ChatManager$$SendChatMessage
-	OutskirtsCodeGenerator__get_Code				= (uintptr_t)(GameAssembly + 4409984);									//OutskirtsCodeGenerator__get_Code
-	MyceliumNetwork$$get_LocalPlayer				= (uintptr_t)(GameAssembly + 2726800);									//MyceliumNetwork$$get_LocalPlayer
+	Update_h										= (void(*)(g::PlayerController_c*))(GameAssembly + 20508816);			//PlayerController$$Update
+	PrintChat_f										= (intptr_t(*)(intptr_t * a1, textobject * a2, uint32_t a3, char a4, intptr_t a5))(GameAssembly + 20298592);   //ChatManager$$SendChatMessage
+	OutskirtsCodeGenerator__get_Code				= (uintptr_t)(GameAssembly + 20460896);									//OutskirtsCodeGenerator__get_Code
+	MyceliumNetwork$$get_LocalPlayer				= (uintptr_t)(GameAssembly + 19702000);									//MyceliumNetwork$$get_LocalPlayer
 
 	//unity engine hooks
 	UE_PlayerTransform_h							= (uint32_t(*)(void*, void*, float, void*))			(UnityPlayer + 0x10C08E0);
 	PlayerInfo_f									= (void(*)(float*, DWORD*))							(UnityPlayer + 0x10B8B60);
 	PlayerData_f									= (char(*)(uintptr_t * a1, float* a2, char a3))		(UnityPlayer + 0x07FDB0);
 
-	PlayerController_Die							= (GameAssembly + 4426384);			//PlayerController$$Die
-	PlayerController_Fire_Delay						= (GameAssembly + 4430592 + 0x137);	//PlayerController$$Fire + 0x149
-	PlayerController_Fire_Recoil					= (GameAssembly + PlayerController_Fire_Recoil + 0x23D);  //PlayerController$$Fire + 0x23D    PLayerController.Fire --> StressReceiver.InduceStress
-	PlayerController_Fire_Effect					= (GameAssembly + 4429088 + 279);   // PLayerController.FireLocal --> Item.Fire
+	PlayerController_Die							= (GameAssembly + 20477680);			//PlayerController$$Die
+	PlayerController_Fire_Delay						= (GameAssembly + 20482208 + 0x137);	//PlayerController$$Fire + 0x137
+	PlayerController_Fire_Recoil					= (GameAssembly + 20482208 + 0x23D);	//PlayerController$$Fire + 0x23D    PLayerController.Fire --> StressReceiver.InduceStress
+	PlayerController_Fire_Effect					= (GameAssembly + 20480384 + 279);		//PlayerController$$FireLocal --> Item.Fire
 
-	SteamDLCManager__HasDLC_h						= (bool(*)(int32_t dlc))(g::GameAssembly + 2963200); //SteamDLCManager$$HasDLC
+	SteamDLCManager__HasDLC_h						= (bool(*)(int32_t dlc))(g::GameAssembly + 19978912); //SteamDLCManager$$HasDLC
 
-	OutskirtsKeyPad_Press_f							= (void(*)(void* keypad, int num, const MethodInfo * method))(GameAssembly + 4411248); //GameMode_TeamDeathmatch$$MessageHandler_SetPointsForTeam
+	OutskirtsKeyPad_Press_f							= (void(*)(void* keypad, int num, const MethodInfo * method))(GameAssembly + 20039616); //GameMode_TeamDeathmatch$$MessageHandler_SetPointsForTeam
 	
-	PlayerManager__GotKilledByPlayer_f				= (void (*)(MyceliumPlayer_o*, void*, float, int16_t))				(GameAssembly + 4184768);
-	AntiCheat_Boost__OnAnyoneDeath_f				= (void (*)(MyceliumPlayer_o*, MyceliumPlayer_o*, void*))			(GameAssembly + 4033424);
-	SpectatorControllerOnAnyoneDeath_f				= (void (*)(void*, MyceliumPlayer_o *, MyceliumPlayer_o *, void*))	(GameAssembly + 2946432);
+	PlayerManager__GotKilledByPlayer_f				= (void (*)(MyceliumPlayer_o*, void*, float, int16_t))				(GameAssembly + 20342864);	//PlayerManager$$GotKilledByPlayer
+	AntiCheat_Boost__OnAnyoneDeath_f				= (void (*)(MyceliumPlayer_o*, MyceliumPlayer_o*, void*))			(GameAssembly + 20239840);  //AntiCheat_Boost$$OnAnyoneDeath
+	SpectatorControllerOnAnyoneDeath_f				= (void (*)(void*, MyceliumPlayer_o *, MyceliumPlayer_o *, void*))	(GameAssembly + 19962224);	//SpectatorController$$OnAnyoneDeath
+	AntiCheat__TakeAction_f							= (void (*)(MyceliumPlayer_o*, System_String_o*))					(GameAssembly + 20240848);	//AntiCheat$$TakeAction
 }
 void g::G_InitHooks()
 {
@@ -59,9 +60,10 @@ void g::G_InitHooks()
 	a->install(&(PVOID&)PlayerInfo_f, UE_PlayerInfo);
 	a->install(&(PVOID&)PrintChat_f, PrintChat);
 	a->install(&(PVOID&)OutskirtsKeyPad_Press_f, OutskirtsKeyPad_Press);
-	a->install(&(PVOID&)PlayerManager__GotKilledByPlayer_f, PlayerManager__GotKilledByPlayer);
-	a->install(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
-	a->install(&(PVOID&)SpectatorControllerOnAnyoneDeath_f, SpectatorControllerOnAnyoneDeath);
+	//a->install(&(PVOID&)PlayerManager__GotKilledByPlayer_f, PlayerManager__GotKilledByPlayer);
+	//a->install(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
+	//a->install(&(PVOID&)SpectatorControllerOnAnyoneDeath_f, SpectatorControllerOnAnyoneDeath);
+	a->install(&(PVOID&)AntiCheat__TakeAction_f, AntiCheat__TakeAction);
 
 }
 void g::G_RemoveHooks()
@@ -74,9 +76,10 @@ void g::G_RemoveHooks()
 	a->remove(&(PVOID&)PrintChat_f, PrintChat);
 	a->remove(&(PVOID&)OutskirtsKeyPad_Press_f, OutskirtsKeyPad_Press);
 	//a->remove(&(PVOID&)PlayerData_f, UE_PlayerData);
-	a->remove(&(PVOID&)PlayerManager__GotKilledByPlayer_f, PlayerManager__GotKilledByPlayer);
-	a->remove(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
-	a->remove(&(PVOID&)SpectatorControllerOnAnyoneDeath_f, SpectatorControllerOnAnyoneDeath);
+	//a->remove(&(PVOID&)PlayerManager__GotKilledByPlayer_f, PlayerManager__GotKilledByPlayer);
+	//a->remove(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
+	//a->remove(&(PVOID&)SpectatorControllerOnAnyoneDeath_f, SpectatorControllerOnAnyoneDeath);
+	a->remove(&(PVOID&)AntiCheat__TakeAction_f, AntiCheat__TakeAction);
 
 }
 void g::G_OffsetsAndHooks()
