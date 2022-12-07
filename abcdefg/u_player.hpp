@@ -7,6 +7,7 @@
 
 namespace g
 {
+	inline bool BANNED_FROM_MATCH;
 	struct textobject
 	{
 		char pad[20];

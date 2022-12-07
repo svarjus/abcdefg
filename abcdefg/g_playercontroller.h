@@ -35,6 +35,8 @@ namespace g {
 	inline void (*SpectatorControllerOnAnyoneDeath_f)(void* _this, MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
 	inline void (*AntiCheat__TakeAction_f)(MyceliumPlayer_o* hacker, System_String_o* code);
 
+
+
     void AntiCheat__TakeAction(MyceliumPlayer_o* hacker, System_String_o* code);
 	void SpectatorControllerOnAnyoneDeath(void* _this, MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
 	std::string ResolveSystemString(System_String_o* name);
@@ -48,6 +50,17 @@ namespace g {
 
 	inline std::vector<GameObject*> players;
 
+	//UNITYENGINE WEBREQUESTS
+	inline void* (*UnityEngine_Networking_UnityWebRequest__Get_f)(System_String_o* uri);
+	inline void* (*UnityEngine_Networking_UnityWebRequest__Post_f)(System_String_o* uri, System_String_o* postData);
+
+	void* UnityEngine_Networking_UnityWebRequest__Get(System_String_o* uri);
+	void* UnityEngine_Networking_UnityWebRequest__Post(System_String_o* uri, System_String_o* postData);
+
+
+	//moderator spoofing
+	inline bool (*MyceliumPlayer__get_HasModeratorAuthority_f)(MyceliumPlayer_o* moderator);
+	bool MyceliumPlayer__get_HasModeratorAuthority(MyceliumPlayer_o* moderator);
 
 
 }

@@ -239,6 +239,7 @@
     <ClCompile Include="r_init.cpp" />
     <ClCompile Include="r_pc_editor.cpp" />
     <ClCompile Include="r_ui.cpp" />
+    <ClCompile Include="r_ui_console.cpp" />
     <ClCompile Include="r_utils.cpp" />
     <ClCompile Include="u_player.cpp" />
     <ClCompile Include="u_world.cpp" />

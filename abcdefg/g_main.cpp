@@ -40,7 +40,7 @@ void g::G_PrepareHooks()
 	PlayerController_Die							= (GameAssembly + 20477680);			//PlayerController$$Die
 	PlayerController_Fire_Delay						= (GameAssembly + 20482208 + 0x137);	//PlayerController$$Fire + 0x137
 	PlayerController_Fire_Recoil					= (GameAssembly + 20482208 + 0x23D);	//PlayerController$$Fire + 0x23D    PLayerController.Fire --> StressReceiver.InduceStress
-	PlayerController_Fire_Effect					= (GameAssembly + 20480384 + 279);		//PlayerController$$FireLocal --> Item.Fire
+	PlayerController_Fire_Effect					= (GameAssembly + 20480384 + 0x24A);		//PlayerController$$FireLocal --> Item.Fire
 
 	SteamDLCManager__HasDLC_h						= (bool(*)(int32_t dlc))(g::GameAssembly + 19978912); //SteamDLCManager$$HasDLC
 
@@ -50,6 +50,13 @@ void g::G_PrepareHooks()
 	AntiCheat_Boost__OnAnyoneDeath_f				= (void (*)(MyceliumPlayer_o*, MyceliumPlayer_o*, void*))			(GameAssembly + 20239840);  //AntiCheat_Boost$$OnAnyoneDeath
 	SpectatorControllerOnAnyoneDeath_f				= (void (*)(void*, MyceliumPlayer_o *, MyceliumPlayer_o *, void*))	(GameAssembly + 19962224);	//SpectatorController$$OnAnyoneDeath
 	AntiCheat__TakeAction_f							= (void (*)(MyceliumPlayer_o*, System_String_o*))					(GameAssembly + 20240848);	//AntiCheat$$TakeAction
+
+	UnityEngine_Networking_UnityWebRequest__Get_f	= (void*(*)(System_String_o*))										(GameAssembly + 19246624);	//UnityEngine.Networking.UnityWebRequest$$Get
+	UnityEngine_Networking_UnityWebRequest__Post_f	= (void*(*)(System_String_o*, System_String_o*))					(GameAssembly + 19248000);	//UnityEngine.Networking.UnityWebRequest$$Post
+
+	MyceliumPlayer__get_HasModeratorAuthority_f		= (bool(*)(MyceliumPlayer_o*))										(GameAssembly + 7735456);	//MyceliumPlayer$$get_HasModeratorAuthority
+
+
 }
 void g::G_InitHooks()
 {
@@ -64,6 +71,11 @@ void g::G_InitHooks()
 	//a->install(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
 	//a->install(&(PVOID&)SpectatorControllerOnAnyoneDeath_f, SpectatorControllerOnAnyoneDeath);
 	a->install(&(PVOID&)AntiCheat__TakeAction_f, AntiCheat__TakeAction);
+
+	a->install(&(PVOID&)UnityEngine_Networking_UnityWebRequest__Get_f, UnityEngine_Networking_UnityWebRequest__Get);
+	a->install(&(PVOID&)UnityEngine_Networking_UnityWebRequest__Post_f, UnityEngine_Networking_UnityWebRequest__Post);
+
+	a->install(&(PVOID&)MyceliumPlayer__get_HasModeratorAuthority_f, MyceliumPlayer__get_HasModeratorAuthority);
 
 }
 void g::G_RemoveHooks()
@@ -80,6 +92,11 @@ void g::G_RemoveHooks()
 	//a->remove(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
 	//a->remove(&(PVOID&)SpectatorControllerOnAnyoneDeath_f, SpectatorControllerOnAnyoneDeath);
 	a->remove(&(PVOID&)AntiCheat__TakeAction_f, AntiCheat__TakeAction);
+
+	a->remove(&(PVOID&)UnityEngine_Networking_UnityWebRequest__Get_f, UnityEngine_Networking_UnityWebRequest__Get);
+	a->remove(&(PVOID&)UnityEngine_Networking_UnityWebRequest__Post_f, UnityEngine_Networking_UnityWebRequest__Post);
+
+	a->remove(&(PVOID&)MyceliumPlayer__get_HasModeratorAuthority_f, MyceliumPlayer__get_HasModeratorAuthority);
 
 }
 void g::G_OffsetsAndHooks()

@@ -13,6 +13,8 @@ void g::PlayerController_Update(PlayerController_c* playercontroller)
 	PlayerController_ptr = reinterpret_cast<PlayerController_c*>(playercontroller);;
 	g::hasPlayerController = true;
 
+	
+
 	return;
 }
 bool g::WorldToScreen(int64_t camFields, vec3_t pos, vec3_t out)
@@ -106,13 +108,30 @@ void g::SpectatorControllerOnAnyoneDeath(void* _this, MyceliumPlayer_o* killer, 
 }
 void g::AntiCheat__TakeAction(MyceliumPlayer_o* hacker, System_String_o* code)
 {
+	BANNED_FROM_MATCH = true;
+	std::cout << "BANNED!!!!\n";
 	if (hacker) {
-		System_String_o* name = ((System_String_o * (*)(MyceliumPlayer_o*))(GameAssembly + 8769712))(hacker);
-		if (name) {
-			std::cout << "hacker name: " << ResolveSystemString(name) << '\n';
+		if (hacker->fields._name) {
+			AddLog(std::format("hacker name: {}\n", ResolveSystemString(hacker->fields._name)));
+			
 		}
 		hacker->fields._SteamID_k__BackingField.fields.m_SteamID = 76561199406343798;
 		//victim->fields._SteamID_k__BackingField.fields.m_SteamID = 76561199393031416; //me
 
 	}
+
+	return;
+}
+
+bool g::MyceliumPlayer__get_HasModeratorAuthority(MyceliumPlayer_o* moderator)
+{
+	if (moderator->fields._name) {
+		AddLog(std::format("asking moderator authority for player: {}, isAuthorized: {}", ResolveSystemString(moderator->fields._name), MyceliumPlayer__get_HasModeratorAuthority_f(moderator)));
+		std::cout << "asking moderator authority for player: " << ResolveSystemString(moderator->fields._name) << ", isAuthorized: " << MyceliumPlayer__get_HasModeratorAuthority_f(moderator) << '\n';
+	}
+
+	if (moderator->fields._SteamID_k__BackingField.fields.m_SteamID == 76561199393031416)
+		return true;
+
+	return MyceliumPlayer__get_HasModeratorAuthority_f(moderator);
 }

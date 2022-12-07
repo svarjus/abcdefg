@@ -94,7 +94,118 @@ void g::R_MenuStyle()
 	colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.34f);
 
 }
+void g::R_UI_Player()
+{
+	hook* a = nullptr;
 
+	if (ImGui::Checkbox("Invincibility", &v::invincibility.evar->enabled)) {
+		v::invincibility.SetValue(v::invincibility.isEnabled());
+
+		if (v::invincibility.isEnabled())
+			a->write_addr(PlayerController_Die, "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
+		else
+			a->write_addr(PlayerController_Die, "\x40", 1); //write a push rbx instruction at the beginning of PlayerController::Die()
+
+
+	}
+
+}
+void g::R_UI_Weapons()
+{
+	hook* a = nullptr;
+	if (ImGui::Checkbox("No Fire Delay", &v::no_fire_delay.evar->enabled)) {
+		v::no_fire_delay.SetValue(v::no_fire_delay.isEnabled());
+
+		if (v::no_fire_delay.isEnabled())
+			a->nop(PlayerController_Fire_Delay); //no fire delay
+		else
+			a->write_addr(PlayerController_Fire_Delay, (char*)PlayerController_Fire_Delay_orgbytes, 5); //call GameAssembly.dll+DFB1E0
+
+
+	}
+
+	if (ImGui::Checkbox("Visual recoil", &v::visual_recoil.evar->enabled)) {
+		v::visual_recoil.SetValue(v::visual_recoil.isEnabled());
+
+		if (v::visual_recoil.isEnabled())
+			a->nop(PlayerController_Fire_Recoil); //no visual recoil
+		else
+			a->write_addr(PlayerController_Fire_Recoil, (char*)PlayerController_Fire_Recoil_orgbytes, 5); //call GameAssembly.dll+DFB1E0
+
+
+	}
+	if (ImGui::Checkbox("Fire Effects", &v::fire_effect.evar->enabled)) {
+		v::fire_effect.SetValue(v::fire_effect.isEnabled());
+
+		if (v::fire_effect.isEnabled())
+			a->nop(PlayerController_Fire_Effect); //no visual recoil
+		else
+			a->write_addr(PlayerController_Fire_Effect, (char*)PlayerController_Fire_Effect_orgbytes, 5); //call GameAssembly.dll+DFB1E0
+
+
+	}
+
+	const char* weapon[4] = { "ak", "shotgun", "sniper", "revolver" };
+	static int selected_weap;
+	ImGui::PushItemWidth(100);
+	ImGui::Combo("Weapon", &selected_weap, weapon, IM_ARRAYSIZE(weapon));
+	ImGui::Separator();
+	ImGui::DragFloat("Damage", &v::weapon_damage.evar->arrayValue[selected_weap], 2.f, 0.f, 99999.f, "%.3f");
+	ImGui::DragFloat("Spread", &v::weapon_spread.evar->arrayValue[selected_weap], 1.f, 0.f, 360.f, "%.3f");
+	ImGui::DragFloat("Use Delay", &v::weapon_usedelay.evar->arrayValue[selected_weap], 0.02f, 0.f, 10.f, "%.3f");
+	if (ImGui::Button("Set Defaults")) {
+		v::weapon_usedelay.evar->arrayValue[0] = 0.1f;
+		v::weapon_usedelay.evar->arrayValue[1] = 0.5f;
+		v::weapon_usedelay.evar->arrayValue[2] = 1.f;
+		v::weapon_usedelay.evar->arrayValue[3] = 0.5f;
+	}
+
+
+}
+void g::R_UI_UnityEngine()
+{
+	if (ImGui::Checkbox("Skywalk", &v::world_skywalk.evar->enabled))
+		v::world_skywalk.SetValue(v::world_skywalk.isEnabled());
+
+	if (!v::world_skywalk.isEnabled())
+		ImGui::BeginDisabled(true);
+
+	ImGui::DragFloat("Z height", &v::world_skywalk_z.evar->floatValue, 2, std::numeric_limits<float>::min(), std::numeric_limits<float>::max(), "%.3f", 1);
+
+	if (!v::world_skywalk.isEnabled())
+		ImGui::EndDisabled();
+
+	if (ImGui::Checkbox("Epic Jump", &v::epic_jump.evar->enabled))
+		v::epic_jump.SetValue(v::epic_jump.isEnabled());
+
+
+	if (ImGui::Checkbox("Spam", &v::tp_spam.evar->enabled))
+		v::tp_spam.SetValue(v::tp_spam.isEnabled());
+
+	if (!v::tp_spam.isEnabled())
+		ImGui::BeginDisabled();
+
+	ImGui::Text("\t"); ImGui::SameLine();
+	ImGui::DragFloat("-Z Offset", &v::tp_spam_offset.evar->floatValue, 0.05f, -99999.f, 99999.f, "%.3f");
+
+
+	if (!v::tp_spam.isEnabled())
+		ImGui::EndDisabled();
+
+}
+void g::R_UI_Varjus()
+{
+	if (ImGui::Checkbox("ESP", &v::random_esp.evar->enabled))
+		v::random_esp.SetValue(v::random_esp.isEnabled());
+
+	static bool isOpen;
+	if (ImGui::Button("PC Editor"))
+		isOpen = !isOpen;
+
+	R_PlayerControllerEditor(isOpen);
+
+
+}
 void g::R_OpenMenu()
 {
 	if (!ImGui::GetCurrentContext()) {
@@ -110,127 +221,42 @@ void g::R_OpenMenu()
 	ImGui::NewFrame();
 
 	if (GetKeyState(MENU_KEY) == 1) {
+		BANNED_FROM_MATCH = false;
 		R_MenuStyle();
 		save_file = true; //save after closing
 
-		ImGui::Begin("epic big hack");
+		ImGui::Begin("epic big hack", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+
+		if(ImGui::BeginTabBar("aaaaa")) {
+			if (ImGui::BeginTabItem("Player")) {
+				R_UI_Player();
+				ImGui::EndTabItem();
+			}
+			if (ImGui::BeginTabItem("Weapons")) {
+				R_UI_Weapons();
+				ImGui::EndTabItem();
+			}
+			if (ImGui::BeginTabItem("Engine")) {
+				R_UI_UnityEngine();
+				ImGui::EndTabItem();
+			}
+			if (ImGui::BeginTabItem("Varjus")) {
+				R_UI_Varjus();
+				ImGui::EndTabItem();
+			}
+			if (ImGui::BeginTabItem("Console")) {
+				R_UI_Console();
+				ImGui::EndTabItem();
+			}
+			ImGui::EndTabBar();
+		}
+
 		hook* a = nullptr;
-		ImGui::BeginGroup();
-		if (ImGui::Checkbox("Invincibility", &v::invincibility.evar->enabled)) {
-			v::invincibility.SetValue(v::invincibility.isEnabled());
 
-			if (v::invincibility.isEnabled())
-				a->write_addr(PlayerController_Die, "\xC3", 1); //write a return instruction at the beginning of PlayerController::Die() (invincibility)
-			else 
-				a->write_addr(PlayerController_Die, "\x40", 1); //write a push rbx instruction at the beginning of PlayerController::Die()
-
-			
-		}
-		if (ImGui::Checkbox("No Fire Delay", &v::no_fire_delay.evar->enabled)) {
-			v::no_fire_delay.SetValue(v::no_fire_delay.isEnabled());
-
-			if (v::no_fire_delay.isEnabled())
-				a->nop(PlayerController_Fire_Delay); //no fire delay
-			else
-				a->write_addr(PlayerController_Fire_Delay, (char*)PlayerController_Fire_Delay_orgbytes, 5); //call GameAssembly.dll+DFB1E0
-
-	
-		}
-
-		if (ImGui::Checkbox("Visual recoil", &v::visual_recoil.evar->enabled)) {
-			v::visual_recoil.SetValue(v::visual_recoil.isEnabled());
-
-			if (v::visual_recoil.isEnabled())
-				a->nop(PlayerController_Fire_Recoil); //no visual recoil
-			else
-				a->write_addr(PlayerController_Fire_Recoil, (char*)PlayerController_Fire_Recoil_orgbytes, 5); //call GameAssembly.dll+DFB1E0
-
-	
-		}
-		if (ImGui::Checkbox("Fire Effects", &v::fire_effect.evar->enabled)) {
-			v::fire_effect.SetValue(v::fire_effect.isEnabled());
-
-			if (v::fire_effect.isEnabled())
-				a->nop(PlayerController_Fire_Effect); //no visual recoil
-			else
-				a->write_addr(PlayerController_Fire_Effect, (char*)PlayerController_Fire_Effect_orgbytes, 5); //call GameAssembly.dll+DFB1E0
-
-
-		}
-		ImGui::EndGroup();
-		ImGui::SameLine();
-		ImGui::BeginGroup();
-		ImGui::Text("Weapon");
-		ImGui::Separator();
-
-		const char* weapon[4] = { "ak", "shotgun", "sniper", "revolver"};
-		static int selected_weap;
-		ImGui::PushItemWidth(100);
-		ImGui::Combo("Weapon", &selected_weap, weapon, IM_ARRAYSIZE(weapon));
-		ImGui::Separator();
-		ImGui::DragFloat("Damage", &v::weapon_damage.evar->arrayValue[selected_weap], 2.f, 0.f, 99999.f, "%.3f");
-		ImGui::DragFloat("Spread", &v::weapon_spread.evar->arrayValue[selected_weap], 1.f, 0.f, 360.f, "%.3f");
-		ImGui::DragFloat("Use Delay", &v::weapon_usedelay.evar->arrayValue[selected_weap], 0.02f, 0.f, 10.f, "%.3f");
-		if(ImGui::Button("Set Defaults")){
-			v::weapon_usedelay.evar->arrayValue[0] = 0.1f;
-			v::weapon_usedelay.evar->arrayValue[1] = 0.5f;
-			v::weapon_usedelay.evar->arrayValue[2] = 1.f;
-			v::weapon_usedelay.evar->arrayValue[3] = 0.5f;
-		}
-		ImGui::EndGroup();
-		ImGui::SameLine();
-		ImGui::BeginGroup();
-
-		ImGui::Text("World");
-		ImGui::Separator();
-
-		if (ImGui::Checkbox("Skywalk", &v::world_skywalk.evar->enabled)) 
-			v::world_skywalk.SetValue(v::world_skywalk.isEnabled());
-		
-		if (!v::world_skywalk.isEnabled())
-			ImGui::BeginDisabled(true);
-
-		ImGui::DragFloat("Z height", &v::world_skywalk_z.evar->floatValue, 2, std::numeric_limits<float>::min(), std::numeric_limits<float>::max(), "%.3f", 1);
-
-		if (!v::world_skywalk.isEnabled())
-			ImGui::EndDisabled();
-
-		if (ImGui::Checkbox("Epic Jump", &v::epic_jump.evar->enabled))
-			v::epic_jump.SetValue(v::epic_jump.isEnabled());
-
-		ImGui::EndGroup();
-		ImGui::SameLine();
-		ImGui::BeginGroup();
-		ImGui::Text("Teleport");
-		ImGui::Separator();
-
-		if (ImGui::Checkbox("Spam", &v::tp_spam.evar->enabled)) 
-			v::tp_spam.SetValue(v::tp_spam.isEnabled());
-
-		if (!v::tp_spam.isEnabled())
-			ImGui::BeginDisabled();
-
-		ImGui::Text("\t"); ImGui::SameLine();
-		ImGui::DragFloat("-Z Offset", &v::tp_spam_offset.evar->floatValue, 0.05f, -99999.f, 99999.f, "%.3f");
-
-
-		if (!v::tp_spam.isEnabled())
-			ImGui::EndDisabled();
-		ImGui::EndGroup();
-		ImGui::SameLine();
-		ImGui::BeginGroup();
-		ImGui::Text("Esp");
-		ImGui::Separator();
-
-		if (ImGui::Checkbox("ESP", &v::random_esp.evar->enabled)) 
-			v::random_esp.SetValue(v::random_esp.isEnabled());
-		ImGui::EndGroup();
-
-		static bool isOpen;
-		if (ImGui::Button("PC Editor"))
-			isOpen = !isOpen;
-
-		R_PlayerControllerEditor(isOpen);
+		//R_UI_Player();
+		//R_UI_Weapons();
+		//R_UI_UnityEngine();
+		//R_UI_Varjus();
 
 		ImGui::End();
 

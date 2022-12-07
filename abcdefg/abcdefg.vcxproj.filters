@@ -266,6 +266,9 @@
     <ClCompile Include="u_world.cpp">
       <Filter>Source Files\uengine</Filter>
     </ClCompile>
+    <ClCompile Include="r_ui_console.cpp">
+      <Filter>Source Files\render\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="detours\detours.lib">
