@@ -23,12 +23,16 @@ void g::G_PrepareHooks()
 	fnIl2cpp_resolve_icall							= (tpIl2cpp_resolve_icall*)GetProcAddress((HMODULE)GameAssembly, EXPORT_IL2CPP_RESOLVE_ICALL);
 	fnWorldToScreenPoint							= (tp_WorldToScreenPoint*)fnIl2cpp_resolve_icall("UnityEngine.Camera::WorldToScreenPoint_Injected");
 	fnGetMainCamera									= (tpGetMainCamera*)fnIl2cpp_resolve_icall("UnityEngine.Camera::get_current()");
+	fnSendChatMessage								= (tp_fnSendChatMessage*)fnIl2cpp_resolve_icall(SENDCHATMESSAGE);
+
+	std::cout << "fnSendChatMessage: 0x" << std::hex << fnSendChatMessage << '\n';
+
 	WorldToScreenPoint								= (vec3(*)(void* camera, vec3 position))(GameAssembly + 13245152); //UnityEngine.Camera$$WorldToScreenPoint
 
 
 	//gameassembly hooks
 	Update_h										= (void(*)(g::PlayerController_c*))(GameAssembly + 20508816);			//PlayerController$$Update
-	PrintChat_f										= (intptr_t(*)(intptr_t * a1, textobject * a2, uint32_t a3, char a4, intptr_t a5))(GameAssembly + 20298592);   //ChatManager$$SendChatMessage
+	PrintChat_f										= (void(*)(ChatManager_o*, System_String_o *, int32_t, bool, MyceliumPlayer_o*, MyceliumPlayer_o *, const MethodInfo*))	(GameAssembly + 20298592);   //ChatManager$$SendChatMessage
 	OutskirtsCodeGenerator__get_Code				= (uintptr_t)(GameAssembly + 20460896);									//OutskirtsCodeGenerator__get_Code
 	MyceliumNetwork$$get_LocalPlayer				= (uintptr_t)(GameAssembly + 19702000);									//MyceliumNetwork$$get_LocalPlayer
 

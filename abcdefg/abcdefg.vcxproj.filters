@@ -171,6 +171,9 @@
     <ClInclude Include="u_world.hpp">
       <Filter>Source Files\uengine</Filter>
     </ClInclude>
+    <ClInclude Include="ImGui\imgui_stdlib.h">
+      <Filter>Header Files\_lib\imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -268,6 +271,9 @@
     </ClCompile>
     <ClCompile Include="r_ui_console.cpp">
       <Filter>Source Files\render\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_stdlib.cpp">
+      <Filter>Header Files\_lib\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

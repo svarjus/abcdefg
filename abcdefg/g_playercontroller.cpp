@@ -29,32 +29,58 @@ bool g::WorldToScreen(int64_t camFields, vec3_t pos, vec3_t out)
 
 	return true;
 }
-
-intptr_t __fastcall g::PrintChat(intptr_t* chat_manager, textobject* a2, uint32_t local, char target, intptr_t a5)
+void g::PrintChat(ChatManager_o* __this, System_String_o* message, int32_t style, bool local, MyceliumPlayer_o* target, MyceliumPlayer_o* personOfInterest, const MethodInfo* method)
 {
-	//memcpy_s(&chatmanager, 64, chat_manager, 64);
-	return PrintChat_f(chat_manager, a2, local, target, a5);
+	memcpy(&stolenchatmanager, __this, sizeof(ChatManager_o));
+	memcpy(&stolenmessage, message, sizeof(System_String_o));
+	//memcpy(&stolenmethod, method, sizeof(MethodInfo));
 
-	chatmanager = reinterpret_cast<uintptr_t*>(chat_manager);
-	auto TextToBytes = [](const char* text, char* buffer, size_t size) -> void { //123 -> \x31\x00\x32\x00\x33
-		int j = 0;
-		for (int i = 0; i < size; i++) {
-			buffer[i] = (text[j]);
-			i++;
-			buffer[i] = 0x00;
-			j++;
+	std::string msg = ResolveSystemString(message);
+	
+	if (target) {
+		if (target->fields._name) {
+			AddLog(std::format("target: {}\n", ResolveSystemString(target->fields._name)));
 		}
+	}
+	if (personOfInterest) {
+		if (personOfInterest->fields._name) {
+			AddLog(std::format("personOfInterest: {}\n", ResolveSystemString(personOfInterest->fields._name)));
+		}
+	}
+	AddLog(std::format("style: {}\nlocal: {}\n", style, local));
+	AddLog(std::format("{}\n",msg));
 
-	};
-	char message[59*2];
+	//style = 2;
+	if(v::overwrite_chat.isEnabled())
+		AlterSystemString(message, chat_str);
 
-	TextToBytes("Reported Player ID 76561199058900546 ([BLACKS4TRUMP] miche)", message, 58 * 2);
-
-	memcpy(a2->message, &message, 58 *2);
-
-
-	return PrintChat_f(chat_manager, a2, local, target, a5);
+	return PrintChat_f(__this, message, style, local, target, personOfInterest, method);
 }
+//intptr_t __fastcall g::PrintChat(intptr_t* chat_manager, textobject* a2, uint32_t local, char target, intptr_t a5)
+//{
+//	//memcpy_s(&chatmanager, 64, chat_manager, 64);
+//	return PrintChat_f(chat_manager, a2, local, target, a5);
+//
+//	chatmanager = reinterpret_cast<uintptr_t*>(chat_manager);
+//	auto TextToBytes = [](const char* text, char* buffer, size_t size) -> void { //123 -> \x31\x00\x32\x00\x33
+//		int j = 0;
+//		for (int i = 0; i < size; i++) {
+//			buffer[i] = (text[j]);
+//			i++;
+//			buffer[i] = 0x00;
+//			j++;
+//		}
+//
+//	};
+//	char message[59*2];
+//
+//	TextToBytes("Reported Player ID 76561199058900546 ([BLACKS4TRUMP] miche)", message, 58 * 2);
+//
+//	memcpy(a2->message, &message, 58 *2);
+//
+//
+//	return PrintChat_f(chat_manager, a2, local, target, a5);
+//}
 void g::PlayerManager__GotKilledByPlayer(MyceliumPlayer_o* killer, void* damageData, float distance, int16_t damagePacketID)
 {
 
@@ -78,6 +104,16 @@ std::string g::ResolveSystemString(System_String_o* name) {
 	}
 	return result;
 
+}
+void g::AlterSystemString(System_String_o* original, const std::string& text)
+{
+	uintptr_t beginOffset = (uintptr_t)original + 20;
+
+	for (int i = 0; i < original->fields.m_stringLength; i++) {
+
+		*(char*)(beginOffset + i * 2) = text[i];
+
+	}
 }
 void g::AntiCheat_Boost__OnAnyoneDeath(MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData)
 {
@@ -130,7 +166,7 @@ bool g::MyceliumPlayer__get_HasModeratorAuthority(MyceliumPlayer_o* moderator)
 		std::cout << "asking moderator authority for player: " << ResolveSystemString(moderator->fields._name) << ", isAuthorized: " << MyceliumPlayer__get_HasModeratorAuthority_f(moderator) << '\n';
 	}
 
-	if (moderator->fields._SteamID_k__BackingField.fields.m_SteamID == 76561199393031416)
+	if (moderator->fields._SteamID_k__BackingField.fields.m_SteamID == 76561199393031416 && v::moderator_authority.isEnabled())
 		return true;
 
 	return MyceliumPlayer__get_HasModeratorAuthority_f(moderator);

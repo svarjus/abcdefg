@@ -270,7 +270,7 @@ void Evar_Setup()
 
 	v::weapon_damage.Register		("weapon_damage",		evartype_t::EVAR_ARRAY, mod_weapon_damage, 4,	true);
 	v::weapon_spread.Register		("weapon_spread",		evartype_t::EVAR_ARRAY, mod_spread, 4,			true);
-	v::weapon_usedelay.Register		("weapon_usedelay", evartype_t::EVAR_ARRAY, mod_weapon_mag, 4,		true);
+	v::weapon_usedelay.Register		("weapon_usedelay",		evartype_t::EVAR_ARRAY, mod_weapon_mag, 4,		true);
 
 
 	v::world_skywalk.Register		("world_skywalk",		evartype_t::EVAR_BOOL,	(float)0,				true);
@@ -283,6 +283,9 @@ void Evar_Setup()
 	v::visual_recoil.Register		("visual_recoil",		evartype_t::EVAR_BOOL,	(float)0,				true);
 	v::fire_effect.Register			("fire_effect",			evartype_t::EVAR_BOOL,	(float)0,				true);
 	v::epic_jump.Register			("epic_jump",			evartype_t::EVAR_BOOL,	(float)0,				true);
+	v::overwrite_chat.Register		("overwrite_chat",		evartype_t::EVAR_STRING, "HELLO",				true);
+	v::moderator_authority.Register	("moderator_authority",	evartype_t::EVAR_BOOL,	(float)0,				true);
+
 
 
 

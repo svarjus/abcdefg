@@ -122,6 +122,7 @@ void g::R_UI_Weapons()
 			a->write_addr(PlayerController_Fire_Delay, (char*)PlayerController_Fire_Delay_orgbytes, 5); //call GameAssembly.dll+DFB1E0
 
 
+
 	}
 
 	if (ImGui::Checkbox("Visual recoil", &v::visual_recoil.evar->enabled)) {
@@ -201,6 +202,28 @@ void g::R_UI_Varjus()
 	static bool isOpen;
 	if (ImGui::Button("PC Editor"))
 		isOpen = !isOpen;
+
+	if (ImGui::Checkbox("Moderator authority", &v::moderator_authority.evar->enabled))
+		v::moderator_authority.SetValue(v::moderator_authority.isEnabled());
+
+	if (ImGui::Checkbox("Overwrite chat", &v::overwrite_chat.evar->enabled))
+		v::overwrite_chat.SetValue(v::overwrite_chat.isEnabled());
+
+	if (!v::overwrite_chat.isEnabled())
+		ImGui::BeginDisabled();
+
+	ImGui::Text("\t");
+	ImGui::SameLine();
+	ImGui::BeginGroup();
+
+	ImGui::PushItemWidth(300);
+	ImGui::InputText("string##02", &chat_str);
+
+	ImGui::EndGroup();
+
+
+	if (!v::overwrite_chat.isEnabled())
+		ImGui::EndDisabled();
 
 	R_PlayerControllerEditor(isOpen);
 

@@ -67,6 +67,7 @@ typedef vec_t vec4_t[4];
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
+#include "ImGui/imgui_stdlib.h"
 
 //detours
 #include "detours/detours.h"
@@ -79,11 +80,12 @@ typedef vec_t vec4_t[4];
 #include "fs_funcs.h"
 #include "dyn_vars.h"
 
+#include "g_objects.h"
+
 #include "u_objects.h"
 #include "u_player.hpp"
 #include "u_world.hpp"
 
-#include "g_objects.h"
 #include "g_offsets.h"
 #include "g_gameobject.h"
 #include "g_entrypoint.h"

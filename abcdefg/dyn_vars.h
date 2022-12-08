@@ -26,7 +26,9 @@ namespace v
 		random_esp,
 		visual_recoil,
 		fire_effect,
-		epic_jump;
+		epic_jump,
+		overwrite_chat,
+		moderator_authority;
 
 }
 

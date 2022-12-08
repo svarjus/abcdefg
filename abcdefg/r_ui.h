@@ -8,6 +8,8 @@ namespace g
 {
 	inline std::vector<std::string> console_logs;
 
+	inline std::string chat_str;
+
 	void R_OpenMenu();
 	void R_EndRender();
 	void R_MenuStyle();
@@ -16,6 +18,8 @@ namespace g
 	void R_UI_Weapons();
 	void R_UI_UnityEngine();
 	void R_UI_Varjus();
+
+	
 
 	void AddLog(const std::string& str);
 

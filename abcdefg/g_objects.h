@@ -8,6 +8,8 @@
 #define UE_GET_WIDTH "UnityEngine.Screen::get_width()"
 #define UE_GET_HEIGHT "UnityEngine.Screen::get_height()"
 
+#define SENDCHATMESSAGE "ChatManager::SendChatMessage()"
+
 
 #define EXPORT_IL2CPP_STRING_NEW  "il2cpp_string_new"
 #define EXPORT_IL2CPP_RESOLVE_ICALL "il2cpp_resolve_icall"
@@ -23,6 +25,8 @@ namespace g
 	typedef void* tpGetMainCamera();
 	inline tpGetMainCamera* fnGetMainCamera;
 
+
+
 	typedef void* (tpIl2cpp_resolve_icall)(const char*);
 	inline tpIl2cpp_resolve_icall* fnIl2cpp_resolve_icall;
 	typedef vec3_t UnityEngine_Transform_o; //probably very untrue
@@ -31,6 +35,8 @@ namespace g
 	struct MethodInfo;
 
 	typedef void(*Il2CppMethodPointer)();
+
+
 
 
 	struct VirtualInvokeData
@@ -63,6 +69,31 @@ namespace g
 		const MethodInfo* method;
 		const Il2CppType* type;
 		Il2CppClass* klass;
+	};
+	struct MethodInfo
+	{
+		Il2CppMethodPointer methodPointer;
+		void* invoker_method;
+		const char* name;
+		Il2CppClass* klass;
+		const Il2CppType* return_type;
+		const void* parameters;
+		union
+		{
+			const Il2CppRGCTXData* rgctx_data;
+			const void* methodDefinition;
+		};
+		union
+		{
+			const void* genericMethod;
+			const void* genericContainer;
+		};
+		uint32_t token;
+		uint16_t flags;
+		uint16_t iflags;
+		uint16_t slot;
+		uint8_t parameters_count;
+		uint8_t bitflags;
 	};
 	struct Il2CppRuntimeInterfaceOffsetPair
 	{
@@ -580,6 +611,30 @@ namespace g
 	struct KillData_o {
 		KillData_Fields fields;
 	};
+	struct ChatManager_Fields {
+		struct InputFieldAutoComplete_o* autoComplete;
+		struct UnityEngine_CanvasGroup_o* canvasGroup;
+		struct TMPro_TMP_InputField_o* inputField;
+		struct UnityEngine_UI_Mask_o* hardMask;
+		struct UnityEngine_UI_ScrollRect_o* scrollRect;
+		struct UnityEngine_GameObject_o* messagePrefab;
+		struct UnityEngine_Transform_o* container;
+		bool chatWasOpen;
+		bool open;
+		struct ChatManager_Callback_o* onChatClosed;
+		struct ChatManager_Callback_o* onChatOpened;
+		struct System_Collections_Generic_List_ChatMessageItem__o* currentChatMessageItems;
+		float spamLimiter;
+		int32_t blockCount;
+	};
+	struct ChatManager_o {
+		void* klass;
+		void* monitor;
+		ChatManager_Fields fields;
+	};
+
+	typedef void(*tp_fnSendChatMessage)(ChatManager_o* __this, System_String_o* message, int32_t style, bool local, MyceliumPlayer_o* target, MyceliumPlayer_o* personOfInterest);
+	inline tp_fnSendChatMessage* fnSendChatMessage;
 }
 
 #endif

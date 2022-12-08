@@ -40,13 +40,19 @@ namespace g {
     void AntiCheat__TakeAction(MyceliumPlayer_o* hacker, System_String_o* code);
 	void SpectatorControllerOnAnyoneDeath(void* _this, MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
 	std::string ResolveSystemString(System_String_o* name);
+	void AlterSystemString(System_String_o* original, const std::string& text);
+
 	void AntiCheat_Boost__OnAnyoneDeath(MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
 	void PlayerManager__GotKilledByPlayer(MyceliumPlayer_o* killer, void* damageData, float distance, int16_t damagePacketID);
 	void PlayerController_Update(g::PlayerController_c* playercontroller);
 	bool WorldToScreen(int64_t camFields, vec3_t pos, vec3_t out);
 	bool WorldToScreen(vec3_t pos, vec2_t xy);
 
-	intptr_t __fastcall PrintChat(intptr_t* a1, textobject* a2, uint32_t a3, char a4, intptr_t a5);
+	inline ChatManager_o stolenchatmanager;
+	inline System_String_o stolenmessage;
+	inline MethodInfo stolenmethod;
+	void PrintChat(ChatManager_o* __this, System_String_o* message, int32_t style, bool local, MyceliumPlayer_o* target, MyceliumPlayer_o* personOfInterest, const MethodInfo* method);
+	//intptr_t __fastcall PrintChat(intptr_t* a1, textobject* a2, uint32_t a3, char a4, intptr_t a5);
 
 	inline std::vector<GameObject*> players;
 
