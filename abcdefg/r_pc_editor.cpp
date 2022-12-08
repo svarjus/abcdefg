@@ -59,6 +59,17 @@ void g::R_PlayerControllerEditor(bool& isOpen)
 		ImGui::BeginChild("pc_editor", ImVec2(800, 600), true);
 		PlayerController_c* pc = PlayerController_ptr;
 
+		ImGui::Text("Anti-Cheat");
+		ImGui::Separator();
+		R_AppendFloat("antiCheat_lastFireTime", &pc->antiCheat_lastFireTime);
+		R_AppendInt("antiCheat_offenses", &pc->antiCheat_offenses);
+		R_AppendBool("identityIsMine", &pc->identityIsMine);
+		R_AppendBool("leftTriggerDownLastFrame", &pc->leftTriggerDownLastFrame);
+
+
+		ImGui::Text("Other stuff");
+		ImGui::Separator();
+
 		R_AppendFloat("additiveFov", &pc->additiveFOV);
 		R_AppendBool("ads", &pc->ads);
 		R_AppendFloat("animationSmoothTime", &pc->animationSmoothTime);
@@ -66,6 +77,7 @@ void g::R_PlayerControllerEditor(bool& isOpen)
 		R_AppendVec3("constantForce", pc->constantForce);
 		R_AppendInt("crosshairIndex", &pc->crosshairIndex);
 		R_AppendBool("dead", &pc->dead);
+		R_AppendBool("firstSwitch", &pc->firstSwitch);
 		R_AppendBool("grounded", &pc->grounded);
 		R_AppendBool("groundedLastTick", &pc->groundedLastTick);
 		R_AppendVec3("groundedTransformLastPosition", pc->groundedTransformLastPosition);

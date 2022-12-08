@@ -533,7 +533,7 @@ namespace g
 		bool sprinting;
 		bool dead;
 		float bulletSpread;
-		Interactable_o* lastInteractable; //Interactable_o* lastInteractable;
+		struct Interactable_o* lastInteractable;
 		bool wasInteractable;
 		struct UnityEngine_Rigidbody_o* rb;
 		struct MyceliumIdentity_o* _identity_k__BackingField;
@@ -548,9 +548,9 @@ namespace g
 		float lastTimeJumped;
 		float lastTimePulledOutItem;
 		float nextTimeToCircleDamage;
-		void* lastDamager;
-		void* lastDamageData;
-		vec3_t lastNonLocalPos;
+		struct MyceliumPlayer_o* lastDamager;
+		struct DamageData_array* lastDamageData;
+		struct UnityEngine_Vector3_o lastNonLocalPos;
 		float footstepDistance;
 		float footstepInterval;
 		struct UnityEngine_Coroutine_o* individualReloadCoroutine;
@@ -561,12 +561,14 @@ namespace g
 		vec3_t constantForce;
 		vec3_t pushForce;
 		float additiveFOV;
-		vec3_t focusedPosition;
+		struct UnityEngine_Vector3_o focusedPosition;
 		int16_t lastDamagePacketID;
 		struct ShadowOnlyIfLocalPlayer_array* shadowOnlyIfLocalPlayers;
-		struct Hat_o* hat;
 		bool identityIsMine;
 		bool leftTriggerDownLastFrame;
+		struct MovingAverage_o* fireTimeDifference;
+		float antiCheat_lastFireTime;
+		int32_t antiCheat_offenses;
 		bool firstSwitch;
 	}; 
 	struct Steamworks_CSteamID_Fields {
@@ -627,12 +629,25 @@ namespace g
 		float spamLimiter;
 		int32_t blockCount;
 	};
+	struct ChatManager_StaticFields;
+
+	struct ChatManager_c {
+		//Il2CppClass_1 _1;
+		ChatManager_StaticFields* static_fields;
+		Il2CppRGCTXData* rgctx_data;
+		Il2CppClass_2 _2;
+		void* vtable;
+	};
 	struct ChatManager_o {
 		void* klass;
 		void* monitor;
 		ChatManager_Fields fields;
 	};
-
+	struct ChatManager_StaticFields {
+		struct ChatManager_o* Instance;
+		struct System_Collections_Generic_Dictionary_MyceliumPlayer__int__o* rateLimitTokens;
+		int32_t TOKEN_MAX;
+	};
 	typedef void(*tp_fnSendChatMessage)(ChatManager_o* __this, System_String_o* message, int32_t style, bool local, MyceliumPlayer_o* target, MyceliumPlayer_o* personOfInterest);
 	inline tp_fnSendChatMessage* fnSendChatMessage;
 }

@@ -94,6 +94,8 @@ void g::PlayerManager__GotKilledByPlayer(MyceliumPlayer_o* killer, void* damageD
 }
 std::string g::ResolveSystemString(System_String_o* name) {
 
+	if (!name)
+		return "";
 	std::string result;
 	uintptr_t beginOffset = (uintptr_t)name + 20;
 
@@ -117,30 +119,16 @@ void g::AlterSystemString(System_String_o* original, const std::string& text)
 }
 void g::AntiCheat_Boost__OnAnyoneDeath(MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData)
 {
-	if (killer) {
-		System_String_o* name = ((System_String_o*(*)(MyceliumPlayer_o*))(GameAssembly + 8769712))(killer);
- 		if (name) {
-			std::cout << "killer name: " << ResolveSystemString(name) << '\n';
-		}
-		//killer->fields._SteamID_k__BackingField.fields.m_SteamID = 76561199406343798;
-		//victim->fields._SteamID_k__BackingField.fields.m_SteamID = 76561199393031416; //me
+	if (killer && victim) {
+
+		AddLog(std::format("{} killed {}\n", ResolveSystemString(killer->fields._name), ResolveSystemString(victim->fields._name)));
+		
+		killer->fields._SteamID_k__BackingField.fields.m_SteamID = 0;
+		victim->fields._SteamID_k__BackingField.fields.m_SteamID = 0; //me
 
 	}
 
 	return AntiCheat_Boost__OnAnyoneDeath_f(killer, victim, damageData);
-}
-void g::SpectatorControllerOnAnyoneDeath(void* _this, MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData)
-{
-	if (killer) {
-		System_String_o* name = ((System_String_o * (*)(MyceliumPlayer_o*))(GameAssembly + 8769712))(killer);
-		if (name) {
-			std::cout << "SpectatorControllerOnAnyoneDeath(): killer name: " << ResolveSystemString(name) << '\n';
-		}
-
-		killer->fields._SteamID_k__BackingField.fields.m_SteamID = 76561199406343798;
-	}
-
-	return SpectatorControllerOnAnyoneDeath_f(_this, killer, victim, damageData);
 }
 void g::AntiCheat__TakeAction(MyceliumPlayer_o* hacker, System_String_o* code)
 {
@@ -162,8 +150,8 @@ void g::AntiCheat__TakeAction(MyceliumPlayer_o* hacker, System_String_o* code)
 bool g::MyceliumPlayer__get_HasModeratorAuthority(MyceliumPlayer_o* moderator)
 {
 	if (moderator->fields._name) {
-		AddLog(std::format("asking moderator authority for player: {}, isAuthorized: {}", ResolveSystemString(moderator->fields._name), MyceliumPlayer__get_HasModeratorAuthority_f(moderator)));
-		std::cout << "asking moderator authority for player: " << ResolveSystemString(moderator->fields._name) << ", isAuthorized: " << MyceliumPlayer__get_HasModeratorAuthority_f(moderator) << '\n';
+		AddLog(std::format("asking moderator authority for player: {}, isAuthorized: {}\n", ResolveSystemString(moderator->fields._name), MyceliumPlayer__get_HasModeratorAuthority_f(moderator)));
+		//std::cout << "asking moderator authority for player: " << ResolveSystemString(moderator->fields._name) << ", isAuthorized: " << MyceliumPlayer__get_HasModeratorAuthority_f(moderator) << '\n';
 	}
 
 	if (moderator->fields._SteamID_k__BackingField.fields.m_SteamID == 76561199393031416 && v::moderator_authority.isEnabled())

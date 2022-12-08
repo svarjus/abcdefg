@@ -95,6 +95,7 @@ typedef vec_t vec4_t[4];
 #include "g_dlc.hpp"
 #include "g_secrets.hpp"
 #include "g_weapons.hpp"
+#include "g_epic.hpp"
 
 #include "r_init.h"
 #include "r_ui.h"

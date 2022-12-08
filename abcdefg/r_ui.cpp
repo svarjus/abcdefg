@@ -203,6 +203,9 @@ void g::R_UI_Varjus()
 	if (ImGui::Button("PC Editor"))
 		isOpen = !isOpen;
 
+	if (ImGui::Checkbox("Bypass anticheat", &v::bypass_anticheat.evar->enabled))
+		v::bypass_anticheat.SetValue(v::bypass_anticheat.isEnabled());
+
 	if (ImGui::Checkbox("Moderator authority", &v::moderator_authority.evar->enabled))
 		v::moderator_authority.SetValue(v::moderator_authority.isEnabled());
 
@@ -276,10 +279,7 @@ void g::R_OpenMenu()
 
 		hook* a = nullptr;
 
-		//R_UI_Player();
-		//R_UI_Weapons();
-		//R_UI_UnityEngine();
-		//R_UI_Varjus();
+		ImGui::Text("Anti-Cheat violations: %i", anticheat_offenses);
 
 		ImGui::End();
 

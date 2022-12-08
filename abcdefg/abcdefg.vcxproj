@@ -156,6 +156,7 @@
     <ClInclude Include="fs_funcs.h" />
     <ClInclude Include="g_dlc.hpp" />
     <ClInclude Include="g_entrypoint.h" />
+    <ClInclude Include="g_epic.hpp" />
     <ClInclude Include="g_gameobject.h" />
     <ClInclude Include="g_objects.h" />
     <ClInclude Include="g_offsets.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="fs_funcs.cpp" />
     <ClCompile Include="g_dlc.cpp" />
     <ClCompile Include="g_entrypoint.cpp" />
+    <ClCompile Include="g_epic.cpp" />
     <ClCompile Include="g_gameobject.cpp" />
     <ClCompile Include="g_main.cpp" />
     <ClCompile Include="g_playercontroller.cpp" />

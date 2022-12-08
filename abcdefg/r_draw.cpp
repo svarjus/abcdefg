@@ -27,9 +27,27 @@ void g::R_MainLoop()
 
 	if (AlivePlayers > 0) {
 
-		if (GetAsyncKeyState(VK_NUMPAD5)&1) {
-			((void(__stdcall*)(ChatManager_o*, System_String_o*, int32_t, bool, MyceliumPlayer_o*, MyceliumPlayer_o*, const MethodInfo*))(GameAssembly + 20298592))(&stolenchatmanager, &stolenmessage, 0, 0, 0, 0, 0);
-		}
+		//if (GetAsyncKeyState(VK_NUMPAD5) & 1) {
+		//	ChatManager_c* cm = (ChatManager_c*)(GameAssembly + 0x1BF97E0);
+		//	if (cm) {
+		//		ChatManager_o* _cm = cm->static_fields->Instance;
+
+		//		if (_cm) {
+		//			System_String_o* str = &stolenmessage;
+
+		//			if (str) {
+		//				std::string resolved = ResolveSystemString(str);
+
+		//				std::cout << "resolved: " << resolved << '\n';
+		//				((void(*)(ChatManager_o*, System_String_o*, int32_t, bool, MyceliumPlayer_o*, MyceliumPlayer_o*, const MethodInfo*))(GameAssembly + 20298592))(_cm, str, 2, 0, 0, 0, 0);
+
+		//			}
+
+
+		//			//std::cout << "spam limiter: " << _cm->fields.spamLimiter << '\n';
+		//		}
+		//	}
+		//}
 
 		G_SetWeaponData();
 		R_DrawThroughWalls();
@@ -37,6 +55,8 @@ void g::R_MainLoop()
 
 
 	}
+
+	BypassAntiCheat();
 
 
 }

@@ -285,6 +285,7 @@ void Evar_Setup()
 	v::epic_jump.Register			("epic_jump",			evartype_t::EVAR_BOOL,	(float)0,				true);
 	v::overwrite_chat.Register		("overwrite_chat",		evartype_t::EVAR_STRING, "HELLO",				true);
 	v::moderator_authority.Register	("moderator_authority",	evartype_t::EVAR_BOOL,	(float)0,				true);
+	v::bypass_anticheat.Register	("bypass_anticheat",	evartype_t::EVAR_BOOL,	(float)1,				true);
 
 
 

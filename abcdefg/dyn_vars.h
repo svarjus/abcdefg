@@ -28,7 +28,8 @@ namespace v
 		fire_effect,
 		epic_jump,
 		overwrite_chat,
-		moderator_authority;
+		moderator_authority,
+		bypass_anticheat;
 
 }
 

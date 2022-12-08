@@ -72,8 +72,7 @@ void g::G_InitHooks()
 	a->install(&(PVOID&)PrintChat_f, PrintChat);
 	a->install(&(PVOID&)OutskirtsKeyPad_Press_f, OutskirtsKeyPad_Press);
 	//a->install(&(PVOID&)PlayerManager__GotKilledByPlayer_f, PlayerManager__GotKilledByPlayer);
-	//a->install(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
-	//a->install(&(PVOID&)SpectatorControllerOnAnyoneDeath_f, SpectatorControllerOnAnyoneDeath);
+	a->install(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
 	a->install(&(PVOID&)AntiCheat__TakeAction_f, AntiCheat__TakeAction);
 
 	a->install(&(PVOID&)UnityEngine_Networking_UnityWebRequest__Get_f, UnityEngine_Networking_UnityWebRequest__Get);
@@ -93,8 +92,7 @@ void g::G_RemoveHooks()
 	a->remove(&(PVOID&)OutskirtsKeyPad_Press_f, OutskirtsKeyPad_Press);
 	//a->remove(&(PVOID&)PlayerData_f, UE_PlayerData);
 	//a->remove(&(PVOID&)PlayerManager__GotKilledByPlayer_f, PlayerManager__GotKilledByPlayer);
-	//a->remove(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
-	//a->remove(&(PVOID&)SpectatorControllerOnAnyoneDeath_f, SpectatorControllerOnAnyoneDeath);
+	a->remove(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
 	a->remove(&(PVOID&)AntiCheat__TakeAction_f, AntiCheat__TakeAction);
 
 	a->remove(&(PVOID&)UnityEngine_Networking_UnityWebRequest__Get_f, UnityEngine_Networking_UnityWebRequest__Get);
