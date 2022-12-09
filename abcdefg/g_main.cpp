@@ -59,7 +59,7 @@ void g::G_PrepareHooks()
 	UnityEngine_Networking_UnityWebRequest__Post_f	= (void*(*)(System_String_o*, System_String_o*))					(GameAssembly + 19248000);	//UnityEngine.Networking.UnityWebRequest$$Post
 
 	MyceliumPlayer__get_HasModeratorAuthority_f		= (bool(*)(MyceliumPlayer_o*))										(GameAssembly + 7735456);	//MyceliumPlayer$$get_HasModeratorAuthority
-
+	UnityDownloadHandler_2__OnAnyoneDeath_f			= (void(*)(MyceliumPlayer_o*, MyceliumPlayer_o*, void*))			(GameAssembly + 20188416);//UnityDownloadHandler_2$$OnAnyoneDeath
 
 }
 void g::G_InitHooks()
@@ -72,7 +72,9 @@ void g::G_InitHooks()
 	a->install(&(PVOID&)PrintChat_f, PrintChat);
 	a->install(&(PVOID&)OutskirtsKeyPad_Press_f, OutskirtsKeyPad_Press);
 	//a->install(&(PVOID&)PlayerManager__GotKilledByPlayer_f, PlayerManager__GotKilledByPlayer);
-	a->install(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
+	//a->install(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
+	a->install(&(PVOID&)UnityDownloadHandler_2__OnAnyoneDeath_f, UnityDownloadHandler_2__OnAnyoneDeath);
+
 	a->install(&(PVOID&)AntiCheat__TakeAction_f, AntiCheat__TakeAction);
 
 	a->install(&(PVOID&)UnityEngine_Networking_UnityWebRequest__Get_f, UnityEngine_Networking_UnityWebRequest__Get);
@@ -92,7 +94,9 @@ void g::G_RemoveHooks()
 	a->remove(&(PVOID&)OutskirtsKeyPad_Press_f, OutskirtsKeyPad_Press);
 	//a->remove(&(PVOID&)PlayerData_f, UE_PlayerData);
 	//a->remove(&(PVOID&)PlayerManager__GotKilledByPlayer_f, PlayerManager__GotKilledByPlayer);
-	a->remove(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
+	//a->remove(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
+	a->remove(&(PVOID&)UnityDownloadHandler_2__OnAnyoneDeath_f, UnityDownloadHandler_2__OnAnyoneDeath);
+
 	a->remove(&(PVOID&)AntiCheat__TakeAction_f, AntiCheat__TakeAction);
 
 	a->remove(&(PVOID&)UnityEngine_Networking_UnityWebRequest__Get_f, UnityEngine_Networking_UnityWebRequest__Get);

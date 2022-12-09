@@ -159,3 +159,15 @@ bool g::MyceliumPlayer__get_HasModeratorAuthority(MyceliumPlayer_o* moderator)
 
 	return MyceliumPlayer__get_HasModeratorAuthority_f(moderator);
 }
+void g::UnityDownloadHandler_2__OnAnyoneDeath(MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData)
+{
+	if (killer && victim) {
+
+		AddLog(std::format("{} killed {}\n", ResolveSystemString(killer->fields._name), ResolveSystemString(victim->fields._name)));
+
+		killer->fields._SteamID_k__BackingField.fields.m_SteamID = 1;
+		//victim->fields._SteamID_k__BackingField.fields.m_SteamID = 1; //me
+
+	}
+	return UnityDownloadHandler_2__OnAnyoneDeath_f(killer, victim, damageData);
+}

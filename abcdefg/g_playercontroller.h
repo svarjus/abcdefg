@@ -34,13 +34,16 @@ namespace g {
 	inline void (*AntiCheat_Boost__OnAnyoneDeath_f)(MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
 	inline void (*SpectatorControllerOnAnyoneDeath_f)(void* _this, MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
 	inline void (*AntiCheat__TakeAction_f)(MyceliumPlayer_o* hacker, System_String_o* code);
-
+	inline void (*UnityDownloadHandler_2__OnAnyoneDeath_f)(MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
 
 
     void AntiCheat__TakeAction(MyceliumPlayer_o* hacker, System_String_o* code);
 	void SpectatorControllerOnAnyoneDeath(void* _this, MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
 	std::string ResolveSystemString(System_String_o* name);
 	void AlterSystemString(System_String_o* original, const std::string& text);
+
+	void UnityDownloadHandler_2__OnAnyoneDeath(MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
+
 
 	void AntiCheat_Boost__OnAnyoneDeath(MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);
 	void PlayerManager__GotKilledByPlayer(MyceliumPlayer_o* killer, void* damageData, float distance, int16_t damagePacketID);

@@ -648,6 +648,42 @@ namespace g
 		struct System_Collections_Generic_Dictionary_MyceliumPlayer__int__o* rateLimitTokens;
 		int32_t TOKEN_MAX;
 	};
+	struct TimeoutManager_Fields {
+		struct Steamworks_Callback_PersonaStateChange_t__o* personaStateChangeCallback;
+		bool first;
+		struct System_Collections_Generic_Dictionary_CSteamID__string__o* banMessageQueue;
+	};
+	struct TimeoutManager_VTable {
+		VirtualInvokeData _0_Equals;
+		VirtualInvokeData _1_Finalize;
+		VirtualInvokeData _2_GetHashCode;
+		VirtualInvokeData _3_ToString;
+	};
+	struct TimeoutManager_c {
+		Il2CppClass_1 _1;
+		struct TimeoutManager_StaticFields* static_fields;
+		Il2CppRGCTXData* rgctx_data;
+		Il2CppClass_2 _2;
+		TimeoutManager_VTable vtable;
+	};
+	struct TimeoutManager_o {
+		TimeoutManager_c* klass;
+		void* monitor;
+		TimeoutManager_Fields fields;
+	};
+	struct System_UInt64_array {
+		Il2CppObject obj;
+		Il2CppArrayBounds* bounds;
+		il2cpp_array_size_t max_length;
+		uint64_t m_Items[65535];
+	};
+	struct TimeoutManager_StaticFields {
+		struct TimeoutManager_o* instance;
+		bool Muted;
+		struct System_String_o* MutedText;
+		System_UInt64_array* bannedIDs;
+		System_UInt64_array* mutedIDs;
+	};
 	typedef void(*tp_fnSendChatMessage)(ChatManager_o* __this, System_String_o* message, int32_t style, bool local, MyceliumPlayer_o* target, MyceliumPlayer_o* personOfInterest);
 	inline tp_fnSendChatMessage* fnSendChatMessage;
 }
