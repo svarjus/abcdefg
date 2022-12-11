@@ -684,8 +684,113 @@ namespace g
 		System_UInt64_array* bannedIDs;
 		System_UInt64_array* mutedIDs;
 	};
-	typedef void(*tp_fnSendChatMessage)(ChatManager_o* __this, System_String_o* message, int32_t style, bool local, MyceliumPlayer_o* target, MyceliumPlayer_o* personOfInterest);
-	inline tp_fnSendChatMessage* fnSendChatMessage;
+	struct PlayerManager_o;
+
+	struct PlayerManager_StaticFields {
+		struct PlayerManager_o* Instance;
+		struct System_Action_KillData__o* OnKill;
+		struct System_Action_o* OnStartedSpectating;
+		struct System_Action_o* OnStoppedSpectating;
+	};
+	struct PlayerManager_Fields {
+		struct UnityEngine_GameObject_o* avatarPrefab;
+		struct UnityEngine_GameObject_o* spectatorPrefab;
+		struct UnityEngine_GameObject_o* cinematicSpectatorPrefab;
+		struct UnityEngine_GameObject_o* deathCameraPrefab;
+		int32_t kills;
+		int32_t deaths;
+		bool spectating;
+		struct UnityEngine_GameObject_o* spectatorObject;
+		bool _dead_k__BackingField;
+		bool wasHereAtStartOfRound;
+		struct UnityEngine_Transform_o* customSpawnpoint;
+	};
+	struct PlayerManager_VTable {
+		VirtualInvokeData _0_Equals;
+		VirtualInvokeData _1_Finalize;
+		VirtualInvokeData _2_GetHashCode;
+		VirtualInvokeData _3_ToString;
+	};
+	struct PlayerManager_c {
+		Il2CppClass_1 _1;
+		struct PlayerManager_StaticFields* static_fields;
+		Il2CppRGCTXData* rgctx_data;
+		Il2CppClass_2 _2;
+		PlayerManager_VTable vtable;
+	};
+	struct PlayerManager_o {
+		PlayerManager_c* klass;
+		void* monitor;
+		PlayerManager_Fields fields;
+	};
+	struct UnityEngine_Color_o
+	{
+		float r;
+		float g;
+		float b;
+		float a;
+	};
+	struct System_Int32_array {
+		Il2CppObject obj;
+		Il2CppArrayBounds* bounds;
+		il2cpp_array_size_t max_length;
+		int32_t m_Items[65535];
+	};
+	struct OutskirtsCodeGenerator_Fields {
+		struct System_Int32_array* code;
+	};
+	struct OutskirtsCodeGenerator_VTable {
+		VirtualInvokeData _0_Equals;
+		VirtualInvokeData _1_Finalize;
+		VirtualInvokeData _2_GetHashCode;
+		VirtualInvokeData _3_ToString;
+	};
+	struct OutskirtsCodeGenerator_c {
+		Il2CppClass_1 _1;
+		struct OutskirtsCodeGenerator_StaticFields* static_fields;
+		Il2CppRGCTXData* rgctx_data;
+		Il2CppClass_2 _2;
+		OutskirtsCodeGenerator_VTable vtable;
+	};
+	struct OutskirtsCodeGenerator_o {
+		OutskirtsCodeGenerator_c* klass;
+		void* monitor;
+		OutskirtsCodeGenerator_Fields fields;
+	};
+	struct OutskirtsCodeGenerator_StaticFields {
+		struct OutskirtsCodeGenerator_o* instance;
+	};
+	struct OutskirtsKeypad_Fields {
+		struct UnityEngine_AudioSource_o* keyPressAudio;
+		struct UnityEngine_AudioSource_o* wrongPressAudio;
+		struct TMPro_TMP_Text_o* codeText;
+		struct UnityEngine_Color_o normalColor;
+		struct UnityEngine_Color_o correctColor;
+		struct UnityEngine_Color_o incorrectColor;
+		struct UnityEngine_Events_UnityEvent_o* onComplete;
+		struct System_String_o* codeProgress;
+		bool acceptingInput;
+		bool completed;
+		struct MyceliumIdentity_o* identity;
+	};
+	struct OutskirtsKeypad_VTable {
+		VirtualInvokeData _0_Equals;
+		VirtualInvokeData _1_Finalize;
+		VirtualInvokeData _2_GetHashCode;
+		VirtualInvokeData _3_ToString;
+	};
+	struct OutskirtsKeypad_c {
+		Il2CppClass_1 _1;
+		void* static_fields;
+		Il2CppRGCTXData* rgctx_data;
+		Il2CppClass_2 _2;
+		OutskirtsKeypad_VTable vtable;
+	};
+	struct OutskirtsKeypad_o {
+		OutskirtsKeypad_c* klass;
+		void* monitor;
+		OutskirtsKeypad_Fields fields;
+	};
 }
 
 #endif

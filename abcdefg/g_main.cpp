@@ -23,9 +23,7 @@ void g::G_PrepareHooks()
 	fnIl2cpp_resolve_icall							= (tpIl2cpp_resolve_icall*)GetProcAddress((HMODULE)GameAssembly, EXPORT_IL2CPP_RESOLVE_ICALL);
 	fnWorldToScreenPoint							= (tp_WorldToScreenPoint*)fnIl2cpp_resolve_icall("UnityEngine.Camera::WorldToScreenPoint_Injected");
 	fnGetMainCamera									= (tpGetMainCamera*)fnIl2cpp_resolve_icall("UnityEngine.Camera::get_current()");
-	fnSendChatMessage								= (tp_fnSendChatMessage*)fnIl2cpp_resolve_icall(SENDCHATMESSAGE);
 
-	std::cout << "fnSendChatMessage: 0x" << std::hex << fnSendChatMessage << '\n';
 
 	WorldToScreenPoint								= (vec3(*)(void* camera, vec3 position))(GameAssembly + 13245152); //UnityEngine.Camera$$WorldToScreenPoint
 
@@ -48,7 +46,7 @@ void g::G_PrepareHooks()
 
 	SteamDLCManager__HasDLC_h						= (bool(*)(int32_t dlc))(g::GameAssembly + 19978912); //SteamDLCManager$$HasDLC
 
-	OutskirtsKeyPad_Press_f							= (void(*)(void* keypad, int num, const MethodInfo * method))(GameAssembly + 20039616); //GameMode_TeamDeathmatch$$MessageHandler_SetPointsForTeam
+	OutskirtsKeyPad_Press_f							= (void(*)(OutskirtsKeypad_o* keypad, int num, const MethodInfo * method))(GameAssembly + 20462160); //OutskirtsKeypad$$Press
 	
 	PlayerManager__GotKilledByPlayer_f				= (void (*)(MyceliumPlayer_o*, void*, float, int16_t))				(GameAssembly + 20342864);	//PlayerManager$$GotKilledByPlayer
 	AntiCheat_Boost__OnAnyoneDeath_f				= (void (*)(MyceliumPlayer_o*, MyceliumPlayer_o*, void*))			(GameAssembly + 20239840);  //AntiCheat_Boost$$OnAnyoneDeath

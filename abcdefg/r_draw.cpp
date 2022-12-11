@@ -28,21 +28,29 @@ void g::R_MainLoop()
 	if (AlivePlayers > 0) {
 
 		if (GetAsyncKeyState(VK_NUMPAD5) & 1) {
-			TimeoutManager_o* timeout = (TimeoutManager_o*)(GameAssembly + 0x1BF8C10);
-			if (timeout) {
 
-				TimeoutManager_StaticFields* timeout_sf =  timeout->klass->static_fields;
+			//if (outskirts_keypad_obj && outskirts_method) {
+			//	std::cout << "outskirts_keypad_obj: " << outskirts_keypad_obj << '\n';
+			//	std::cout << "outskirts_method: " << outskirts_method << '\n';
 
-				if (timeout_sf) {
+			//	OutskirtsKeyPad_Press_f(outskirts_keypad_obj, 1, outskirts_method);
 
-					std::cout << "mutedText: " << ResolveSystemString(timeout_sf->MutedText) << '\n';
+			//}
 
-				}
-					//std::cout << "spam limiter: " << _cm->fields.spamLimiter << '\n';
-				
-			}
+			//TimeoutManager_o* timeout = (TimeoutManager_o*)(GameAssembly + 0x1BF8C10);
+			//if (timeout) {
+
+			//	TimeoutManager_StaticFields* timeout_sf =  timeout->klass->static_fields;
+
+			//	if (timeout_sf) {
+
+			//		std::cout << "mutedText: " << ResolveSystemString(timeout_sf->MutedText) << '\n';
+
+			//	}
+			//		//std::cout << "spam limiter: " << _cm->fields.spamLimiter << '\n';
+			//	
+			//}
 		}
-
 		G_SetWeaponData();
 		R_DrawThroughWalls();
 		Mod_DrawCoordinates();

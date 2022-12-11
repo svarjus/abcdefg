@@ -12,9 +12,9 @@ void g::RevealOutskirtsCode()
 	}
 	std::cout << '\n';
 }
-void g::OutskirtsKeyPad_Press(void* keypad, int num, const MethodInfo* method)
+void g::OutskirtsKeyPad_Press(OutskirtsKeypad_o* keypad, int num, const MethodInfo* method)
 {
-	outskirts_keypad_obj = reinterpret_cast<void*>(keypad);
+	outskirts_keypad_obj = reinterpret_cast<OutskirtsKeypad_o*>(keypad);
 	outskirts_method = const_cast<MethodInfo*>(method);
 
 	printf("keypad: 0x%p\n", keypad);
