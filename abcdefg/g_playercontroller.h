@@ -27,8 +27,8 @@ namespace g {
 	inline BYTE PlayerController_Fire_Effect_orgbytes[5];
 
 	inline uintptr_t OutskirtsCodeGenerator__get_Code;
-	inline uintptr_t MyceliumNetwork$$get_LocalPlayer;
 	inline uintptr_t PlayerController$$OnKill;
+
 
 	inline void (*PlayerManager__GotKilledByPlayer_f)(MyceliumPlayer_o* killer, void* damageData, float distance, int16_t damagePacketID);
 	inline void (*AntiCheat_Boost__OnAnyoneDeath_f)(MyceliumPlayer_o* killer, MyceliumPlayer_o* victim, void* damageData);

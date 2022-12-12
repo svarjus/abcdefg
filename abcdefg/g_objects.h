@@ -791,6 +791,233 @@ namespace g
 		void* monitor;
 		OutskirtsKeypad_Fields fields;
 	};
+	struct MethodInfo_104F630
+	{
+		Il2CppMethodPointer methodPointer;
+		void* invoker_method;
+		const char* name;
+		struct System_Collections_Generic_Dictionary_TKey__TValue__c* klass;
+		const Il2CppType* return_type;
+		const void* parameters;
+		const Il2CppRGCTXData* rgctx_data;
+		union
+		{
+			const void* genericMethod;
+			const void* genericContainer;
+		};
+		uint32_t token;
+		uint16_t flags;
+		uint16_t iflags;
+		uint16_t slot;
+		uint8_t parameters_count;
+		uint8_t bitflags;
+	};
+
+	struct __declspec(align(8)) System_Collections_Generic_Dictionary_object__int__Fields {
+		struct System_Int32_array* buckets;
+		struct System_Collections_Generic_Dictionary_Entry_TKey__TValue__array* entries;
+		int32_t count;
+		int32_t version;
+		int32_t freeList;
+		int32_t freeCount;
+		struct System_Collections_Generic_IEqualityComparer_TKey__o* comparer;
+		struct System_Collections_Generic_Dictionary_KeyCollection_TKey__TValue__o* keys;
+		struct System_Collections_Generic_Dictionary_ValueCollection_TKey__TValue__o* values;
+		Il2CppObject* _syncRoot;
+	};
+	struct System_Collections_Generic_Dictionary_object__int__VTable {
+		VirtualInvokeData _0_Equals;
+		VirtualInvokeData _1_Finalize;
+		VirtualInvokeData _2_GetHashCode;
+		VirtualInvokeData _3_ToString;
+		VirtualInvokeData _4_get_Item;
+		VirtualInvokeData _5_set_Item;
+		VirtualInvokeData _6_Add;
+		VirtualInvokeData _7_Remove;
+		VirtualInvokeData _8_unknown;
+		VirtualInvokeData _9_unknown;
+		VirtualInvokeData _10_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___get_IsReadOnly;
+		VirtualInvokeData _11_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Add;
+		VirtualInvokeData _12_Clear;
+		VirtualInvokeData _13_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Contains;
+		VirtualInvokeData _14_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___CopyTo;
+		VirtualInvokeData _15_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Remove;
+		VirtualInvokeData _16_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_TKey_TValue___GetEnumerator;
+		VirtualInvokeData _17_System_Collections_IEnumerable_GetEnumerator;
+		VirtualInvokeData _18_System_Collections_IDictionary_get_Item;
+		VirtualInvokeData _19_System_Collections_IDictionary_set_Item;
+		VirtualInvokeData _20_System_Collections_IDictionary_Contains;
+		VirtualInvokeData _21_System_Collections_IDictionary_GetEnumerator;
+		VirtualInvokeData _22_System_Collections_IDictionary_Remove;
+		VirtualInvokeData _23_System_Collections_ICollection_CopyTo;
+		VirtualInvokeData _24_unknown;
+		VirtualInvokeData _25_System_Collections_ICollection_get_SyncRoot;
+		VirtualInvokeData _26_System_Collections_ICollection_get_IsSynchronized;
+		VirtualInvokeData _27_TryGetValue;
+		VirtualInvokeData _28_get_Count;
+		VirtualInvokeData _29_unknown;
+		VirtualInvokeData _30_unknown;
+		VirtualInvokeData _31_ContainsKey;
+		VirtualInvokeData _32_GetObjectData;
+		VirtualInvokeData _33_OnDeserialization;
+	};
+	struct System_Collections_Generic_Dictionary_object__int__c {
+		Il2CppClass_1 _1;
+		void* static_fields;
+		Il2CppRGCTXData* rgctx_data;
+		Il2CppClass_2 _2;
+		System_Collections_Generic_Dictionary_object__int__VTable vtable;
+	};
+	struct System_Collections_Generic_Dictionary_object__int__o {
+		System_Collections_Generic_Dictionary_object__int__c* klass;
+		void* monitor;
+		System_Collections_Generic_Dictionary_object__int__Fields fields;
+	};
+	struct __declspec(align(8)) System_Collections_Generic_Dictionary_MyceliumPlayer__float__Fields {
+		struct System_Int32_array* buckets;
+		struct System_Collections_Generic_Dictionary_Entry_TKey__TValue__array* entries;
+		int32_t count;
+		int32_t version;
+		int32_t freeList;
+		int32_t freeCount;
+		struct System_Collections_Generic_IEqualityComparer_TKey__o* comparer;
+		struct System_Collections_Generic_Dictionary_KeyCollection_TKey__TValue__o* keys;
+		struct System_Collections_Generic_Dictionary_ValueCollection_TKey__TValue__o* values;
+		Il2CppObject* _syncRoot;
+	};
+	struct System_Collections_Generic_Dictionary_MyceliumPlayer__float__VTable {
+		VirtualInvokeData _0_Equals;
+		VirtualInvokeData _1_Finalize;
+		VirtualInvokeData _2_GetHashCode;
+		VirtualInvokeData _3_ToString;
+		VirtualInvokeData _4_get_Item;
+		VirtualInvokeData _5_set_Item;
+		VirtualInvokeData _6_Add;
+		VirtualInvokeData _7_Remove;
+		VirtualInvokeData _8_unknown;
+		VirtualInvokeData _9_unknown;
+		VirtualInvokeData _10_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___get_IsReadOnly;
+		VirtualInvokeData _11_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Add;
+		VirtualInvokeData _12_Clear;
+		VirtualInvokeData _13_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Contains;
+		VirtualInvokeData _14_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___CopyTo;
+		VirtualInvokeData _15_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Remove;
+		VirtualInvokeData _16_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_TKey_TValue___GetEnumerator;
+		VirtualInvokeData _17_System_Collections_IEnumerable_GetEnumerator;
+		VirtualInvokeData _18_System_Collections_IDictionary_get_Item;
+		VirtualInvokeData _19_System_Collections_IDictionary_set_Item;
+		VirtualInvokeData _20_System_Collections_IDictionary_Contains;
+		VirtualInvokeData _21_System_Collections_IDictionary_GetEnumerator;
+		VirtualInvokeData _22_System_Collections_IDictionary_Remove;
+		VirtualInvokeData _23_System_Collections_ICollection_CopyTo;
+		VirtualInvokeData _24_unknown;
+		VirtualInvokeData _25_System_Collections_ICollection_get_SyncRoot;
+		VirtualInvokeData _26_System_Collections_ICollection_get_IsSynchronized;
+		VirtualInvokeData _27_TryGetValue;
+		VirtualInvokeData _28_get_Count;
+		VirtualInvokeData _29_unknown;
+		VirtualInvokeData _30_unknown;
+		VirtualInvokeData _31_ContainsKey;
+		VirtualInvokeData _32_GetObjectData;
+		VirtualInvokeData _33_OnDeserialization;
+	};
+	struct System_Collections_Generic_Dictionary_MyceliumPlayer__float__c {
+		Il2CppClass_1 _1;
+		void* static_fields;
+		Il2CppRGCTXData* rgctx_data;
+		Il2CppClass_2 _2;
+		System_Collections_Generic_Dictionary_MyceliumPlayer__float__VTable vtable;
+	};
+	struct System_Collections_Generic_Dictionary_MyceliumPlayer__float__o {
+		System_Collections_Generic_Dictionary_MyceliumPlayer__float__c* klass;
+		void* monitor;
+		System_Collections_Generic_Dictionary_MyceliumPlayer__float__Fields fields;
+	};
+	struct __declspec(align(8)) System_Collections_Generic_Dictionary_MyceliumPlayer__int__Fields {
+		struct System_Int32_array* buckets;
+		struct System_Collections_Generic_Dictionary_Entry_TKey__TValue__array* entries;
+		int32_t count;
+		int32_t version;
+		int32_t freeList;
+		int32_t freeCount;
+		struct System_Collections_Generic_IEqualityComparer_TKey__o* comparer;
+		struct System_Collections_Generic_Dictionary_KeyCollection_TKey__TValue__o* keys;
+		struct System_Collections_Generic_Dictionary_ValueCollection_TKey__TValue__o* values;
+		Il2CppObject* _syncRoot;
+	};
+	struct System_Collections_Generic_Dictionary_MyceliumPlayer__int__VTable {
+		VirtualInvokeData _0_Equals;
+		VirtualInvokeData _1_Finalize;
+		VirtualInvokeData _2_GetHashCode;
+		VirtualInvokeData _3_ToString;
+		VirtualInvokeData _4_get_Item;
+		VirtualInvokeData _5_set_Item;
+		VirtualInvokeData _6_Add;
+		VirtualInvokeData _7_Remove;
+		VirtualInvokeData _8_unknown;
+		VirtualInvokeData _9_unknown;
+		VirtualInvokeData _10_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___get_IsReadOnly;
+		VirtualInvokeData _11_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Add;
+		VirtualInvokeData _12_Clear;
+		VirtualInvokeData _13_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Contains;
+		VirtualInvokeData _14_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___CopyTo;
+		VirtualInvokeData _15_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Remove;
+		VirtualInvokeData _16_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_TKey_TValue___GetEnumerator;
+		VirtualInvokeData _17_System_Collections_IEnumerable_GetEnumerator;
+		VirtualInvokeData _18_System_Collections_IDictionary_get_Item;
+		VirtualInvokeData _19_System_Collections_IDictionary_set_Item;
+		VirtualInvokeData _20_System_Collections_IDictionary_Contains;
+		VirtualInvokeData _21_System_Collections_IDictionary_GetEnumerator;
+		VirtualInvokeData _22_System_Collections_IDictionary_Remove;
+		VirtualInvokeData _23_System_Collections_ICollection_CopyTo;
+		VirtualInvokeData _24_unknown;
+		VirtualInvokeData _25_System_Collections_ICollection_get_SyncRoot;
+		VirtualInvokeData _26_System_Collections_ICollection_get_IsSynchronized;
+		VirtualInvokeData _27_TryGetValue;
+		VirtualInvokeData _28_get_Count;
+		VirtualInvokeData _29_unknown;
+		VirtualInvokeData _30_unknown;
+		VirtualInvokeData _31_ContainsKey;
+		VirtualInvokeData _32_GetObjectData;
+		VirtualInvokeData _33_OnDeserialization;
+	};
+	struct System_Collections_Generic_Dictionary_MyceliumPlayer__int__c {
+		Il2CppClass_1 _1;
+		void* static_fields;
+		Il2CppRGCTXData* rgctx_data;
+		Il2CppClass_2 _2;
+		System_Collections_Generic_Dictionary_MyceliumPlayer__int__VTable vtable;
+	};
+	struct System_Collections_Generic_Dictionary_MyceliumPlayer__int__o {
+		System_Collections_Generic_Dictionary_MyceliumPlayer__int__c* klass;
+		void* monitor;
+		System_Collections_Generic_Dictionary_MyceliumPlayer__int__Fields fields;
+	};
+	struct __declspec(align(8)) AntiCheat_Boost_Fields {
+	};
+	struct AntiCheat_Boost_VTable {
+		VirtualInvokeData _0_Equals;
+		VirtualInvokeData _1_Finalize;
+		VirtualInvokeData _2_GetHashCode;
+		VirtualInvokeData _3_ToString;
+	};
+	struct AntiCheat_Boost_c {
+		Il2CppClass_1 _1;
+		struct AntiCheat_Boost_StaticFields* static_fields;
+		Il2CppRGCTXData* rgctx_data;
+		Il2CppClass_2 _2;
+		AntiCheat_Boost_VTable vtable;
+	};
+
+	struct AntiCheat_Boost_o {
+		AntiCheat_Boost_c* klass;
+		void* monitor;
+		AntiCheat_Boost_Fields fields;
+	};
+	struct AntiCheat_Boost_StaticFields {
+		struct System_Collections_Generic_Dictionary_MyceliumPlayer__float__o* dieTime;
+		struct System_Collections_Generic_Dictionary_MyceliumPlayer__int__o* offenses;
+	};
 }
 
 #endif

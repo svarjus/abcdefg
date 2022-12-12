@@ -91,6 +91,7 @@ typedef vec_t vec4_t[4];
 #include "g_entrypoint.h"
 #include "g_main.h"
 #include "g_playercontroller.h"
+#include "g_network.h"
 
 #include "g_dlc.hpp"
 #include "g_secrets.hpp"

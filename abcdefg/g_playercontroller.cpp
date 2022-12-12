@@ -150,7 +150,7 @@ void g::AntiCheat__TakeAction(MyceliumPlayer_o* hacker, System_String_o* code)
 bool g::MyceliumPlayer__get_HasModeratorAuthority(MyceliumPlayer_o* moderator)
 {
 	if (moderator->fields._name) {
-		AddLog(std::format("asking moderator authority for player: {}, isAuthorized: {}\n", ResolveSystemString(moderator->fields._name), MyceliumPlayer__get_HasModeratorAuthority_f(moderator)));
+		//AddLog(std::format("asking moderator authority for player: {}, isAuthorized: {}\n", ResolveSystemString(moderator->fields._name), MyceliumPlayer__get_HasModeratorAuthority_f(moderator)));
 		//std::cout << "asking moderator authority for player: " << ResolveSystemString(moderator->fields._name) << ", isAuthorized: " << MyceliumPlayer__get_HasModeratorAuthority_f(moderator) << '\n';
 	}
 

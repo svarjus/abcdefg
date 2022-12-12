@@ -92,11 +92,11 @@ void g::GetPlayerOrigin(const GameObject* obj, vec3_t out)
 void g::GetPlayerAngles(const GameObject* obj, vec3_t out)
 {
 	const uint64_t compList = (uint64_t)obj->ComponentList;
-	const uint64_t tranform = getComponentById(compList, 0);
-	uint64_t tranform_internal = *(uint64_t*)(tranform + 0x38);
-	tranform_internal += 144 + 20;
+	const uint64_t transform = getComponentById(compList, 0);
+	uint64_t transform_internal = *(uint64_t*)(transform + 0x38);
+	transform_internal += 144 + 20;
 
-	out[0] = *(float*)(tranform_internal);
-	out[1] = *(float*)(tranform_internal + 4);
-	out[2] = *(float*)(tranform_internal + 8);
+	out[0] = *(float*)(transform_internal);
+	out[1] = *(float*)(transform_internal + 4);
+	out[2] = *(float*)(transform_internal + 8);
 }

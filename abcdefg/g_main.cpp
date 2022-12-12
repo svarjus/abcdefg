@@ -32,7 +32,7 @@ void g::G_PrepareHooks()
 	Update_h										= (void(*)(g::PlayerController_c*))(GameAssembly + 20508816);			//PlayerController$$Update
 	PrintChat_f										= (void(*)(ChatManager_o*, System_String_o *, int32_t, bool, MyceliumPlayer_o*, MyceliumPlayer_o *, const MethodInfo*))	(GameAssembly + 20298592);   //ChatManager$$SendChatMessage
 	OutskirtsCodeGenerator__get_Code				= (uintptr_t)(GameAssembly + 20460896);									//OutskirtsCodeGenerator__get_Code
-	MyceliumNetwork$$get_LocalPlayer				= (uintptr_t)(GameAssembly + 19702000);									//MyceliumNetwork$$get_LocalPlayer
+	//MyceliumNetwork$$get_LocalPlayer				= (uintptr_t)(GameAssembly + 19702000);									//MyceliumNetwork$$get_LocalPlayer
 
 	//unity engine hooks
 	UE_PlayerTransform_h							= (uint32_t(*)(void*, void*, float, void*))			(UnityPlayer + 0x10C08E0);
@@ -59,6 +59,7 @@ void g::G_PrepareHooks()
 	MyceliumPlayer__get_HasModeratorAuthority_f		= (bool(*)(MyceliumPlayer_o*))										(GameAssembly + 7735456);	//MyceliumPlayer$$get_HasModeratorAuthority
 	UnityDownloadHandler_2__OnAnyoneDeath_f			= (void(*)(MyceliumPlayer_o*, MyceliumPlayer_o*, void*))			(GameAssembly + 20188416);//UnityDownloadHandler_2$$OnAnyoneDeath
 
+
 }
 void g::G_InitHooks()
 {
@@ -71,7 +72,7 @@ void g::G_InitHooks()
 	a->install(&(PVOID&)OutskirtsKeyPad_Press_f, OutskirtsKeyPad_Press);
 	//a->install(&(PVOID&)PlayerManager__GotKilledByPlayer_f, PlayerManager__GotKilledByPlayer);
 	//a->install(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
-	a->install(&(PVOID&)UnityDownloadHandler_2__OnAnyoneDeath_f, UnityDownloadHandler_2__OnAnyoneDeath);
+	//a->install(&(PVOID&)UnityDownloadHandler_2__OnAnyoneDeath_f, UnityDownloadHandler_2__OnAnyoneDeath);
 
 	a->install(&(PVOID&)AntiCheat__TakeAction_f, AntiCheat__TakeAction);
 
@@ -79,6 +80,7 @@ void g::G_InitHooks()
 	a->install(&(PVOID&)UnityEngine_Networking_UnityWebRequest__Post_f, UnityEngine_Networking_UnityWebRequest__Post);
 
 	a->install(&(PVOID&)MyceliumPlayer__get_HasModeratorAuthority_f, MyceliumPlayer__get_HasModeratorAuthority);
+
 
 }
 void g::G_RemoveHooks()
@@ -93,7 +95,7 @@ void g::G_RemoveHooks()
 	//a->remove(&(PVOID&)PlayerData_f, UE_PlayerData);
 	//a->remove(&(PVOID&)PlayerManager__GotKilledByPlayer_f, PlayerManager__GotKilledByPlayer);
 	//a->remove(&(PVOID&)AntiCheat_Boost__OnAnyoneDeath_f, AntiCheat_Boost__OnAnyoneDeath);
-	a->remove(&(PVOID&)UnityDownloadHandler_2__OnAnyoneDeath_f, UnityDownloadHandler_2__OnAnyoneDeath);
+	//a->remove(&(PVOID&)UnityDownloadHandler_2__OnAnyoneDeath_f, UnityDownloadHandler_2__OnAnyoneDeath);
 
 	a->remove(&(PVOID&)AntiCheat__TakeAction_f, AntiCheat__TakeAction);
 
@@ -106,6 +108,14 @@ void g::G_RemoveHooks()
 void g::G_OffsetsAndHooks()
 {
 	hook* a = nullptr;
+
+	MyceliumNetwork__get_LocalPlayer	= (GameAssembly + 19702000); //MyceliumNetwork$$get_LocalPlayer
+	MyceliumNetwork__get_LobbyHost		= (GameAssembly + 19701776); //MyceliumNetwork$$get_LobbyHost
+	MyceliumNetwork__get_LobbyName		= (GameAssembly + 19701920); //MyceliumNetwork$$get_LobbyName
+	MyceliumNetwork__get_MaxPlayers		= (GameAssembly + 19702304); //MyceliumNetwork$$get_MaxPlayers
+	MyceliumNetwork__get_IsHost			= (GameAssembly + 19701616); //MyceliumNetwork$$get_IsHost
+	MyceliumNetwork__get_Time			= (GameAssembly + 19702688); //MyceliumNetwork$$get_Time
+	MyceliumNetwork__get_PlayerCount	= (GameAssembly + 19702416); //MyceliumNetwork$$get_PlayerCount
 
 	a->get_bytes((void*)PlayerController_Fire_Delay, 5, PlayerController_Fire_Delay_orgbytes);
 	a->get_bytes((void*)PlayerController_Fire_Recoil, 5, PlayerController_Fire_Recoil_orgbytes);

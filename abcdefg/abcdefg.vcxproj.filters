@@ -177,6 +177,9 @@
     <ClInclude Include="g_epic.hpp">
       <Filter>Source Files\game\players</Filter>
     </ClInclude>
+    <ClInclude Include="g_network.h">
+      <Filter>Source Files\game\essential</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -280,6 +283,9 @@
     </ClCompile>
     <ClCompile Include="g_epic.cpp">
       <Filter>Source Files\game\players</Filter>
+    </ClCompile>
+    <ClCompile Include="g_network.cpp">
+      <Filter>Source Files\game\essential</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
