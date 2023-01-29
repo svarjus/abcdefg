@@ -51,7 +51,7 @@ void g::R_MainLoop()
 			//	
 			//}
 		}
-		G_SetWeaponData();
+		//G_SetWeaponData();
 		R_DrawThroughWalls();
 		Mod_DrawCoordinates();
 

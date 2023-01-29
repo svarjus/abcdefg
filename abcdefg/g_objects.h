@@ -314,7 +314,7 @@ namespace g
 	struct Item
 	{
 		char pad_0000[24]; //0x0000
-		class WeaponStats* info; //0x0018
+		struct WeaponStats* info; //0x0018
 		struct UnityEngine_GameObject_o* graphics;
 		ItemSway_o* sway;
 		float bulletSpread; //0x0028
@@ -339,13 +339,18 @@ namespace g
 		char pad_001C[4]; 
 		ItemPointer elements[3]; 
 	};
-
+	struct UnityEngine_LayerMask_Fields {
+		int32_t m_Mask;
+	};
+	struct UnityEngine_LayerMask_o {
+		UnityEngine_LayerMask_Fields fields;
+	};
 	struct WeaponStats
 	{
 		char pad_0000[24];
 		int32_t type;
+		int32_t itemEnum;
 		int32_t damage;
-		float kickback;
 		float useDelay;
 		int32_t shots;
 		float cameraShake;
@@ -367,17 +372,15 @@ namespace g
 		float adsFOVChange;
 		float cameraADSBobMultiplier;
 		bool useScopedMouseSensitivity;
-		char pad_006D[3]; 
-		void* animationLayers; 
-		void* fireSound;
-		void* icon;
-		uint32_t damageData;
-		char pad_008C[4]; 
-		void* permanentEffectPrefab; 
-		uint32_t projectileColliderMask;
-		uint32_t crosshairType; 
-		uint32_t damageLobbyData;
-		bool noscope; 
+		struct System_Int32_array* animationLayers;
+		struct System_String_o* fireSound;
+		struct UnityEngine_Sprite_o* icon;
+		int32_t damageData;
+		struct UnityEngine_GameObject_o* permanentEffectPrefab;
+		struct UnityEngine_LayerMask_o projectileColliderMask;
+		int32_t crosshairType;
+		int32_t damageLobbyData;
+		bool noscope;
 	}; 
 
 	struct PlayerController_fields
@@ -475,13 +478,8 @@ namespace g
 		char pad_0000[184]; //0x0000
 		PlayerController_staticfields* static_fields;
 	}; 
-	struct UnityEngine_LayerMask_Fields {
-		int32_t m_Mask;
-	};
-	struct UnityEngine_LayerMask_o {
-		UnityEngine_LayerMask_Fields fields;
-	};
-	constexpr int ah = sizeof(UnityEngine_LayerMask_o);
+
+	constexpr int ah = sizeof(struct System_Collections_Generic_Dictionary_int__int__o*);
 	struct Interactable_Fields {
 		bool interacting;
 	};
@@ -490,25 +488,28 @@ namespace g
 	};
 	struct PlayerController_c
 	{
-		char _pad00[0x58];// ->ItemArray*
-		//struct UnityEngine_LayerMask_o collisionMask;
-		//struct UnityEngine_LayerMask_o damagerMask;
-		//void* flybyAudioManager;
-		//void* cameraHolder;
-		//void* shieldObject;
-		//void* cam;
-		//void* rainEffects;
-		//void* battleRoyalEffects;
-		//void* spotLight;
+		struct UnityEngine_LayerMask_o collisionMask;
+		struct UnityEngine_LayerMask_o damagerMask;
+		struct UnityEngine_LayerMask_o interactionMask;
+		struct AudioManager_o* flybyAudioManager;
+		struct UnityEngine_GameObject_o* cameraHolder;
+		struct UnityEngine_GameObject_o* shieldObject;
+		struct UnityEngine_Camera_o* cam;
+		struct UnityEngine_GameObject_o* rainEffects;
+		struct UnityEngine_GameObject_o* battleRoyalEffects;
+		struct UnityEngine_Light_o* spotLight;
+		char pad[60 - 8];
 		ItemArray* items;
+		
 		struct ItemInfo_array* ownedItems;
 		struct System_Collections_Generic_Dictionary_int__int__o* itemToOwnedItemIndex;
+		struct System_Collections_Generic_Dictionary_int__int__o* ownedItemToItemIndexLookup;
 		struct WeaponModPart_array* weaponModParts;
 		struct UnityEngine_GameObject_array* deactivateIfNotOwner;
 		char crosshair[20];
 		struct UnityEngine_Renderer_o* renderer;
 		struct UnityEngine_GameObject_o* damageIndicatorCanvasPrefab;
-		char pad22[16];
+		//char pad22[16];
 		float smoothTime;
 		float animationSmoothTime;
 		struct UnityEngine_LayerMask_o localCullingMask;
@@ -570,7 +571,7 @@ namespace g
 		float antiCheat_lastFireTime;
 		int32_t antiCheat_offenses;
 		bool firstSwitch;
-	}; 
+	};
 	struct Steamworks_CSteamID_Fields {
 		uint64_t m_SteamID;
 	};
