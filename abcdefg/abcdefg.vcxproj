@@ -158,6 +158,7 @@
     <ClInclude Include="g_entrypoint.h" />
     <ClInclude Include="g_epic.hpp" />
     <ClInclude Include="g_gameobject.h" />
+    <ClInclude Include="g_network.h" />
     <ClInclude Include="g_objects.h" />
     <ClInclude Include="g_offsets.h" />
     <ClInclude Include="g_main.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="g_epic.cpp" />
     <ClCompile Include="g_gameobject.cpp" />
     <ClCompile Include="g_main.cpp" />
+    <ClCompile Include="g_network.cpp" />
     <ClCompile Include="g_playercontroller.cpp" />
     <ClCompile Include="g_secrets.cpp" />
     <ClCompile Include="g_weapons.cpp" />

@@ -29,27 +29,26 @@ void g::R_MainLoop()
 
 		if (GetAsyncKeyState(VK_NUMPAD5) & 1) {
 
-			//if (outskirts_keypad_obj && outskirts_method) {
-			//	std::cout << "outskirts_keypad_obj: " << outskirts_keypad_obj << '\n';
-			//	std::cout << "outskirts_method: " << outskirts_method << '\n';
+			PlayerManager_o* pm = (PlayerManager_o*)(GameAssembly + 0x1BF88D8);
 
-			//	OutskirtsKeyPad_Press_f(outskirts_keypad_obj, 1, outskirts_method);
+	/*		pm = pm->klass->static_fields->Instance;
 
-			//}
+			if (pm) {
+				std::cout << pm << '\n';
+			}*/
 
-			//TimeoutManager_o* timeout = (TimeoutManager_o*)(GameAssembly + 0x1BF8C10);
-			//if (timeout) {
+			//MyceliumPlayer_o* local = MyceliumNetwork::GetLocalPlayer();
+			//MyceliumPlayer_o* host = MyceliumNetwork::GetLobbyHost();
+			//int32_t maxPlayers = MyceliumNetwork::GetMaxPlayers();
+			//int32_t playercount = MyceliumNetwork::GetPlayerCount();
+			////std::string LobbyName = MyceliumNetwork::GetLobbyName();
+			////float time = MyceliumNetwork::GetLobbyTime();
+			//bool localHost = MyceliumNetwork::AmIHost();
 
-			//	TimeoutManager_StaticFields* timeout_sf =  timeout->klass->static_fields;
 
-			//	if (timeout_sf) {
 
-			//		std::cout << "mutedText: " << ResolveSystemString(timeout_sf->MutedText) << '\n';
+			//std::cout << std::format("local: {}\nhost: {}\nmaxPlayers: {}\nplayers: {}\nI am host: {}\n", (void*)local, (void*)host, maxPlayers, playercount, localHost);
 
-			//	}
-			//		//std::cout << "spam limiter: " << _cm->fields.spamLimiter << '\n';
-			//	
-			//}
 		}
 		//G_SetWeaponData();
 		R_DrawThroughWalls();
