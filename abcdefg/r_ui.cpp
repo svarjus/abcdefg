@@ -230,8 +230,17 @@ void g::R_UI_Varjus()
 
 	R_PlayerControllerEditor(isOpen);
 
-
 }
+
+void g::R_UI_Map() 
+{
+	if (ImGui::Button("outskirts reveal code"))
+		outskirts_code_text = g::RevealOutskirtsCode();
+
+	ImGui::Text("Outskirts code: %s", outskirts_code_text.c_str());
+}
+
+
 void g::R_OpenMenu()
 {
 	if (!ImGui::GetCurrentContext()) {
@@ -268,6 +277,10 @@ void g::R_OpenMenu()
 			}
 			if (ImGui::BeginTabItem("Varjus")) {
 				R_UI_Varjus();
+				ImGui::EndTabItem();
+			}
+			if (ImGui::BeginTabItem("Map specific")) {
+				R_UI_Map();
 				ImGui::EndTabItem();
 			}
 			if (ImGui::BeginTabItem("Console")) {

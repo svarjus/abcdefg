@@ -27,6 +27,7 @@ namespace g {
 	inline BYTE PlayerController_Fire_Effect_orgbytes[5];
 
 	inline uintptr_t OutskirtsCodeGenerator__get_Code;
+	inline uintptr_t MyceliumNetwork$$get_LocalPlayer;
 	inline uintptr_t PlayerController$$OnKill;
 
 

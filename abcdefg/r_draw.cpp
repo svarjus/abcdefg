@@ -50,12 +50,14 @@ void g::R_MainLoop()
 			//std::cout << std::format("local: {}\nhost: {}\nmaxPlayers: {}\nplayers: {}\nI am host: {}\n", (void*)local, (void*)host, maxPlayers, playercount, localHost);
 
 		}
-		//G_SetWeaponData();
+		G_SetWeaponData();
 		R_DrawThroughWalls();
 		Mod_DrawCoordinates();
 
 
 	}
+
+
 
 	BypassAntiCheat();
 

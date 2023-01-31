@@ -1,16 +1,19 @@
 #include "pch.h"
 
-void g::RevealOutskirtsCode()
+std::string g::RevealOutskirtsCode()
 {
-	int* code = ((int* (*)())(OutskirtsCodeGenerator__get_Code))(); //System_Int32_array* OutskirtsCodeGenerator__get_Code (const MethodInfo* method);
-	int _codeArray[4];
-	std::cout << "outskirts code: ";
-	for (int i = 0; i < 4; i++) {
-		_codeArray[i] = code[8 + i];
-		std::cout << std::dec << _codeArray[i];
+    int* code = ((int* (*)())(OutskirtsCodeGenerator__get_Code))();
+    int _codeArray[4];
+    std::string codestr;
+    std::cout << "outskirts code: ";
+    for (int i = 0; i < 4; i++) {
+        _codeArray[i] = code[8 + i];
+        std::cout << std::dec << _codeArray[i];
+        codestr.push_back((char)(48 + _codeArray[i]));
+    }
 
-	}
-	std::cout << '\n';
+    std::cout << '\n';
+    return codestr;
 }
 void g::OutskirtsKeyPad_Press(OutskirtsKeypad_o* keypad, int num, const MethodInfo* method)
 {

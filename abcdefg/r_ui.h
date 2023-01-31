@@ -7,6 +7,8 @@
 namespace g
 {
 	inline std::vector<std::string> console_logs;
+	inline std::string outskirts_code_text;
+
 
 	inline std::string chat_str;
 
@@ -18,6 +20,7 @@ namespace g
 	void R_UI_Weapons();
 	void R_UI_UnityEngine();
 	void R_UI_Varjus();
+	void R_UI_Map();
 
 	
 

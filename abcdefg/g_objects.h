@@ -336,7 +336,7 @@ namespace g
 	{
 		char pad_0000[24]; 
 		uint32_t count; 
-		char pad_001C[4]; 
+		char pad_001C[4];
 		ItemPointer elements[3]; 
 	};
 	struct UnityEngine_LayerMask_Fields {
