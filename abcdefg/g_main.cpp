@@ -23,39 +23,39 @@ void g::G_PrepareHooks()
 	fnGetMainCamera									= (tpGetMainCamera*)fnIl2cpp_resolve_icall("UnityEngine.Camera::get_current()");
 
 
-	WorldToScreenPoint								= (vec3(*)(void* camera, vec3 position))(GameAssembly + 11514880); //UnityEngine.Camera$$WorldToScreenPoint
+	WorldToScreenPoint								= (vec3(*)(void* camera, vec3 position))(GameAssembly + 14595616); //UnityEngine.Camera$$WorldToScreenPoint
 
 
 	//gameassembly hooks
-	Update_h										= (void(*)(g::PlayerController_c*))(GameAssembly + 16154976);			//PlayerController$$Update
-	PrintChat_f										= (void(*)(ChatManager_o*, System_String_o *, int32_t, bool, MyceliumPlayer_o*, MyceliumPlayer_o *, const MethodInfo*))	(GameAssembly + 15051984);   //ChatManager$$SendChatMessage
-	OutskirtsCodeGenerator__get_Code				= (uintptr_t)(GameAssembly + 16100592);									//OutskirtsCodeGenerator$$get_Code
-	MyceliumNetwork$$get_LocalPlayer				= (uintptr_t)(GameAssembly + 15951200);									//MyceliumNetwork$$get_LocalPlayer
+	Update_h										= (void(*)(g::PlayerController_c*))(GameAssembly + 20937536);			//PlayerController$$Update
+	PrintChat_f										= (void(*)(ChatManager_o*, System_String_o *, int32_t, bool, MyceliumPlayer_o*, MyceliumPlayer_o *, const MethodInfo*))	(GameAssembly + 3013920);   //ChatManager$$SendChatMessage
+	OutskirtsCodeGenerator__get_Code				= (uintptr_t)(GameAssembly + 4513120);									//OutskirtsCodeGenerator$$get_Code
+	MyceliumNetwork$$get_LocalPlayer				= (uintptr_t)(GameAssembly + 4466096);									//MyceliumNetwork$$get_LocalPlayer
 
 	//unity engine hooks
 	UE_PlayerTransform_h							= (uint32_t(*)(void*, void*, float, void*))			(UnityPlayer + 0x10C08E0);
 	PlayerInfo_f									= (void(*)(float*, DWORD*))							(UnityPlayer + 0x10B8B60);
 	PlayerData_f									= (char(*)(uintptr_t * a1, float* a2, char a3))		(UnityPlayer + 0x07FDB0);
 
-	PlayerController_Die							= (GameAssembly + 16122240);			//PlayerController$$Die
-	PlayerController_Fire_Delay						= (GameAssembly + 16126480 + 0x137);	//PlayerController$$Fire + 0x137
-	PlayerController_Fire_Recoil					= (GameAssembly + 16126480 + 0x23D);	//PlayerController$$Fire + 0x23D    PLayerController.Fire --> StressReceiver.InduceStress
-	PlayerController_Fire_Effect					= (GameAssembly + 16124656 + 0x24A);	//PlayerController$$FireLocal --> Item.Fire
+	PlayerController_Die							= (GameAssembly + 4534784);			//PlayerController$$Die
+	PlayerController_Fire_Delay						= (GameAssembly + 4539024 + 0x137);	//PlayerController$$Fire + 0x137
+	PlayerController_Fire_Recoil					= (GameAssembly + 4539024 + 0x23D);	//PlayerController$$Fire + 0x23D    PLayerController.Fire --> StressReceiver.InduceStress
+	PlayerController_Fire_Effect					= (GameAssembly + 4537200 + 0x24A);	//PlayerController$$FireLocal --> Item.Fire
 
-	SteamDLCManager__HasDLC_h						= (bool(*)(int32_t dlc))(g::GameAssembly + 15787904); //SteamDLCManager$$HasDLC
+	SteamDLCManager__HasDLC_h						= (bool(*)(int32_t dlc))(g::GameAssembly + 3994528); //SteamDLCManager$$HasDLC
 
-	OutskirtsKeyPad_Press_f							= (void(*)(OutskirtsKeypad_o* keypad, int num, const MethodInfo * method))(GameAssembly + 16101856); //OutskirtsKeypad$$Press
+	OutskirtsKeyPad_Press_f							= (void(*)(OutskirtsKeypad_o* keypad, int num, const MethodInfo * method))(GameAssembly + 4514384); //OutskirtsKeypad$$Press
 	
-	PlayerManager__GotKilledByPlayer_f				= (void (*)(MyceliumPlayer_o*, void*, float, int16_t))				(GameAssembly + 16194704);	//PlayerManager$$GotKilledByPlayer
-	AntiCheat_Boost__OnAnyoneDeath_f				= (void (*)(MyceliumPlayer_o*, MyceliumPlayer_o*, void*))			(GameAssembly + 14978128);  //AntiCheat_Boost$$OnAnyoneDeath
-	SpectatorControllerOnAnyoneDeath_f				= (void (*)(void*, MyceliumPlayer_o *, MyceliumPlayer_o *, void*))	(GameAssembly + 15770896);	//SpectatorController$$OnAnyoneDeath
-	AntiCheat__TakeAction_f							= (void (*)(MyceliumPlayer_o*, System_String_o*))					(GameAssembly + 14979136);	//AntiCheat$$TakeAction
+	PlayerManager__GotKilledByPlayer_f				= (void (*)(MyceliumPlayer_o*, void*, float, int16_t))				(GameAssembly + 4607776);	//PlayerManager$$GotKilledByPlayer
+	AntiCheat_Boost__OnAnyoneDeath_f				= (void (*)(MyceliumPlayer_o*, MyceliumPlayer_o*, void*))			(GameAssembly + 2939616);	//AntiCheat_Boost$$OnAnyoneDeath
+	SpectatorControllerOnAnyoneDeath_f				= (void (*)(void*, MyceliumPlayer_o *, MyceliumPlayer_o *, void*))	(GameAssembly + 3977440);	//SpectatorController$$OnAnyoneDeath
+	AntiCheat__TakeAction_f							= (void (*)(MyceliumPlayer_o*, System_String_o*))					(GameAssembly + 2940624);	//AntiCheat$$TakeAction
 
-	UnityEngine_Networking_UnityWebRequest__Get_f	= (void*(*)(System_String_o*))										(GameAssembly + 14376112);	//UnityEngine.Networking.UnityWebRequest$$Get
-	UnityEngine_Networking_UnityWebRequest__Post_f	= (void*(*)(System_String_o*, System_String_o*))					(GameAssembly + 14377488);	//UnityEngine.Networking.UnityWebRequest$$Post
+	UnityEngine_Networking_UnityWebRequest__Get_f	= (void*(*)(System_String_o*))										(GameAssembly + 20626864);	//UnityEngine.Networking.UnityWebRequest$$Get
+	UnityEngine_Networking_UnityWebRequest__Post_f	= (void*(*)(System_String_o*, System_String_o*))					(GameAssembly + 20628240);	//UnityEngine.Networking.UnityWebRequest$$Post
 
-	MyceliumPlayer__get_HasModeratorAuthority_f		= (bool(*)(MyceliumPlayer_o*))										(GameAssembly + 15955776);	//MyceliumPlayer$$get_HasModeratorAuthority
-	UnityDownloadHandler_2__OnAnyoneDeath_f			= (void(*)(MyceliumPlayer_o*, MyceliumPlayer_o*, void*))			(GameAssembly + 15078784);//UnityDownloadHandler_2$$OnAnyoneDeath
+	MyceliumPlayer__get_HasModeratorAuthority_f		= (bool(*)(MyceliumPlayer_o*))										(GameAssembly + 4470672);	//MyceliumPlayer$$get_HasModeratorAuthority
+	UnityDownloadHandler_2__OnAnyoneDeath_f			= (void(*)(MyceliumPlayer_o*, MyceliumPlayer_o*, void*))			(GameAssembly + 2822736);	//UnityDownloadHandler_2$$OnAnyoneDeath
 
 }
 void g::G_InitHooks()
